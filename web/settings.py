@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import re
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,25 +56,70 @@ ROOT_URLCONF = 'web.urls'
 
 TEMPLATES = [
 	{
-		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': [BASE_DIR.joinpath('templates')],
-		'APP_DIRS': True,
-		'OPTIONS': {
-			'context_processors': [
+		"BACKEND": "django_jinja.backend.Jinja2",
+		'DIRS': [BASE_DIR / 'templates'],
+		"OPTIONS": {
+			"match_extension": None,
+			"match_regex": re.compile(r"^(?!(admin/|debug_toolbar/|profiler/|search/indexes/|reversion/|sitemap.xml|static_sitemaps/|hijack/|django_extensions/)).*"),
+			"newstyle_gettext": True,
+			"extensions": [
+				"jinja2.ext.do",
+				"jinja2.ext.loopcontrols",
+				"jinja2.ext.i18n",
+				"django_jinja.builtins.extensions.CsrfExtension",
+				"django_jinja.builtins.extensions.CacheExtension",
+				"django_jinja.builtins.extensions.TimezoneExtension",
+				"django_jinja.builtins.extensions.UrlsExtension",
+				"django_jinja.builtins.extensions.StaticFilesExtension",
+				"django_jinja.builtins.extensions.DjangoFiltersExtension",
+				"compressor.contrib.jinja2ext.CompressorExtension",
+			],
+			"context_processors": [
 				'django.template.context_processors.debug',
 				'django.template.context_processors.request',
-				'django.template.context_processors.i18n',
 				'django.contrib.auth.context_processors.auth',
 				'django.contrib.messages.context_processors.messages',
+				'django.template.context_processors.i18n',
 			],
-			'builtins': [
-				'django.templatetags.static',
-				'django.templatetags.i18n',
-				'django.templatetags.l10n',
+			"autoescape": True,
+			"auto_reload": True,
+			"translation_engine": "django.utils.translation",
+			"bytecode_cache": {
+				"name": "jinja",
+				"enabled": True,
+			}
+		}
+	},
+	{
+		'BACKEND': 'django.template.backends.django.DjangoTemplates',
+		'DIRS': [BASE_DIR / 'templates'],
+		'OPTIONS': {
+			'loaders': [
+				'django.template.loaders.filesystem.Loader',
+				'django.template.loaders.app_directories.Loader',
+			],
+			'context_processors': [
+				#'django.template.context_processors.debug',
+				'django.template.context_processors.request',
+				'django.contrib.auth.context_processors.auth',
+				'django.contrib.messages.context_processors.messages',
 			],
 		},
 	},
 ]
+
+CACHES = {
+	'default': {
+		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+		'KEY_PREFIX': 'linuxos',
+		'LOCATION': 'linuxos-default',
+	},
+	'jinja': {
+		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+		'KEY_PREFIX': 'jinja',
+		'LOCATION': 'linuxos-jinja',
+	},
+}
 
 WSGI_APPLICATION = 'web.wsgi.application'
 
@@ -123,15 +170,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR.parent.joinpath('static_assets').joinpath('static')
+STATIC_ROOT = BASE_DIR.parent / 'static_assets' / 'static'
 STATICFILES_DIRS = (BASE_DIR.joinpath('static'),)
 STATICFILES_FINDERS = (
 	'django.contrib.staticfiles.finders.FileSystemFinder',
 	'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+	'compressor.finders.CompressorFinder',
 )
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR.parent.joinpath('static_assets').joinpath('media')
+MEDIA_ROOT = BASE_DIR.parent / 'static_assets' / 'media'
+
+
+COMPRESS_PRECOMPILERS = (
+	('text/x-scss', 'django_libsass.SassCompiler'),
+)
+COMPRESS_FILTERS = {
+	'css': ['compressor.filters.css_default.CssAbsoluteFilter',],
+	'js': [],
+}
+
+COMPRESS_ENABLED = True
 
 
 # Default primary key field type

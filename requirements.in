@@ -1,4 +1,11 @@
 django
+django-compressor
+django-jinja
+django-libsass
+easy_thumbnails
+jinja2
 libsass
 lxml
+pip-tools
+psycopg2-binary
 pygments
