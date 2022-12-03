@@ -1,0 +1,62 @@
+/static/CACHE/
+/static/css/_sprites_generated*.scss
+/web/settings_local.py
+/web/settings_production.py
+/static/img/media/kategorie/*.png
+/db.sqlite3
+/models.png
+/docker/develop.env
+/docker/production.env
+/static/img/preview/
+/static/img/previews/
+/wtshop
+/requirements.dev.txt
+/requirements.txt
+/out.html
+*.afm
+.DS_Store
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Translations
+*.mo
+*.pot
+
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+
+
+# IDE settings
+.vscode/
+.idea/
+*.code-workspace
+
+# dotenv
+/.env
+/settings.env
+
+# virtualenv
+/.venv
+/venv/
+/ENV/
+
+# Sphinx documentation
+docs/_build/
+
+
+.ropeproject/

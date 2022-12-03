@@ -1,0 +1,8 @@
+django-extensions
+django-debugtools
+ipython
+ptpython
+pydotplus
+pylint-django
+watchdog
+werkzeug
