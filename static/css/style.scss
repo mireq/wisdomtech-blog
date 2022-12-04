@@ -10,6 +10,7 @@ License URL ... https://raw.githubusercontent.com/matejlatin/Gutenberg/master/li
 
 @import "../fonts/FiraSansCondensed/_fonts";
 @import "../fonts/Merriweather/_fonts";
+@import "../fonts/FiraCode/_fonts";
 
 $font-body: Merriweather, Georgia, serif;
 
@@ -70,14 +71,16 @@ main {
 }
 
 pre {
-	padding: 8px;
+	padding: 1rem;
 	font-size: 80%;
 	line-height: 1.4;
 	white-space: pre-wrap;
 	border-radius: 6px;
+	font-weight: 500;
 
 	strong {
 		background: #ffff0040;
+		font-weight: 900;
 	}
 	em {
 		background: #00ff0040;
@@ -86,6 +89,13 @@ pre {
 	* {
 		line-height: 1.4;
 	}
+}
+
+code,
+kbd,
+pre,
+samp {
+	font-family: 'FiraCode', monospace
 }
 
 .u-uppercase {
