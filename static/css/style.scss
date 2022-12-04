@@ -31,10 +31,17 @@ $leading-desktop: round($base-desktop * $line-height-desktop);
 $leading-rem-desktop: $leading-desktop / $base-desktop * 1rem;
 
 // Colors
+$color-background-body: #fff;
 $color-font-body: #222;
 $color-font-headings: $color-font-body;
 $color-font-light: #888;
 $color-font-figcaption: $color-font-body;
+
+$color-dark-background-body: #161820;
+$color-dark-font-body: #ddd;
+$color-dark-font-headings: $color-font-body;
+$color-dark-font-light: #888;
+$color-dark-font-figcaption: $color-font-body;
 
 @mixin large-screen {
 	@media screen and (min-width: #{ $max-width + 5em }) {
@@ -49,13 +56,14 @@ $color-font-figcaption: $color-font-body;
 
 body {
 	margin: 0;
+	color: $color-font-body;
+	background: $color-background-body;
 }
 
 html {
 	box-sizing: border-box;
 	font-size: $base;
 	font-family: $font-body;
-	color: $color-font-body;
 }
 
 *,
@@ -146,3 +154,17 @@ samp {
 	}
 }
 
+@mixin dark() {
+	color: $color-dark-font-body;
+	background: $color-dark-background-body;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		@include dark();
+	}
+}
+
+body.dark-theme {
+	@include dark();
+}
