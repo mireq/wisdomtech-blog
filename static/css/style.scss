@@ -41,6 +41,8 @@ $color-font-figcaption: $color-font-body;
 	}
 }
 
+@import "highlight";
+
 /* Defaults
    ========================================================================== */
 
@@ -53,10 +55,6 @@ html {
 	font-size: $base;
 	font-family: $font-body;
 	color: $color-font-body;
-}
-
-pre {
-	line-height: $leading-rem;
 }
 
 *,
@@ -72,12 +70,18 @@ main {
 }
 
 pre {
-	border: 1px solid #eee;
-	background: #f8f8f8;
 	padding: 8px;
-	font-size: 70%;
+	font-size: 80%;
 	line-height: 1.4;
 	white-space: pre-wrap;
+	border-radius: 6px;
+
+	strong {
+		background: #ffff0040;
+	}
+	em {
+		background: #00ff0040;
+	}
 
 	* {
 		line-height: 1.4;
