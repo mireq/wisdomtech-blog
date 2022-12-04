@@ -36,12 +36,20 @@ $color-font-body: #222;
 $color-font-headings: $color-font-body;
 $color-font-light: #888;
 $color-font-figcaption: $color-font-body;
+$color-link-normal: $color-font-body;
+$color-link-hover: $color-font-body;
+$color-link-active: #f00;
+$color-link-visited: $color-font-light;
 
 $color-dark-background-body: #161820;
 $color-dark-font-body: #ddd;
 $color-dark-font-headings: $color-font-body;
 $color-dark-font-light: #888;
 $color-dark-font-figcaption: $color-font-body;
+$color-dark-link-normal: $color-dark-font-body;
+$color-dark-link-hover: $color-dark-font-body;
+$color-dark-link-active: #f00;
+$color-dark-link-visited: $color-dark-font-light;
 
 @mixin large-screen {
 	@media screen and (min-width: #{ $max-width + 5em }) {
@@ -106,11 +114,57 @@ samp {
 	font-family: 'FiraCode', monospace
 }
 
+a {
+	background: transparent;
+	color: $color-link-normal;
+
+	&:active,
+	&:hover {
+		outline: 0;
+	}
+
+	&:hover {
+		color: $color-link-hover;
+	}
+
+	&:visited {
+		color: $color-link-visited;
+
+		&:hover {
+			color: $color-link-hover;
+		}
+	}
+
+	&:active {
+		color: $color-link-active;
+	}
+}
+
 .u-uppercase {
 	letter-spacing: .1em;
 	text-transform: uppercase;
 	font-size: 80%;
 }
+
+img, picture {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+figure {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+figcaption {
+	font-style: italic;
+	font-size: 80%;
+	line-height: $leading-rem;
+	text-align: center;
+	margin-bottom: 0;
+}
+
 
 @include large-screen {
 	body,
@@ -152,11 +206,41 @@ samp {
 		margin-left: auto;
 		margin-right: auto;
 	}
+
+	figcaption {
+		line-height: $leading-rem-desktop;
+	}
 }
 
 @mixin dark() {
 	color: $color-dark-font-body;
 	background: $color-dark-background-body;
+
+	a {
+		background: transparent;
+		color: $color-dark-link-normal;
+
+		&:active,
+		&:hover {
+			outline: 0;
+		}
+
+		&:hover {
+			color: $color-dark-link-hover;
+		}
+
+		&:visited {
+			color: $color-dark-link-visited;
+
+			&:hover {
+				color: $color-dark-link-hover;
+			}
+		}
+
+		&:active {
+			color: $color-dark-link-active;
+		}
+	}
 }
 
 @media (prefers-color-scheme: dark) {
@@ -165,6 +249,8 @@ samp {
 	}
 }
 
-body.dark-theme {
-	@include dark();
+@media screen {
+	body.dark-theme {
+		@include dark();
+	}
 }
