@@ -51,6 +51,15 @@ $color-dark-link-hover: $color-dark-font-body;
 $color-dark-link-active: #f00;
 $color-dark-link-visited: $color-dark-font-light;
 
+$headings: (
+	h1: (2.5, 2, 4, 1),
+	h2: (1.6875, 1.5, 2.5, .5),
+	h3: (1.375, 1, 2, .5),
+	h4: (1.2, 1, 1.5, .5),
+	h5: (1, 1, 2.5, .5),
+	h6: (1, 1, 2.5, .5)
+);
+
 @mixin large-screen {
 	@media screen and (min-width: #{ $max-width + 5em }) {
 		@content;
@@ -74,6 +83,10 @@ html {
 	font-family: $font-body;
 }
 
+* {
+	line-height: $leading-rem;
+}
+
 *,
 *::before,
 *::after {
@@ -82,8 +95,8 @@ html {
 
 main {
 	max-width: $max-width;
-	margin: 0 auto;
-	padding: 0 1rem;
+	margin: .5rem auto 1rem auto;
+	padding: 0 2rem;
 }
 
 pre {
@@ -93,6 +106,7 @@ pre {
 	white-space: pre-wrap;
 	border-radius: 6px;
 	font-weight: 500;
+	tab-size: 4;
 
 	strong {
 		background: #ffff0040;
@@ -107,11 +121,27 @@ pre {
 	}
 }
 
+p {
+	margin: 0 0 1.625rem;
+}
+
 code,
 kbd,
 pre,
 samp {
 	font-family: 'FiraCode', monospace
+}
+
+blockquote {
+	margin: 0 0 1rem 0;
+	padding-left: 1.5rem;
+	font-style: italic;
+	p {
+		margin: 0;
+	}
+	p + p {
+		margin-top: 1rem;
+	}
 }
 
 a {
@@ -165,6 +195,195 @@ figcaption {
 	margin-bottom: 0;
 }
 
+@each $heading, $properties in $headings {
+	#{$heading} {
+		font-size: nth($properties, 1) * 1rem;
+		line-height: nth($properties, 2) * 1rem;
+		margin-top: nth($properties, 3) * 1rem;
+		margin-bottom: nth($properties, 4) * 1rem;
+	}
+}
+
+h1 + h2 {
+	margin-top: 1rem;
+}
+
+h2 + h3,
+h3 + h4,
+h4 + h5 {
+	margin-top: .5rem;
+}
+
+h5 + h6 {
+	margin-top: -.5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'FiraSansCondensed';
+	font-weight: bold;
+}
+
+header {
+	margin-bottom: 4rem;
+
+	h1 {
+		font-size: 3rem;
+		text-align: center;
+		margin-bottom: 3rem;;
+	}
+
+	p {
+		font-size: 1.2rem;
+		line-height: 1.5;
+	}
+}
+
+hr {
+	color: $color-font-body;
+	text-align: center;
+	display: block;
+	border: 0;
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+	height: 1.5rem;
+	&:before {
+		content: "···";
+		letter-spacing: 1em;
+	}
+}
+
+img {
+	border: 0;
+	max-width: 100%;
+	display: block;
+	margin: inherit auto;
+}
+
+ul,
+ol {
+	margin-bottom: .5rem;
+	li {
+		margin-bottom: 0;
+	}
+}
+
+table {
+	width: 100%;
+	border-top: 2px solid $color-font-body;
+	border-bottom: 2px solid $color-font-body;
+	border-collapse: collapse;
+	border-spacing: 0
+}
+
+th {
+	text-align: left;
+	font-weight: bold;
+}
+
+td, th {
+	vertical-align: top;
+}
+
+thead {
+	border-bottom: 1px solid $color-font-body;
+}
+
+tfoot {
+	border-top: 1px solid $color-font-body;
+}
+
+br {
+	margin: 0;
+}
+
+dt {
+	font-weight: bold;
+	margin: 0;
+}
+
+dd {
+	padding-left: 2em;
+	margin: 0;
+}
+
+code {
+	display: inline;
+	padding: 0;
+	margin: 0;
+	background: #eee;
+}
+
+.footnotes li:target, a:target {
+	background: #ff0;
+}
+
+.footnotes li .back {
+	display: none;
+	float: right;
+	padding: 0 1em;
+	font-size: 90%;
+}
+
+.footnotes li:target .back {
+	display: block;
+}
+
+table, img, figure {
+	page-break-inside: avoid;
+}
+
+br {
+	margin-bottom: 0;
+}
+
+abbr {
+	letter-spacing: 0.1em;
+}
+
+abbr[title] {
+	border-bottom: 1px dotted;
+}
+
+b,
+strong {
+	font-weight: bold;
+}
+
+dfn {
+	font-style: italic;
+}
+
+em,
+i {
+	line-height: 0;
+	vertical-align: baseline;
+}
+
+small {
+	font-size: 70%;
+	line-height: 1.4;
+}
+
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	top: -0.5em;
+}
+
+sub {
+	bottom: -0.25em;
+}
 
 @include large-screen {
 	body,
@@ -184,7 +403,15 @@ figcaption {
 
 	pre {
 		width: 100vw;
-		max-width: calc(min(80rem, 100vw - 2rem));
+		max-width: calc(min(80rem, 100vw - 4rem));
+		margin-left: 50%;
+		transform: translateX(-50%);
+		position: relative;
+	}
+
+	table {
+		width: 100vw;
+		max-width: calc(min(60rem, 100vw - 4rem));
 		margin-left: 50%;
 		transform: translateX(-50%);
 		position: relative;
@@ -209,6 +436,25 @@ figcaption {
 
 	figcaption {
 		line-height: $leading-rem-desktop;
+	}
+}
+
+@media print {
+	.u-float-left {
+		float: left;
+		position: relative;
+		margin-left: -3rem;
+		left: -1rem;
+	}
+	.u-float-right {
+		float: right;
+		position: relative;
+		margin-right: -3rem;
+		left: 1rem;
+	}
+	.u-float-center {
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
 
@@ -240,6 +486,23 @@ figcaption {
 		&:active {
 			color: $color-dark-link-active;
 		}
+	}
+
+	hr {
+		color: $color-dark-font-body;
+	}
+
+	table {
+		border-top-color: $color-dark-font-body;
+		border-bottom-color: $color-dark-font-body;
+	}
+
+	thead {
+		border-bottom-color: $color-dark-font-body;
+	}
+
+	tfoot {
+		border-top-color: $color-dark-font-body;
 	}
 }
 
