@@ -13,7 +13,9 @@ License URL ... https://raw.githubusercontent.com/matejlatin/Gutenberg/master/li
 @import "../fonts/FiraCode/_fonts";
 @import "svg";
 
-$font-body: Merriweather, Georgia, serif;
+$font-body: 'Merriweather', Georgia, serif;
+$font-header: 'FiraSansCondensed', sans-serif;
+$font-menu: 'FiraSansCondensed', sans-serif;
 
 $base-font-size: 100%;
 $base-font-size-desktop: 112.5%;
@@ -38,9 +40,11 @@ $color-font-headings: $color-font-body;
 $color-font-light: #888;
 $color-font-figcaption: $color-font-body;
 $color-link-normal: $color-font-body;
-$color-link-hover: $color-font-body;
+$color-link-hover: #ffffff;
+$color-link-hover-background: #e64c43;
 $color-link-active: #f00;
-$color-link-visited: $color-font-light;
+$color-link-visited: $color-font-body;
+$color-light-border: #ddd;
 
 $color-dark-background-body: #161820;
 $color-dark-font-body: #ddd;
@@ -50,7 +54,8 @@ $color-dark-font-figcaption: $color-font-body;
 $color-dark-link-normal: $color-dark-font-body;
 $color-dark-link-hover: $color-dark-font-body;
 $color-dark-link-active: #f00;
-$color-dark-link-visited: $color-dark-font-light;
+$color-dark-link-visited: $color-dark-font-body;
+$color-dark-light-border: #888;
 
 $headings: (
 	h1: (2.5, 2, 4, 1),
@@ -61,9 +66,35 @@ $headings: (
 	h6: (1, 1, 2.5, .5)
 );
 
+%large-shadow {
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+		0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+		0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+
 @mixin large-screen {
 	@media screen and (min-width: #{ $max-width + 10em }) {
 		@content;
+	}
+}
+
+@mixin tiny-scrollbar($handle-color, $background-color) {
+	scrollbar-color: $handle-color $background-color;
+	scrollbar-width: thin;
+	scrollbar-gutter: stable;
+	&::-webkit-scrollbar-track {
+		background-color: $background-color;
+	}
+	&::-webkit-scrollbar {
+		width: 6px;
+		height: 6px;
+		background-color: $background-color;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $handle-color;
+		border-top: 1px solid $background-color;
+		border-bottom: 1px solid $background-color;
 	}
 }
 
@@ -76,6 +107,7 @@ body {
 	margin: 0;
 	color: $color-font-body;
 	background: $color-background-body;
+	@include tiny-scrollbar($color-font-body, $color-background-body);
 }
 
 html {
@@ -97,7 +129,7 @@ html {
 main {
 	max-width: $max-width;
 	margin: .5rem auto 1rem auto;
-	padding: 0 2rem;
+	padding: 0 1rem;
 }
 
 pre {
@@ -134,9 +166,10 @@ samp {
 }
 
 blockquote {
-	margin: 0 0 1rem 0;
-	padding-left: 1.5rem;
+	margin: 0 0 1rem .5rem;
+	padding-left: 1rem;
 	font-style: italic;
+	border-left: 3px solid rgba(#888, 0.2);
 	p {
 		margin: 0;
 	}
@@ -156,6 +189,7 @@ a {
 
 	&:hover {
 		color: $color-link-hover;
+		background-color: $color-link-hover-background;
 	}
 
 	&:visited {
@@ -163,6 +197,7 @@ a {
 
 		&:hover {
 			color: $color-link-hover;
+			background-color: $color-link-hover-background;
 		}
 	}
 
@@ -243,22 +278,86 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: 'FiraSansCondensed';
+	font-family: $font-header;
 	font-weight: bold;
 }
 
-main header {
+hgroup {
 	margin-bottom: 4rem;
 
 	h1 {
 		font-size: 3rem;
 		text-align: center;
-		margin-bottom: 3rem;;
+		margin-bottom: 2rem;
 	}
 
 	p {
 		font-size: 120%;
 		line-height: 1.5;
+	}
+
+	.info {
+		text-align: center;
+		margin: 1rem 0 2rem 0;
+		font-style: italic;
+	}
+
+	address {
+		display: inline;
+		&:before {
+			content: '    ·    ';
+		}
+	}
+}
+
+header {
+	font-family: $font-menu;
+
+	ul {
+		padding: 80px 0 0 0;
+		margin: 0;
+		list-style: none;
+		font-size: 1.5rem;
+		overflow-y: auto;
+		position: fixed;
+		top: 0;
+		right: 0;
+		height: 100%;
+		width: 100%;
+		background: $color-background-body;
+		z-index: 100;
+		max-width: 14rem;
+		//transform: translateX(18rem);
+		@extend %large-shadow;
+	}
+
+	li:first-child {
+		text-transform: uppercase;
+		line-height: 80px;
+		text-align: right;
+		font-weight: bold;
+		padding: 0 1rem;
+		height: 80px;
+		position: fixed;
+		width: 100%;
+		max-width: 14rem;
+		top: 0;
+		right: 0;
+		background: $color-background-body;
+	}
+
+	a {
+		display: block;
+		text-decoration: none;
+		padding: .25rem 1rem;
+		text-align: right;
+	}
+
+	nav {
+		max-width: $max-width;
+		padding: 30px 1rem 25px 1rem;
+		margin: 0 auto;
+		border-bottom: 1px solid $color-light-border;
 	}
 }
 
@@ -338,21 +437,6 @@ code {
 	background: #eee;
 }
 
-.footnotes li:target, a:target {
-	background: #ff0;
-}
-
-.footnotes li .back {
-	display: none;
-	float: right;
-	padding: 0 1em;
-	font-size: 90%;
-}
-
-.footnotes li:target .back {
-	display: block;
-}
-
 table, img, figure {
 	page-break-inside: avoid;
 }
@@ -410,7 +494,10 @@ sub {
 	display: block;
 	overflow: hidden;
 	text-indent: 9999px;
-	@include svg('img/logo.svg', "svg { color: #222; }");
+	@include svg('img/logo.svg', "svg { color: #222; }", $width: 150px);
+	&:hover, &:visited:hover {
+		background-color: transparent;
+	}
 }
 
 @include large-screen {
@@ -427,6 +514,10 @@ sub {
 
 	* {
 		line-height: $line-height-desktop;
+	}
+
+	main {
+		padding: 0 2rem;
 	}
 
 	pre {
@@ -467,36 +558,20 @@ sub {
 	figcaption {
 		line-height: $line-height-desktop;
 	}
+
+	.logo {
+		@include svg-geometry('img/logo.svg');
+	}
 }
 
 div.table {
 	overflow-x: auto;
 }
 
-/*
-@media print {
-	.u-float-left {
-		float: left;
-		position: relative;
-		margin-left: -3rem;
-		left: -1rem;
-	}
-	.u-float-right {
-		float: right;
-		position: relative;
-		margin-right: -3rem;
-		left: 1rem;
-	}
-	.u-float-center {
-		margin-left: auto;
-		margin-right: auto;
-	}
-}
-*/
-
 @mixin dark() {
 	color: $color-dark-font-body;
 	background: $color-dark-background-body;
+	@include tiny-scrollbar($color-dark-font-body, $color-dark-background-body);
 
 	a {
 		background: transparent;
@@ -536,6 +611,18 @@ div.table {
 		color: $color-dark-font-body;
 	}
 
+	header ul {
+		background: #000;
+		border-left: 1px solid rgba(#fff, 0.3);
+	}
+
+	nav {
+		border-color: $color-light-border;
+		li:first-child {
+			background: #000;
+		}
+	}
+
 	.logo {
 		@include svg('img/logo.svg', "svg { color: #ddd; }");
 	}
@@ -568,6 +655,10 @@ div.table {
 	table, thead, tbody, tfoot {
 		border-color: black;
 	}
+	hgroup h1 {
+		margin-top: 0;
+		margin-bottom: 1rem;
+	}
 
 	main {
 		padding: 0;
@@ -585,4 +676,23 @@ div.table {
 	pre {
 		white-space: pre-wrap;
 	}
+
+	/* Single column
+	.u-float-left {
+		float: left;
+		position: relative;
+		margin-left: -3rem;
+		left: -1rem;
+	}
+	.u-float-right {
+		float: right;
+		position: relative;
+		margin-right: -3rem;
+		left: 1rem;
+	}
+	.u-float-center {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	*/
 }
