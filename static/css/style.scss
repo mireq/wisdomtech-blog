@@ -84,7 +84,7 @@ html {
 }
 
 * {
-	line-height: $leading-rem;
+	line-height: $line-height;
 }
 
 *,
@@ -103,7 +103,6 @@ pre {
 	padding: 1rem;
 	font-size: 75%;
 	line-height: 1.4;
-	//white-space: pre-wrap;
 	border-radius: 6px;
 	font-weight: 500;
 	tab-size: 2;
@@ -205,7 +204,7 @@ figure {
 figcaption {
 	font-style: italic;
 	font-size: 80%;
-	line-height: $leading-rem;
+	line-height: $line-height;
 	text-align: center;
 	margin-bottom: 0;
 }
@@ -213,10 +212,14 @@ figcaption {
 @each $heading, $properties in $headings {
 	#{$heading} {
 		font-size: nth($properties, 1) * 1rem;
-		line-height: nth($properties, 2) * 1rem;
+		line-height: nth($properties, 2);
 		margin-top: nth($properties, 3) * 1rem;
 		margin-bottom: nth($properties, 4) * 1rem;
 	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: $color-font-headings;
 }
 
 h1 + h2 {
@@ -253,7 +256,7 @@ header {
 	}
 
 	p {
-		font-size: 1.2rem;
+		font-size: 120%;
 		line-height: 1.5;
 	}
 }
@@ -414,7 +417,7 @@ sub {
 	}
 
 	* {
-		line-height: $leading-rem-desktop;
+		line-height: $line-height-desktop;
 	}
 
 	pre {
@@ -453,7 +456,7 @@ sub {
 	}
 
 	figcaption {
-		line-height: $leading-rem-desktop;
+		line-height: $line-height-desktop;
 	}
 }
 
@@ -461,6 +464,7 @@ div.table {
 	overflow-x: auto;
 }
 
+/*
 @media print {
 	.u-float-left {
 		float: left;
@@ -479,6 +483,7 @@ div.table {
 		margin-right: auto;
 	}
 }
+*/
 
 @mixin dark() {
 	color: $color-dark-font-body;
@@ -514,17 +519,12 @@ div.table {
 		color: $color-dark-font-body;
 	}
 
-	table {
-		border-top-color: $color-dark-font-body;
-		border-bottom-color: $color-dark-font-body;
+	table, thead, tbody, tfoot {
+		border-color: $color-dark-font-body;
 	}
 
-	thead {
-		border-bottom-color: $color-dark-font-body;
-	}
-
-	tfoot {
-		border-top-color: $color-dark-font-body;
+	h1, h2, h3, h4, h5, h6 {
+		color: $color-dark-font-body;
 	}
 }
 
@@ -537,5 +537,39 @@ div.table {
 @media screen {
 	body.dark-theme {
 		@include dark();
+	}
+}
+
+@media print {
+	html {
+		font-size: 14px;
+	}
+	body{
+		column-count: 2;
+		background: white;
+		color: black;
+	}
+	hr, h1, h2, h3, h4, h5, h6 {
+		color: black;
+	}
+	table, thead, tbody, tfoot {
+		border-color: black;
+	}
+
+	main {
+		padding: 0;
+		overflow: hidden;
+	}
+
+	p {
+		text-align: justify;
+	}
+
+	body > header, body > footer {
+		display: none;
+	}
+
+	pre {
+		white-space: pre-wrap;
 	}
 }
