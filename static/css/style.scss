@@ -20,7 +20,7 @@ $base-font-size-desktop: 112.5%;
 $line-height: 1.625;
 $line-height-desktop: 1.7;
 
-$max-width: 40em;
+$max-width: 48em;
 
 $base: 16px * $base-font-size / 100%;
 $leading: round($base * $line-height);
@@ -61,7 +61,7 @@ $headings: (
 );
 
 @mixin large-screen {
-	@media screen and (min-width: #{ $max-width + 5em }) {
+	@media screen and (min-width: #{ $max-width + 10em }) {
 		@content;
 	}
 }
