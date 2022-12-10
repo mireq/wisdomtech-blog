@@ -176,6 +176,20 @@ a {
 	font-size: 80%;
 }
 
+.u-nowrap {
+	white-space: nowrap;
+}
+
+.u-align-left {
+	text-align: left;
+}
+.u-align-center {
+	text-align: center;
+}
+.u-align-right {
+	text-align: right;
+}
+
 img, picture {
 	display: block;
 	margin-left: auto;
@@ -277,7 +291,8 @@ table {
 	border-top: 2px solid $color-font-body;
 	border-bottom: 2px solid $color-font-body;
 	border-collapse: collapse;
-	border-spacing: 0
+	border-spacing: 0;
+	margin-bottom: 1em;
 }
 
 th {
@@ -409,7 +424,7 @@ sub {
 		position: relative;
 	}
 
-	table {
+	.table.table--wide {
 		width: 100vw;
 		max-width: calc(min(60rem, 100vw - 4rem));
 		margin-left: 50%;
@@ -437,6 +452,10 @@ sub {
 	figcaption {
 		line-height: $leading-rem-desktop;
 	}
+}
+
+div.table {
+	overflow-x: auto;
 }
 
 @media print {
