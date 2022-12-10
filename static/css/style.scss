@@ -34,28 +34,28 @@ $leading-desktop: round($base-desktop * $line-height-desktop);
 $leading-rem-desktop: $leading-desktop / $base-desktop * 1rem;
 
 // Colors
-$color-background-body: #fff;
-$color-font-body: #222;
-$color-font-headings: $color-font-body;
-$color-font-light: #888;
-$color-font-figcaption: $color-font-body;
-$color-link-normal: $color-font-body;
-$color-link-hover: #ffffff;
-$color-link-hover-background: #e64c43;
-$color-link-active: #f00;
-$color-link-visited: $color-font-body;
-$color-light-border: #ddd;
-
-$color-dark-background-body: #161820;
-$color-dark-font-body: #ddd;
-$color-dark-font-headings: $color-font-body;
-$color-dark-font-light: #888;
-$color-dark-font-figcaption: $color-font-body;
-$color-dark-link-normal: $color-dark-font-body;
-$color-dark-link-hover: $color-dark-font-body;
-$color-dark-link-active: #f00;
-$color-dark-link-visited: $color-dark-font-body;
-$color-dark-light-border: #888;
+$palette-light: (
+	"primary": #e64c43,
+	"background-body": #fff,
+	"font-body": #222,
+	"font-headings": #222,
+	"link-normal": #222,
+	"link-hover": #fff,
+	"link-hover-background": #e64c43,
+	"link-active": #222,
+	"border-light": #ddd,
+);
+$palette-dark: (
+	"primary": #e64c43,
+	"background-body": #161820,
+	"font-body": #ddd,
+	"font-headings": #ddd,
+	"link-normal": #ddd,
+	"link-hover": #fff,
+	"link-hover-background": #e64c43,
+	"link-active": #888,
+	"border-light": #888,
+);
 
 $headings: (
 	h1: (2.5, 2, 4, 1),
@@ -105,9 +105,6 @@ $headings: (
 
 body {
 	margin: 0;
-	color: $color-font-body;
-	background: $color-background-body;
-	@include tiny-scrollbar($color-font-body, $color-background-body);
 }
 
 html {
@@ -180,29 +177,10 @@ blockquote {
 
 a {
 	background: transparent;
-	color: $color-link-normal;
 
 	&:active,
 	&:hover {
 		outline: 0;
-	}
-
-	&:hover {
-		color: $color-link-hover;
-		background-color: $color-link-hover-background;
-	}
-
-	&:visited {
-		color: $color-link-visited;
-
-		&:hover {
-			color: $color-link-hover;
-			background-color: $color-link-hover-background;
-		}
-	}
-
-	&:active {
-		color: $color-link-active;
 	}
 }
 
@@ -224,6 +202,11 @@ a {
 }
 .u-align-right {
 	text-align: right;
+}
+.u-hidden-checkbox {
+	z-index: -1;
+	opacity: 0;
+	position: absolute;
 }
 
 img, picture {
@@ -252,10 +235,6 @@ figcaption {
 		margin-top: nth($properties, 3) * 1rem;
 		margin-bottom: nth($properties, 4) * 1rem;
 	}
-}
-
-h1, h2, h3, h4, h5, h6 {
-	color: $color-font-headings;
 }
 
 h1 + h2 {
@@ -324,47 +303,46 @@ header {
 		right: 0;
 		height: 100%;
 		width: 100%;
-		background: $color-background-body;
-		z-index: 100;
+		z-index: 1000;
 		max-width: 14rem;
-		//transform: translateX(18rem);
+		transform: translateX(14rem);
+		visibility: hidden;
+		transition: visibility 0.3s linear, transform 0.3s ease;
 		@extend %large-shadow;
+
+		a {
+			display: block;
+			text-decoration: none;
+			padding: .25rem 1rem;
+			text-align: right;
+		}
 	}
 
 	li:first-child {
 		text-transform: uppercase;
 		line-height: 80px;
+		height: 80px;
 		text-align: right;
 		font-weight: bold;
 		padding: 0 1rem;
-		height: 80px;
 		position: fixed;
 		width: 100%;
 		max-width: 14rem;
 		top: 0;
 		right: 0;
-		border-bottom: 1px solid $color-background-body;
-		background: $color-link-hover-background;
-		color: #fff;
-	}
-
-	a {
-		display: block;
-		text-decoration: none;
-		padding: .25rem 1rem;
-		text-align: right;
+		background: map-get($palette-light, "link-hover-background");
+		color: map-get($palette-light, "link-hover");
 	}
 
 	nav {
 		max-width: $max-width;
 		padding: 30px 1rem 25px 1rem;
 		margin: 0 auto;
-		border-bottom: 1px solid $color-light-border;
+		border-bottom: 1px solid;
 	}
 }
 
 hr {
-	color: $color-font-body;
 	text-align: center;
 	display: block;
 	border: 0;
@@ -394,8 +372,8 @@ ol {
 
 table {
 	width: 100%;
-	border-top: 2px solid $color-font-body;
-	border-bottom: 2px solid $color-font-body;
+	border-top: 2px solid;
+	border-bottom: 2px solid;
 	border-collapse: collapse;
 	border-spacing: 0;
 	margin-bottom: 1em;
@@ -411,11 +389,11 @@ td, th {
 }
 
 thead {
-	border-bottom: 1px solid $color-font-body;
+	border-bottom: 1px solid;
 }
 
 tfoot {
-	border-top: 1px solid $color-font-body;
+	border-top: 1px solid;
 }
 
 br {
@@ -496,9 +474,139 @@ sub {
 	display: block;
 	overflow: hidden;
 	text-indent: 9999px;
-	@include svg('img/logo.svg', "svg { color: #222; }", $width: 150px);
 	&:hover, &:visited:hover {
 		background-color: transparent;
+	}
+}
+
+.toggle-menu {
+	display: block;
+	position: relative;
+	width: 50px;
+	height: 50px;
+	float: right;
+	margin-right: -10px;
+	margin-top: -15px;
+	cursor: pointer;
+	&:before {
+		content: "";
+		position: absolute;
+		left: 10px;
+		top: 12px;
+		width: 30px;
+		height: 5px;
+		border-radius: 2px;
+	}
+}
+
+.page-overlay {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	background: rgba(#000, 0.25);
+	visibility: hidden;
+	backdrop-filter: blur(1px);
+}
+
+div.table {
+	overflow-x: auto;
+}
+
+#main_menu_visible:checked ~ header {
+	ul {
+		transform: translateX(0);
+		visibility: visible;
+	}
+}
+#main_menu_visible:checked ~ .page-overlay {
+	visibility: visible;
+}
+
+@mixin palette($palette, $body: true) {
+	$font-color: map-get($palette, "font-body");
+	@if $body {
+		body {
+			background-color: map-get($palette, "background-body");
+			color: map-get($palette, "font-body");
+			@include tiny-scrollbar(map-get($palette, "font-body"), map-get($palette, "background-body"));
+		}
+	}
+	@else {
+		background-color: map-get($palette, "background-body");
+		color: map-get($palette, "font-body");
+		@include tiny-scrollbar(map-get($palette, "font-body"), map-get($palette, "background-body"));
+	}
+
+	a {
+		color: map-get($palette, "link-normal");
+		&:hover {
+			color: map-get($palette, "link-hover");
+			background-color: map-get($palette, "link-hover-background");
+		}
+
+		&:active {
+			color: map-get($palette, "link-active");
+		}
+	}
+	header {
+		ul {
+			background-color: map-get($palette, "background-body");
+		}
+		li:first-child {
+			border-bottom: 1px solid map-get($palette, "background-body");
+		}
+		a {
+			color: $font-color;
+		}
+		nav {
+			border-color: map-get($palette, "border-light");
+		}
+	}
+	hr {
+		color: map-get($palette, "font-body");
+	}
+	table, thead, tbody, tfoot {
+		border-color: map-get($palette, "font-body");
+	}
+	h1, h2, h3, h4, h5, h6 {
+		color: map-get($palette, "font-headings");
+	}
+	.logo {
+		@include svg('img/logo.svg', "svg { color: #{$font-color}; }", $height: 24px);
+	}
+
+	.toggle-menu:before {
+		background: $font-color;
+		box-shadow:
+			0 10px 0 0 $font-color,
+			0 20px 0 0 $font-color;
+	}
+
+	@include large-screen {
+		header li a:hover {
+			color: map-get($palette, "primary");
+		}
+	}
+}
+
+@include palette($palette-light);
+
+@media (prefers-color-scheme: dark) {
+	body {
+		@include palette($palette-dark, $body: false);
+	}
+}
+
+@media screen {
+	body.dark-theme {
+		@include palette($palette-dark, $body: false);
+	}
+	body.light-theme {
+		@include palette($palette-light, $body: false);
 	}
 }
 
@@ -532,6 +640,46 @@ sub {
 		font-size: 80%;
 	}
 
+	header {
+		ul {
+			padding-top: 88px;
+		}
+		li:first-child {
+			line-height: 88px;
+			height: 88px;
+		}
+		ul {
+			margin: -16px -1rem 0 0;
+			padding: 0;
+			position: static;
+			float: right;
+			z-index: unset;
+			box-shadow: none;
+			transition: none;
+			transform: none;
+			visibility: visible;
+			max-width: unset;
+			width: auto;
+			overflow: visible;
+		}
+		li:first-child {
+			display: none;
+		}
+		li {
+			text-align: left;
+			display: inline-block;
+			padding: 0;
+			a {
+				line-height: 66px;
+				height: 66px;
+				padding: 0 1rem;
+				&:hover {
+					background: transparent;
+				}
+			}
+		}
+	}
+
 	.table.table--wide {
 		width: 100vw;
 		max-width: calc(min(60rem, 100vw - 4rem));
@@ -561,84 +709,16 @@ sub {
 		line-height: $line-height-desktop;
 	}
 
-	.logo {
+	body .logo {
 		@include svg-geometry('img/logo.svg');
 	}
-}
 
-div.table {
-	overflow-x: auto;
-}
-
-@mixin dark() {
-	color: $color-dark-font-body;
-	background: $color-dark-background-body;
-	@include tiny-scrollbar($color-dark-font-body, $color-dark-background-body);
-
-	a {
-		background: transparent;
-		color: $color-dark-link-normal;
-
-		&:active,
-		&:hover {
-			outline: 0;
-		}
-
-		&:hover {
-			color: $color-dark-link-hover;
-		}
-
-		&:visited {
-			color: $color-dark-link-visited;
-
-			&:hover {
-				color: $color-dark-link-hover;
-			}
-		}
-
-		&:active {
-			color: $color-dark-link-active;
-		}
+	.toggle-menu {
+		display: none;
 	}
 
-	hr {
-		color: $color-dark-font-body;
-	}
-
-	table, thead, tbody, tfoot {
-		border-color: $color-dark-font-body;
-	}
-
-	h1, h2, h3, h4, h5, h6 {
-		color: $color-dark-font-body;
-	}
-
-	header ul {
-		background: #000;
-		border-left: 1px solid rgba(#fff, 0.3);
-	}
-
-	nav {
-		border-color: $color-light-border;
-		li:first-child {
-			background: #000;
-		}
-	}
-
-	.logo {
-		@include svg('img/logo.svg', "svg { color: #ddd; }");
-	}
-}
-
-@media (prefers-color-scheme: dark) {
-	body {
-		@include dark();
-	}
-}
-
-@media screen {
-	body.dark-theme {
-		@include dark();
+	#main_menu_visible:checked ~ .page-overlay {
+		visibility: hidden;
 	}
 }
 
