@@ -343,7 +343,9 @@ header {
 		max-width: 14rem;
 		top: 0;
 		right: 0;
-		background: $color-background-body;
+		border-bottom: 1px solid $color-background-body;
+		background: $color-link-hover-background;
+		color: #fff;
 	}
 
 	a {
