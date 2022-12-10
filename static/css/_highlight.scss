@@ -23,7 +23,7 @@ $dt-gray-dark: #282a36; // Background
 $dt-gray: #44475a; // Current Line & Selection
 $dt-gray-light: #f8f8f2; // Foreground
 //$dt-blue: #6272a4; // Comment
-$dt-blue: #95aae8; // Comment
+$dt-blue: #c6d5ff; // Comment
 $dt-cyan: #8be9fd;
 $dt-green: #50fa7b;
 $dt-orange: #ffb86c;
@@ -110,7 +110,7 @@ pre {
 	.c1,
 	.cs {
 		color: $dt-blue;
-		font-weight: 300;
+		font-weight: 200;
 	}
 
 	.kd,
