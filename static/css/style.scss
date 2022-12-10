@@ -309,13 +309,13 @@ header {
 		visibility: hidden;
 		transition: visibility 0.3s linear, transform 0.3s ease;
 		@extend %large-shadow;
+	}
 
-		a {
-			display: block;
-			text-decoration: none;
-			padding: .25rem 1rem;
-			text-align: right;
-		}
+	a {
+		display: block;
+		text-decoration: none;
+		padding: .25rem 1rem;
+		text-align: right;
 	}
 
 	li:first-child {
@@ -365,9 +365,10 @@ img {
 ul,
 ol {
 	margin-bottom: .5rem;
-	li {
-		margin-bottom: 0;
-	}
+}
+
+li {
+	margin-bottom: 0;
 }
 
 table {
@@ -474,6 +475,7 @@ sub {
 	display: block;
 	overflow: hidden;
 	text-indent: 9999px;
+	padding: 0;
 	&:hover, &:visited:hover {
 		background-color: transparent;
 	}
@@ -587,8 +589,8 @@ div.table {
 	}
 
 	@include large-screen {
-		header li a:hover {
-			color: map-get($palette, "primary");
+		.logo {
+			@include svg-geometry('img/logo.svg');
 		}
 	}
 }
@@ -677,6 +679,7 @@ div.table {
 				padding: 0 1rem;
 				&:hover {
 					background: transparent;
+					color: map-get($palette-light, "primary");
 				}
 			}
 		}
@@ -711,9 +714,6 @@ div.table {
 		line-height: $line-height-desktop;
 	}
 
-	body .logo {
-		@include svg-geometry('img/logo.svg');
-	}
 
 	.toggle-menu {
 		display: none;
