@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import re
 from pathlib import Path
 
+from django.templatetags.static import static
+
+from .scss import scss_load_svg, scss_info_svg
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -165,6 +169,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LIBSASS_CUSTOM_FUNCTIONS = {
+	'static': static,
+	'load_svg': scss_load_svg,
+	'info_svg': scss_info_svg,
+}
 
 
 # Static files (CSS, JavaScript, Images)

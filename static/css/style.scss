@@ -11,6 +11,7 @@ License URL ... https://raw.githubusercontent.com/matejlatin/Gutenberg/master/li
 @import "../fonts/FiraSansCondensed/_fonts";
 @import "../fonts/Merriweather/_fonts";
 @import "../fonts/FiraCode/_fonts";
+@import "svg";
 
 $font-body: Merriweather, Georgia, serif;
 
@@ -246,7 +247,7 @@ h6 {
 	font-weight: bold;
 }
 
-header {
+main header {
 	margin-bottom: 4rem;
 
 	h1 {
@@ -404,6 +405,14 @@ sub {
 	bottom: -0.25em;
 }
 
+.logo {
+	color: transparent;
+	display: block;
+	overflow: hidden;
+	text-indent: 9999px;
+	@include svg('img/logo.svg', "svg { color: #222; }");
+}
+
 @include large-screen {
 	body,
 	html {
@@ -525,6 +534,10 @@ div.table {
 
 	h1, h2, h3, h4, h5, h6 {
 		color: $color-dark-font-body;
+	}
+
+	.logo {
+		@include svg('img/logo.svg', "svg { color: #ddd; }");
 	}
 }
 
