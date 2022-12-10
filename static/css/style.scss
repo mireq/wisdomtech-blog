@@ -595,11 +595,13 @@ div.table {
 
 @include palette($palette-light);
 
+/*
 @media (prefers-color-scheme: dark) {
 	body {
 		@include palette($palette-dark, $body: false);
 	}
 }
+*/
 
 @media screen {
 	body.dark-theme {
