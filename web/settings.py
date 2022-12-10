@@ -63,6 +63,7 @@ TEMPLATES = [
 	{
 		"BACKEND": "django_jinja.backend.Jinja2",
 		'DIRS': [BASE_DIR / 'templates'],
+		'NAME': 'jinja2',
 		"OPTIONS": {
 			"match_extension": None,
 			"match_regex": re.compile(r"^(?!(admin/|debug_toolbar/|profiler/|search/indexes/|reversion/|sitemap.xml|static_sitemaps/|hijack/|django_extensions/)).*"),
