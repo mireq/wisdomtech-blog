@@ -1,5 +1,5 @@
--e git+https://github.com/mireq/django-attachments.git@76fd9a65d88962d20fa13a312c882e2e25b9d6a8#egg=django-attachments
 django
+django-attachments-management
 django-compressor
 django-jinja
 django-libsass
