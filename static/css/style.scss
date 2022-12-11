@@ -625,6 +625,10 @@ div.table {
 		.toggle-dark:before {
 			@include svg-geometry('img/sun-solid.svg', $height: 30px);
 		}
+		header li a:hover {
+			background: transparent;
+			color: map-get($palette-light, "primary");
+		}
 	}
 }
 
