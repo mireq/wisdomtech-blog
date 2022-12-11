@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from parler.admin import TranslatableAdmin
 from django.utils.translation import gettext_lazy as _
+from django_attachments.admin import AttachmentsAdminMixin
+from parler.admin import TranslatableAdmin
 
 from .forms import UserChangeForm
 from .models import User
 
 
-#class UserAdmin(TranslatableAdmin, BaseUserAdmin):
-#	form = UserChangeForm
-class UserAdmin(TranslatableAdmin, BaseUserAdmin):
+class UserAdmin(AttachmentsAdminMixin, TranslatableAdmin, BaseUserAdmin):
 	form = UserChangeForm
 
 	def get_fieldsets(self, request, obj=None):
@@ -18,6 +17,7 @@ class UserAdmin(TranslatableAdmin, BaseUserAdmin):
 		if obj:
 			fieldsets += (
 				(_('Info'), {'fields': ['subtitle', 'short_description', 'description']}),
+				(None, {'fields': ['gallery']}),
 			)
 		return fieldsets
 
