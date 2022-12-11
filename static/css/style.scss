@@ -484,20 +484,40 @@ sub {
 .toggle-menu {
 	display: block;
 	position: relative;
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	float: right;
-	margin-right: -10px;
-	margin-top: -15px;
+	margin-right: -9px;
+	margin-top: -10px;
 	cursor: pointer;
 	&:before {
 		content: "";
 		position: absolute;
+		left: 9px;
+		top: 11px;
+		width: 22px;
+		height: 3px;
+		border-radius: 1px;
+	}
+}
+
+.toggle-dark {
+	display: block;
+	float: right;
+	position: relative;
+	width: 40px;
+	height: 40px;
+	margin-top: -10px;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	visibility: hidden;
+	&:before {
+		content: "";
+		position: absolute;
+		display: block;
 		left: 10px;
-		top: 12px;
-		width: 30px;
-		height: 5px;
-		border-radius: 2px;
+		top: 10px;
 	}
 }
 
@@ -528,19 +548,19 @@ div.table {
 	visibility: visible;
 }
 
-@mixin palette($palette, $body: true) {
+@mixin palette($palette, $html: false) {
 	$font-color: map-get($palette, "font-body");
-	@if $body {
-		body {
+	@if $html {
+		background-color: map-get($palette, "background-body");
+		color: map-get($palette, "font-body");
+		@include tiny-scrollbar(map-get($palette, "font-body"), map-get($palette, "background-body"));
+	}
+	@else {
+		html {
 			background-color: map-get($palette, "background-body");
 			color: map-get($palette, "font-body");
 			@include tiny-scrollbar(map-get($palette, "font-body"), map-get($palette, "background-body"));
 		}
-	}
-	@else {
-		background-color: map-get($palette, "background-body");
-		color: map-get($palette, "font-body");
-		@include tiny-scrollbar(map-get($palette, "font-body"), map-get($palette, "background-body"));
 	}
 
 	a {
@@ -580,17 +600,23 @@ div.table {
 	.logo {
 		@include svg('img/logo.svg', "svg { color: #{$font-color}; }", $height: 24px);
 	}
+	.toggle-dark:before {
+		@include svg('img/sun-solid.svg', "svg { color: #{$font-color}; }", $height: 20px);
+	}
 
 	.toggle-menu:before {
 		background: $font-color;
 		box-shadow:
-			0 10px 0 0 $font-color,
-			0 20px 0 0 $font-color;
+			0 8px 0 0 $font-color,
+			0 16px 0 0 $font-color;
 	}
 
 	@include large-screen {
 		.logo {
 			@include svg-geometry('img/logo.svg');
+		}
+		.toggle-dark:before {
+			@include svg-geometry('img/sun-solid.svg', $height: 30px);
 		}
 	}
 }
@@ -599,9 +625,7 @@ div.table {
 
 /*
 @media (prefers-color-scheme: dark) {
-	body {
-		@include palette($palette-dark, $body: false);
-	}
+	@include palette($palette-dark);
 }
 */
 
@@ -617,8 +641,8 @@ body.no-animate * {
 
 
 @media screen {
-	body.dark-theme {
-		@include palette($palette-dark, $body: false);
+	html.dark-mode {
+		@include palette($palette-dark, $html: true);
 	}
 	/*
 	body.light-theme {
@@ -727,9 +751,14 @@ body.no-animate * {
 		line-height: $line-height-desktop;
 	}
 
-
 	.toggle-menu {
 		display: none;
+	}
+	.toggle-dark {
+		width: 50px;
+		height: 50px;
+		margin-left: 1rem;
+		margin-top: -8px;
 	}
 
 	#main_menu_visible:checked ~ .page-overlay {

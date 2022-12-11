@@ -10,14 +10,20 @@
 	{% endcompress %}
 	{% block extraheaders %}{% endblock %}
 	{% block extrastyle %}{% endblock %}
+	<script charset="utf-8">
+		if (document.cookie.indexOf('mode=dark') !== -1) {
+			document.getElementsByTagName('html')[0].classList.add('dark-mode');
+		}
+	</script>
 </head>
-<body>
+<body class="no-animate">
 <input type="checkbox" class="u-hidden-checkbox" id="main_menu_visible" aria-label="Open menu">
 <label class="page-overlay" for="main_menu_visible"></label>
 {% block body %}
 	<header>
 		<nav>
 			<label class="toggle-menu" for="main_menu_visible"></label>
+			<button class="toggle-dark" id="toggle_dark_mode" aria-label="Toggle dark mode"></button>
 
 			<ul>
 				<li>Menu</li>
