@@ -605,13 +605,26 @@ div.table {
 }
 */
 
+@media (prefers-reduced-motion) {
+	* {
+		transition: none !important;
+	}
+}
+
+body.no-animate * {
+	transition: none !important;
+}
+
+
 @media screen {
 	body.dark-theme {
 		@include palette($palette-dark, $body: false);
 	}
+	/*
 	body.light-theme {
 		@include palette($palette-light, $body: false);
 	}
+	*/
 }
 
 @include large-screen {

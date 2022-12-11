@@ -33,5 +33,8 @@
 		{% endblock %}
 	</main>
 {% endblock %}
+{% compress js file app %}
+	<script src="{{ static("js/app.js") }}" charset="utf-8"></script>
+{% endcompress %}
 </body>
 </html>
