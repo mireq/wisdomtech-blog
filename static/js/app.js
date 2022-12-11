@@ -68,7 +68,6 @@ bindEvent(window, 'resize', function() {
 });
 var darkModeButton = document.getElementById('toggle_dark_mode');
 bindEvent(darkModeButton, 'click', toggleDarkMode);
-darkModeButton.style.visibility = 'visible';
 delayedEnableAnimations();
 
 }());

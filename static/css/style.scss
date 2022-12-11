@@ -518,7 +518,6 @@ sub {
 	border: 0;
 	background: transparent;
 	cursor: pointer;
-	visibility: hidden;
 	&:before {
 		content: "";
 		position: absolute;
