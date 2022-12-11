@@ -309,6 +309,27 @@ header {
 		visibility: hidden;
 		transition: visibility 0.3s linear, transform 0.3s ease;
 		@extend %large-shadow;
+		label {
+			cursor: pointer;
+			display: block;
+			text-transform: uppercase;
+			line-height: 80px;
+			height: 80px;
+			text-align: right;
+			font-weight: bold;
+			padding: 0 1rem;
+			position: fixed;
+			width: 100%;
+			max-width: 14rem;
+			top: 0;
+			right: 0;
+			background: map-get($palette-light, "link-hover-background");
+			color: map-get($palette-light, "link-hover");
+			&:before {
+				content: '>';
+				float: left;
+			}
+		}
 	}
 
 	a {
@@ -318,21 +339,6 @@ header {
 		text-align: right;
 	}
 
-	li:first-child {
-		text-transform: uppercase;
-		line-height: 80px;
-		height: 80px;
-		text-align: right;
-		font-weight: bold;
-		padding: 0 1rem;
-		position: fixed;
-		width: 100%;
-		max-width: 14rem;
-		top: 0;
-		right: 0;
-		background: map-get($palette-light, "link-hover-background");
-		color: map-get($palette-light, "link-hover");
-	}
 
 	nav {
 		max-width: $max-width;
@@ -577,9 +583,9 @@ div.table {
 	header {
 		ul {
 			background-color: map-get($palette, "background-body");
-		}
-		li:first-child {
-			border-bottom: 1px solid map-get($palette, "background-body");
+			label {
+				border-bottom: 1px solid map-get($palette, "background-body");
+			}
 		}
 		a {
 			color: $font-color;
