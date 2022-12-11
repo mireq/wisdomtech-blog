@@ -53,8 +53,8 @@ class Migration(migrations.Migration):
 			fields=[
 				('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
 				('language_code', models.CharField(db_index=True, max_length=15, verbose_name='Language')),
-				('subtitle', models.CharField(max_length=100, verbose_name='Subtitle')),
-				('short_description', models.TextField(verbose_name='Short description')),
+				('subtitle', models.CharField(max_length=100, blank=True, verbose_name='Subtitle')),
+				('short_description', models.TextField(blank=True, verbose_name='Short description')),
 				('description', models.TextField(blank=True, verbose_name='Description')),
 				('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to=settings.AUTH_USER_MODEL)),
 			],

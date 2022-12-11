@@ -45,8 +45,9 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'accounts',
 	'compressor',
-	'easy_thumbnails',
 	'django_attachments',
+	'easy_thumbnails',
+	'parler',
 	'web',
 ]
 
@@ -165,6 +166,16 @@ LANGUAGES = (
 	('sk', "Slovensky"),
 	('en', "English"),
 )
+PARLER_LANGUAGES = {
+	None: (
+		{'code': 'sk',},
+		{'code': 'en',},
+	),
+	'default': {
+		'fallbacks': ['sk'],
+		'hide_untranslated': False,
+	}
+}
 
 TIME_ZONE = 'Europe/Bratislava'
 

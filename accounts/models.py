@@ -27,10 +27,12 @@ class User(TranslatableModel, AbstractUser):
 	translations = TranslatedFields(
 		subtitle=models.CharField(
 			_("Subtitle"),
-			max_length=100
+			max_length=100,
+			blank=True
 		),
 		short_description=models.TextField(
 			_("Short description"),
+			blank=True
 		),
 		description=models.TextField(
 			_("Description"),
