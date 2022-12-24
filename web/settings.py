@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 	'compressor',
 	'django_attachments',
 	'easy_thumbnails',
+	#'blog',
 	'parler',
 	'web',
 ]
