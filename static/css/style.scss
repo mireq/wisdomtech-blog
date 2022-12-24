@@ -308,6 +308,7 @@ header {
 		z-index: 1000;
 		max-width: 14rem;
 		transform: translateX(14rem);
+
 		visibility: hidden;
 		transition: visibility 0.3s linear, transform 0.3s ease;
 		@extend %large-shadow;
@@ -315,16 +316,19 @@ header {
 			cursor: pointer;
 			display: block;
 			text-transform: uppercase;
-			line-height: 80px;
-			height: 80px;
+			box-sizing: content-box;
+			height: 40px;
+			line-height: 40px;
 			text-align: right;
 			font-weight: bold;
-			padding: 0 1rem;
+			padding: 1rem;
 			position: fixed;
-			width: 100%;
+			width: auto;
 			max-width: 14rem;
 			top: 0;
 			right: 0;
+			left: 0;
+			vertical-align: middle;
 			background: map-get($palette-light, "link-hover-background");
 			color: map-get($palette-light, "link-hover");
 			&:before {
@@ -345,7 +349,7 @@ header {
 
 	nav {
 		max-width: $max-width;
-		padding: 30px 1rem 25px 1rem;
+		padding: 1rem;
 		margin: 0 auto;
 		border-bottom: 1px solid;
 	}
@@ -484,7 +488,14 @@ sub {
 	display: block;
 	overflow: hidden;
 	text-indent: 9999px;
+	height: 40px;
 	padding: 0;
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		margin-top: (40px - 24px)/2 + 2px;
+	}
 	&:hover, &:visited:hover {
 		background-color: transparent;
 	}
@@ -497,7 +508,6 @@ sub {
 	height: 40px;
 	float: right;
 	margin-right: -9px;
-	margin-top: -10px;
 	cursor: pointer;
 	&:before {
 		content: "";
@@ -516,7 +526,6 @@ sub {
 	position: relative;
 	width: 40px;
 	height: 40px;
-	margin-top: -10px;
 	border: 0;
 	background: transparent;
 	cursor: pointer;
@@ -606,7 +615,9 @@ div.table {
 		color: map-get($palette, "font-headings");
 	}
 	.logo {
-		@include svg('img/logo.svg', "svg { color: #{$font-color}; }", $height: 24px);
+		&:before {
+			@include svg('img/logo.svg', "svg { color: #{$font-color}; }", $height: 24px);
+		}
 	}
 	.toggle-dark:before {
 		@include svg('img/sun-solid.svg', "svg { color: #{$font-color}; }", $height: 20px);
@@ -620,7 +631,7 @@ div.table {
 	}
 
 	@include large-screen {
-		.logo {
+		.logo:before {
 			@include svg-geometry('img/logo.svg');
 		}
 		.toggle-dark:before {
