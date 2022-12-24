@@ -11,6 +11,13 @@
 	{% compress css file print %}
 		<link rel="stylesheet" type="text/x-scss" media="print" href="{{ static("css/print.scss") }}" />
 	{% endcompress %}
+	{% compress js preload %}
+		<script src="{{ static("js/app.js") }}" charset="utf-8"></script>
+	{% endcompress %}
+	<link rel="preload" href="{{ static("fonts/FiraSansCondensed/FiraSansCondensed-Bold.woff2") }}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{ static("fonts/Lora/Lora-VariableFont_wght.woff2") }}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{ static("fonts/Lora/Lora-Italic-VariableFont_wght.woff2") }}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{ static("fonts/FiraCode/FiraCode-VariableFont_wght.woff2") }}" as="font" type="font/woff2" crossorigin>
 	{% block extraheaders %}{% endblock %}
 	{% block extrastyle %}{% endblock %}
 	<script charset="utf-8">
@@ -20,30 +27,30 @@
 	</script>
 </head>
 <body class="no-animate">
-<input type="checkbox" class="u-hidden-checkbox" id="main_menu_visible" aria-label="Open menu">
-<label class="page-overlay" for="main_menu_visible"></label>
-{% block body %}
-	<header>
-		<nav>
-			<label class="toggle-menu" for="main_menu_visible"></label>
-			<button class="toggle-dark" id="toggle_dark_mode" aria-label="Toggle dark mode"></button>
+	<input type="checkbox" class="u-hidden-checkbox" id="main_menu_visible" aria-label="Open menu">
+	<label class="page-overlay" for="main_menu_visible"></label>
+	{% block body %}
+		<header>
+			<nav>
+				<label class="toggle-menu" for="main_menu_visible"></label>
+				<button class="toggle-dark" id="toggle_dark_mode" aria-label="Toggle dark mode"></button>
 
-			<ul>
-				<li><label for="main_menu_visible">Menu</label></li>
-				<li><a href="/">Blog</a></li>
-				<li><a href="/">About Us</a></li>
-			</ul>
+				<ul>
+					<li><label for="main_menu_visible">Menu</label></li>
+					<li><a href="/">Blog</a></li>
+					<li><a href="/">About Us</a></li>
+				</ul>
 
-			<a class="logo" href="/">Wisdomblog.</a>
-		</nav>
-	</header>
-	<main>
-		{% block content %}
-		{% endblock %}
-	</main>
-{% endblock %}
-{% compress js file app %}
-	<script src="{{ static("js/app.js") }}" charset="utf-8"></script>
-{% endcompress %}
+				<a class="logo" href="/">Wisdomblog.</a>
+			</nav>
+		</header>
+		<main>
+			{% block content %}
+			{% endblock %}
+		</main>
+	{% endblock %}
+	{% compress js %}
+		<script src="{{ static("js/app.js") }}" charset="utf-8"></script>
+	{% endcompress %}
 </body>
 </html>
