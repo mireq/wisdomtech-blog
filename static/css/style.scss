@@ -9,11 +9,11 @@ License URL ... https://raw.githubusercontent.com/matejlatin/Gutenberg/master/li
 */
 
 @import "../fonts/FiraSansCondensed/_fonts";
-@import "../fonts/Merriweather/_fonts";
+@import "../fonts/LiterataTT/_fonts";
 @import "../fonts/FiraCode/_fonts";
 @import "svg";
 
-$font-body: 'Merriweather', Georgia, serif;
+$font-body: 'Literata TT', Georgia, serif;
 $font-header: 'FiraSansCondensed', sans-serif;
 $font-menu: 'FiraSansCondensed', sans-serif;
 
@@ -111,6 +111,7 @@ html {
 	box-sizing: border-box;
 	font-size: $base;
 	font-family: $font-body;
+	font-weight: 500;
 }
 
 * {
@@ -344,6 +345,7 @@ header {
 		text-decoration: none;
 		padding: .25rem 1rem;
 		text-align: right;
+		font-weight: bold;
 	}
 
 
@@ -449,7 +451,7 @@ abbr[title] {
 
 b,
 strong {
-	font-weight: bold;
+	font-weight: 800;
 }
 
 dfn {
@@ -788,6 +790,7 @@ body.no-animate * {
 @media print {
 	html {
 		font-size: 14px;
+		font-weight: normal;
 	}
 	body{
 		column-count: 2;
@@ -820,6 +823,11 @@ body.no-animate * {
 
 	pre {
 		white-space: pre-wrap;
+	}
+
+	b,
+	strong {
+		font-weight: bold;
 	}
 
 	/* Single column

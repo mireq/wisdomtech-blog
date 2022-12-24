@@ -1,0 +1,17 @@
+@font-face {
+	font-family: 'Literata TT';
+	font-weight: 100 1000;
+	font-style: normal;
+	font-display: swap;
+	src: local('Literata TT'), local('Literata'),
+		url(static('fonts/LiterataTT/LiterataTT_var.woff2')) format('woff2');
+}
+
+@font-face {
+	font-family: 'Literata TT';
+	font-weight: 100 1000;
+	font-style: italic;
+	font-display: swap;
+	src: local('Literata TT'), local('Literata'),
+		url(static('fonts/LiterataTT/LiterataTT_var-Italic.woff2')) format('woff2');
+}
