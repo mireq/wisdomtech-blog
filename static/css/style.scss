@@ -9,11 +9,11 @@ License URL ... https://raw.githubusercontent.com/matejlatin/Gutenberg/master/li
 */
 
 @import "../fonts/FiraSansCondensed/_fonts";
-@import "../fonts/LiterataTT/_fonts";
+@import "../fonts/Lora/_fonts";
 @import "../fonts/FiraCode/_fonts";
 @import "svg";
 
-$font-body: 'Literata TT', Georgia, serif;
+$font-body: 'Lora', Georgia, serif;
 $font-header: 'FiraSansCondensed', sans-serif;
 $font-menu: 'FiraSansCondensed', sans-serif;
 
@@ -452,7 +452,7 @@ abbr[title] {
 
 b,
 strong {
-	font-weight: 800;
+	font-weight: 900;
 }
 
 dfn {

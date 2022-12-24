@@ -1,0 +1,20 @@
+@font-face {
+	font-family: 'Lora';
+	font-weight: 100 1000;
+	font-style: italic;
+	font-display: swap;
+	src: local('Lora Italic'), local('Lora-Italic'), local('Lora'),
+		url(static('fonts/Lora/Lora-Italic-VariableFont_wght.woff2')) format('woff2'),
+		url(static('fonts/Lora/Lora-Italic-VariableFont_wght.woff')) format('woff');
+}
+
+@font-face {
+	font-family: 'Lora';
+	font-weight: 100 1000;
+	font-style: normal;
+	font-display: swap;
+	src: local('Lora Regular'), local('Lora-Regular'), local('Lora'),
+		url(static('fonts/Lora/Lora-VariableFont_wght.woff2')) format('woff2'),
+		url(static('fonts/Lora/Lora-VariableFont_wght.woff')) format('woff');
+}
+
