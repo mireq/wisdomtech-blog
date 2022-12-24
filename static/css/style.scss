@@ -140,13 +140,12 @@ pre {
 	overflow-x: scroll;
 
 	strong {
-		background: #400000;
-		font-weight: 900;
-		box-shadow: 0px 0px 0px 1px #fff;
+		background: #00f;
+		filter: invert(1);
 	}
 	em {
-		background: #003000;
-		box-shadow: 0px 0px 0px 1px #fff;
+		background: #202;
+		filter: invert(1);
 	}
 
 	* {
