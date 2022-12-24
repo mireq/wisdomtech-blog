@@ -8,6 +8,9 @@
 	{% compress css file style %}
 		<link rel="stylesheet" type="text/x-scss" href="{{ static("css/style.scss") }}" />
 	{% endcompress %}
+	{% compress css file print %}
+		<link rel="stylesheet" type="text/x-scss" media="print" href="{{ static("css/print.scss") }}" />
+	{% endcompress %}
 	{% block extraheaders %}{% endblock %}
 	{% block extrastyle %}{% endblock %}
 	<script charset="utf-8">
