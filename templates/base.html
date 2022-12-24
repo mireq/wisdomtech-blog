@@ -11,9 +11,6 @@
 	{% compress css file print %}
 		<link rel="stylesheet" type="text/x-scss" media="print" href="{{ static("css/print.scss") }}" />
 	{% endcompress %}
-	{% compress js preload %}
-		<script src="{{ static("js/app.js") }}" charset="utf-8"></script>
-	{% endcompress %}
 	<link rel="preload" href="{{ static("fonts/FiraSansCondensed/FiraSansCondensed-Bold.woff2") }}" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="{{ static("fonts/Lora/Lora-VariableFont_wght.woff2") }}" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="{{ static("fonts/Lora/Lora-Italic-VariableFont_wght.woff2") }}" as="font" type="font/woff2" crossorigin>
