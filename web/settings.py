@@ -210,7 +210,7 @@ COMPRESS_PRECOMPILERS = (
 	('text/x-scss', 'django_libsass.SassCompiler'),
 )
 COMPRESS_FILTERS = {
-	'css': ['compressor.filters.css_default.CssAbsoluteFilter',],
+	'css': ['web.compressor_filters.CssAbsoluteFilter',],
 	'js': [],
 }
 
