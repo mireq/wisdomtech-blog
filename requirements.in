@@ -1,9 +1,11 @@
 django
 django-attachments-management
 django-compressor
+django-easy-autoslug
 django-jinja
 django-libsass
 django-parler
+django-universal-paginator
 easy_thumbnails
 jinja2
 libsass
