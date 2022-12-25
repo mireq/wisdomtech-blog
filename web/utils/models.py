@@ -5,7 +5,6 @@ from django.conf import settings
 from django.contrib.postgres.aggregates import JSONBAgg
 from django.db import models
 from django.db.models import Q, F, Value as V, OuterRef, Subquery, Case, When, JSONField
-from django.db.models.fields.json import KeyTextTransform
 from django.db.models.functions import JSONObject, Cast
 from django.utils import timezone, translation
 from django.utils.translation import gettext_lazy as _
@@ -119,12 +118,9 @@ class TranslatableQuerySet(BaseTranslatableQuerySet):
 			if isinstance(fallback, str):
 				fallback = [fallback]
 			field_selects = {}
-			json_annotations = {}
 			field_selects['language_code'] = Cast('language_code', models.CharField(null=True))
 			for field in fields:
 				field_selects[field] = Cast(field, models.CharField(null=True))
-				json_annotations[prefix + field] = KeyTextTransform(field, 'translation_data', output_field=models.CharField(null=True))
-			json_annotations[prefix + 'language_code'] = KeyTextTransform('language_code', 'translation_data', output_field=models.CharField(null=True))
 
 			language_priority = [language_code]
 			if fallback is True or not fallback:
@@ -164,11 +160,18 @@ class TranslatableQuerySet(BaseTranslatableQuerySet):
 					]
 					priority = Case(*priority_rules, output_field=models.IntegerField(), default=V(0))
 					translations = translations.annotate(priority=priority).order_by('-priority', 'pk')
-				qs = (self
-					.annotate(translation_data=Subquery(translations.values('translation_data')[:1], output_field=JSONField()))
-					.annotate(**json_annotations))
+				qs = self.annotate(**{
+					prefix + 'id': translations.values('pk')[:1]
+				})
+				translations = translated_model.objects.filter(pk=OuterRef(prefix + 'id'))
+				annotations = {}
+				for field in fields:
+					annotations[prefix + field] = Subquery(translations.values(field)[:1])
+
+				qs = (qs
+					.annotate(**annotations))
 				if hide_untranslated:
-					qs = qs.filter(*q_filters, **named_filters).exclude(translation_data__isnull=True)
+					qs = qs.filter(*q_filters, **named_filters).exclude(**{f'{prefix}id__isnull': True})
 				else:
 					qs = qs.filter(*q_filters, **named_filters)
 			return qs
