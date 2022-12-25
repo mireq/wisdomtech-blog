@@ -124,6 +124,7 @@ class TranslatableQuerySet(BaseTranslatableQuerySet):
 			for field in fields:
 				field_selects[field] = Cast(field, models.CharField(null=True))
 				json_annotations[prefix + field] = KeyTextTransform(field, 'translation_data', output_field=models.CharField(null=True))
+			json_annotations[prefix + 'language_code'] = KeyTextTransform('language_code', 'translation_data', output_field=models.CharField(null=True))
 
 			language_priority = [language_code]
 			if fallback is True or not fallback:
