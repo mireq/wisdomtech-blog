@@ -46,8 +46,9 @@ INSTALLED_APPS = [
 	'accounts',
 	'compressor',
 	'django_attachments',
+	'django_universal_paginator',
 	'easy_thumbnails',
-	#'blog',
+	'blog',
 	'parler',
 	'web',
 ]
@@ -222,3 +223,5 @@ COMPRESS_ENABLED = True
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ALWAYS_TRANSLATION_FALLBACK = True
