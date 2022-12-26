@@ -3,8 +3,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.urls import path, include
+from django.urls import path, include, register_converter
 from django.views.generic import TemplateView, RedirectView
+from django_universal_paginator.converter import CursorPageConverter
+
+
+register_converter(CursorPageConverter, 'page')
 
 
 urlpatterns = [
