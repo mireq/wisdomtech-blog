@@ -220,3 +220,5 @@ if CURRENT_COMMAND:
 	CURRENT_COMMAND = CURRENT_COMMAND[0]
 else:
 	CURRENT_COMMAND = ''
+
+THUMBNAIL_NAMER = 'web.utils.thumbnail_namers.hashed'
