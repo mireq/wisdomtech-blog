@@ -10,6 +10,7 @@ easy_thumbnails
 jinja2
 libsass
 lxml
+model_bakery
 pip-tools
 psycopg2-binary
 pygments
