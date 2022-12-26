@@ -231,3 +231,16 @@ THUMBNAIL_PROCESSORS = (
 	'easy_thumbnails.processors.background',
 	'web.utils.thumbnail.processors.alpha',
 )
+
+THUMBNAIL_ALIASES = {
+	'': {
+		# 16:11
+		'blog_list': {
+			'size': (792, 544),
+			'upscale': (792, 544),
+			'background': '#ffffff',
+			'quality': 70,
+			'alpha': False,
+		},
+	}
+}

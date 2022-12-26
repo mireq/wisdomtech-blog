@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{ object_list }}
+<hgroup>
+	<h1>{% trans %}Wisdom blog{% endtrans %}</h1>
+</hgroup>
+
+{% for item in object_list %}
+	<article>
+		<h2>{{ item }}</h2>
+		{% if item.gallery and item.gallery.primary_attachment %}
+		{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list", attrs={"alt": item, "loading": "lazy"}) }}
+		{% endif %}
+	</article>
+{% endfor %}
+
 {{ pagination() }}
 {% endblock %}
