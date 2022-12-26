@@ -5,5 +5,5 @@ from django.urls import path
 app_name = 'blog'
 
 urlpatterns = [
-	path('<page:page>', views.BlogPostListView.as_view(), name='post_list'),
+	path('', views.BlogPostListView.as_view(), name='post_list'),
 ]

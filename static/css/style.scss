@@ -23,7 +23,8 @@ $base-font-size-desktop: 112.5%;
 $line-height: 1.625;
 $line-height-desktop: 1.7;
 
-$max-width: 48em;
+$max-width: 66.666666666em;
+$detail-max-width: 48em;
 
 $base: 16px * $base-font-size / 100%;
 $leading: round($base * $line-height);
@@ -73,7 +74,7 @@ $headings: (
 }
 
 @mixin large-screen {
-	@media screen and (min-width: #{ $max-width + 10em }) {
+	@media screen and (min-width: #{ $detail-max-width + 10em }) {
 		@content;
 	}
 }
@@ -128,6 +129,10 @@ main {
 	max-width: $max-width;
 	margin: .5rem auto 1rem auto;
 	padding: 0 1rem;
+}
+
+.detail main {
+	max-width: $detail-max-width;
 }
 
 pre {
@@ -209,6 +214,9 @@ a {
 	z-index: -1;
 	opacity: 0;
 	position: absolute;
+}
+.u-hidden {
+	display: none;
 }
 
 img, picture {
@@ -350,7 +358,7 @@ header {
 
 
 	nav {
-		max-width: $max-width;
+		max-width: $detail-max-width;
 		padding: 1rem;
 		margin: 0 auto;
 		border-bottom: 1px solid;

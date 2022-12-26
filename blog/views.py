@@ -4,7 +4,7 @@ from web.utils.generic_views import ListView
 
 
 class BlogPostListView(ListView):
-	paginate_by = 1
+	paginate_by = 10
 
 	def get_queryset(self):
 		return (BlogPost.objects
