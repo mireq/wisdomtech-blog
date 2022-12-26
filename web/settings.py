@@ -222,3 +222,12 @@ else:
 	CURRENT_COMMAND = ''
 
 THUMBNAIL_NAMER = 'web.utils.thumbnail.namers.hashed'
+
+THUMBNAIL_PROCESSORS = (
+	'easy_thumbnails.processors.colorspace',
+	'easy_thumbnails.processors.autocrop',
+	'easy_thumbnails.processors.scale_and_crop',
+	'easy_thumbnails.processors.filters',
+	'easy_thumbnails.processors.background',
+	'web.utils.thumbnail.processors.alpha',
+)
