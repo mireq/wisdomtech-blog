@@ -23,8 +23,7 @@ $base-font-size-desktop: 112.5%;
 $line-height: 1.625;
 $line-height-desktop: 1.7;
 
-$max-width: 66.666666666em;
-$detail-max-width: 48em;
+$max-width: 48em;
 
 $base: 16px * $base-font-size / 100%;
 $leading: round($base * $line-height);
@@ -74,7 +73,7 @@ $headings: (
 }
 
 @mixin large-screen {
-	@media screen and (min-width: #{ $detail-max-width + 10em }) {
+	@media screen and (min-width: #{ $max-width + 10em }) {
 		@content;
 	}
 }
@@ -131,8 +130,8 @@ main {
 	padding: 0 1rem;
 }
 
-.detail main {
-	max-width: $detail-max-width;
+.wide main {
+	max-width: 66.6666666em;
 }
 
 pre {
@@ -358,7 +357,7 @@ header {
 
 
 	nav {
-		max-width: $detail-max-width;
+		max-width: $max-width;
 		padding: 1rem;
 		margin: 0 auto;
 		border-bottom: 1px solid;
@@ -573,6 +572,25 @@ div.table {
 }
 #main_menu_visible:checked ~ .page-overlay {
 	visibility: visible;
+}
+
+.articles {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -8px;;
+	margin-right: -8px;
+
+	title, address {
+		display: inline;
+	}
+
+	&__item {
+		width: 50%;
+		padding: 0 8px;
+		&--first {
+			width: 100%;
+		}
+	}
 }
 
 @mixin palette($palette, $html: false) {
