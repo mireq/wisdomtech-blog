@@ -3,12 +3,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import TemplateView, RedirectView
 
 
 urlpatterns = [
 	path('dashboard/', admin.site.urls),
+	path('', include('blog.urls')),
 	path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon/favicon.ico'), permanent=True)),
 ]
 urlpatterns += [

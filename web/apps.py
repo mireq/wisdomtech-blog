@@ -3,6 +3,7 @@ import re
 
 from django.apps import AppConfig as BaseAppConfig
 from django.db import models
+from django.conf import settings
 
 
 IGNORED_DECONSTRUCT_ATTRS = {'verbose_name', 'help_text', 'error_messages'}
@@ -15,6 +16,7 @@ class AppConfig(BaseAppConfig):
 	def ready(self):
 		self.patch_migrations()
 		self.patch_deconstruct()
+		self.patch_model_bakery()
 
 	def patch_migrations(self):
 		from django.db.migrations.writer import MigrationWriter
@@ -30,3 +32,9 @@ class AppConfig(BaseAppConfig):
 			kwargs = {key: value for key, value in kwargs.items() if key not in IGNORED_DECONSTRUCT_ATTRS}
 			return name, path, args, kwargs
 		models.Field.deconstruct = new_deconstruct
+
+	def patch_model_bakery(self):
+		if settings.CURRENT_COMMAND != 'test':
+			return
+		from model_bakery import baker, random_gen
+		baker.generators.add('django_attachments.fields.GalleryField', random_gen.gen_related)
