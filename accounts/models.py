@@ -38,6 +38,11 @@ class User(TranslatableModel, AbstractUser):
 			_("Description"),
 			blank=True
 		),
+		processed_description=models.TextField(
+			_("Processed description"),
+			blank=True,
+			editable=False,
+		),
 		page_title=models.CharField(
 			_("Page title"),
 			max_length=200,

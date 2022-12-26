@@ -68,9 +68,18 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 			blank=True,
 		),
 		processed_content=models.TextField(
-			_("Content"),
+			_("Processed content"),
 			blank=True,
 			editable=False,
+		),
+		page_title=models.CharField(
+			_("Page title"),
+			max_length=200,
+			blank=True
+		),
+		meta_description=models.TextField(
+			_("Meta description"),
+			blank=True
 		),
 	)
 

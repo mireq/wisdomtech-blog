@@ -28,4 +28,4 @@ class BlogPostForm(TranslatableModelForm):
 
 	class Meta:
 		model = BlogPost
-		fields = ['title', 'slug', 'is_published', 'pub_time', 'summary', 'perex', 'content', 'gallery', 'attachments']
+		fields = ['title', 'slug', 'is_published', 'pub_time', 'summary', 'perex', 'content', 'gallery', 'attachments', 'page_title', 'meta_description']
