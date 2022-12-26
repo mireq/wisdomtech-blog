@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+from datetime import timedelta
+
 from django.test import TestCase
 from django.utils import timezone
-from datetime import timedelta
-from blog.models import BlogPost
 from model_bakery import baker
+
+from blog.models import BlogPost
 
 
 class BlogModelTest(TestCase):

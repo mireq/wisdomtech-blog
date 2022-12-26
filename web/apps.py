@@ -2,8 +2,8 @@
 import re
 
 from django.apps import AppConfig as BaseAppConfig
-from django.db import models
 from django.conf import settings
+from django.db import models
 
 
 IGNORED_DECONSTRUCT_ATTRS = {'verbose_name', 'help_text', 'error_messages'}

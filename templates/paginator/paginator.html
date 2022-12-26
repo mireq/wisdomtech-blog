@@ -1,0 +1,23 @@
+{% if page_obj.has_next() or page_obj.has_previous() %}
+<nav class="pagination-container" aria-label="Stránky">
+	<ul class="pagination">
+		{% if page_obj.has_previous() %}
+			<li class="pagination-previous"><a href="{{ pager_url(page_obj.previous_page_number()) }}{% if url_fragment %}#{{ url_fragment }}{% endif %}" aria-label="Previous page">{% trans %}Newer{% endtrans %}</a></li>
+		{% endif %}
+		{% for page in page_obj.page_range %}
+			{% if page %}
+				{% if page_obj.number == page %}
+					<li class="current">{{ page }}</li>
+				{% else %}
+					<li><a href="{{ pager_url(page) }}{% if url_fragment %}#{{ url_fragment }}{% endif %}">{{ page }}</a></li>
+				{% endif %}
+			{% else %}
+				<li class="ellipsis"></li>
+			{% endif %}
+		{% endfor %}
+		{% if page_obj.has_next() %}
+			<li class="pagination-next"><a href="{{ pager_url(page_obj.next_page_number()) }}{% if url_fragment %}#{{ url_fragment }}{% endif %}" aria-label="Next page">{% trans %}Older{% endtrans %}</a></li>
+		{% endif %}
+	</ul>
+</nav>
+{% endif %}
