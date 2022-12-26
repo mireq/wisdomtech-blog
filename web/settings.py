@@ -236,10 +236,12 @@ THUMBNAIL_ALIASES = {
 	'': {
 		# 16:11
 		'blog_list': {
-			'size': (792, 544),
-			'upscale': (792, 544),
+			'size': (828, 569),
+			'upscale': (828, 569),
 			'background': '#ffffff',
 			'quality': 70,
+			'upscale': True,
+			'crop': True,
 			'alpha': False,
 		},
 	}
