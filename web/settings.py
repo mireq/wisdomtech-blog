@@ -221,4 +221,4 @@ if CURRENT_COMMAND:
 else:
 	CURRENT_COMMAND = ''
 
-THUMBNAIL_NAMER = 'web.utils.thumbnail_namers.hashed'
+THUMBNAIL_NAMER = 'web.utils.thumbnail.namers.hashed'
