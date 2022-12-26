@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.utils import timezone
-from parler.managers import TranslatableQuerySet
+
+from web.utils.models import TranslatableQuerySet
 
 
 class BlogPostQuerySet(TranslatableQuerySet):
