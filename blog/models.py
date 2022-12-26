@@ -6,6 +6,7 @@ from django_attachments.fields import LibraryField, GalleryField
 from django_autoslugfield import AutoSlugField
 from parler.models import TranslatedFields
 
+from .managers import BlogPostManager
 from web.utils.models import TranslatableModel, TimestampModelMixin
 
 
@@ -13,6 +14,8 @@ User = get_user_model()
 
 
 class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
+	objects = BlogPostManager()
+
 	author = models.ForeignKey(
 		User,
 		verbose_name=_("Author"),
@@ -89,3 +92,5 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 	class Meta:
 		verbose_name = _("Blog post")
 		verbose_name_plural = _("Blog posts")
+		ordering = (models.F('pub_time').desc(nulls_last=True), '-id')
+		index_together = (('pub_time', 'id'),)
