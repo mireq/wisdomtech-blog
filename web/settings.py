@@ -244,3 +244,5 @@ THUMBNAIL_ALIASES = {
 		},
 	}
 }
+
+THUMBNAIL_BASEDIR = 'thumbs'
