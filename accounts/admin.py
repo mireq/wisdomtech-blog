@@ -16,7 +16,8 @@ class UserAdmin(AttachmentsAdminMixin, TranslatableAdmin, BaseUserAdmin):
 		fieldsets = super().get_fieldsets(request, obj)
 		if obj:
 			fieldsets += (
-				(_('Info'), {'fields': ['subtitle', 'short_description', 'description']}),
+				(_("Info"), {'fields': ('subtitle', 'short_description', 'description',)}),
+				(_("SEO"), {'fields': ('page_title', "meta_description"), 'classes': ('collapse',)}),
 				(None, {'fields': ['gallery']}),
 			)
 		return fieldsets

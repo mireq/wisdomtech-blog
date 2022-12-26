@@ -38,6 +38,15 @@ class User(TranslatableModel, AbstractUser):
 			_("Description"),
 			blank=True
 		),
+		page_title=models.CharField(
+			_("Page title"),
+			max_length=200,
+			blank=True
+		),
+		meta_description=models.TextField(
+			_("Meta description"),
+			blank=True
+		),
 	)
 
 	def save(self, *args, **kwargs):

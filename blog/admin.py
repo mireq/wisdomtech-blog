@@ -9,6 +9,8 @@ from .models import BlogPost
 
 class BlogPostAdmin(AttachmentsAdminMixin, TranslatableAdmin, admin.ModelAdmin):
 	form = BlogPostForm
+	list_display = ['get_title', 'is_published', 'author']
+	list_filter = ['author']
 
 	def save_form(self, request, form, change):
 		obj = super().save_form(request, form, change)
@@ -18,6 +20,10 @@ class BlogPostAdmin(AttachmentsAdminMixin, TranslatableAdmin, admin.ModelAdmin):
 
 	def get_queryset(self, request):
 		return super().get_queryset(request).fast_translate(fallback=True).select_related('author')
+
+	def get_title(self, obj):
+		return obj.fast_translation_getter('title')
+	get_title.admin_order_field = 'fast_translation_title'
 
 
 admin.site.register(BlogPost, BlogPostAdmin)

@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
 				('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
 				('language_code', models.CharField(db_index=True, max_length=15, verbose_name='Language')),
 				('title', models.CharField(max_length=200, verbose_name='Title')),
-				('slug', django_autoslugfield.fields.AutoSlugField(in_respect_to=('pk',), max_length=200, reserve_chars=0, title_field=None, verbose_name='Slug', title_field='title')),
+				('slug', django_autoslugfield.fields.AutoSlugField(in_respect_to=('pk',), max_length=200, reserve_chars=0, verbose_name='Slug', title_field='title')),
 				('summary', models.TextField(blank=True, verbose_name='Summary')),
 				('perex', models.TextField(blank=True, verbose_name='Perex')),
 				('content', models.TextField(blank=True, verbose_name='Content')),
