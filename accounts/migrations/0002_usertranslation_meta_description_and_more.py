@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
 		migrations.AddField(
 			model_name='usertranslation',
 			name='meta_description',
-			field=models.TextField(blank=True, verbose_name='Meta description'),
+			field=models.TextField(blank=True),
 		),
 		migrations.AddField(
 			model_name='usertranslation',
 			name='page_title',
-			field=models.CharField(blank=True, max_length=200, verbose_name='Page title'),
+			field=models.CharField(blank=True, max_length=200),
 		),
 	]
