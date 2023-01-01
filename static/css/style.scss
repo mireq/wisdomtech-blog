@@ -82,13 +82,19 @@ $headings: (
 }
 
 @mixin medium-screen {
-	@media screen and (min-width: 40em) {
+	@media screen and (min-width: 560px) {
 		@content;
 	}
 }
 
 @mixin large-screen {
-	@media screen and (min-width: #{ $max-width + 32px }) {
+	@media screen and (min-width: #{ $max-width-detail + 32px }) {
+		@content;
+	}
+}
+
+@mixin x-large-screen {
+	@media screen and (min-width: #{ $max-width - 64px }) {
 		@content;
 	}
 }
@@ -141,7 +147,7 @@ html {
 
 main {
 	max-width: $max-width;
-	margin: .5rem auto 1rem auto;
+	margin: 1rem auto;
 	padding: 0 1rem;
 }
 
@@ -593,8 +599,6 @@ div.table {
 .articles {
 	$self: &;
 
-	margin-top: $leading-rem;
-
 	title, address {
 		display: inline;
 	}
@@ -616,12 +620,12 @@ div.table {
 	}
 
 	&__item {
-		margin-bottom: $leading-rem;
+		margin-bottom: 1rem;
 		@extend %clearfix;
 	}
 
 	&__info {
-		padding: ($leading-rem/2) 0 $leading-rem 0;
+		padding: .5rem 0 1rem 0;
 
 		h2 {
 			margin-top: .5em;
@@ -697,7 +701,7 @@ div.table {
 			0 16px 0 0 $font-color;
 	}
 
-	@include large-screen {
+	@include medium-screen {
 		.logo:before {
 			@include svg-geometry('img/logo.svg');
 		}
@@ -745,25 +749,6 @@ body.no-animate * {
 }
 
 @include medium-screen {
-	main {
-		padding: 0 $leading-rem;
-	}
-
-	.articles {
-		margin-left: -8px;
-		margin-right: -8px;
-		display: flex;
-		flex-wrap: wrap;
-
-		&__item {
-			width: 50%;
-			padding: 0 8px;
-		}
-
-	}
-}
-
-@include large-screen {
 	body,
 	html {
 		margin: 0;
@@ -771,27 +756,24 @@ body.no-animate * {
 		max-width: none;
 	}
 
-	html {
-		font-size: $base-desktop;
-	}
-
-	* {
-		line-height: $line-height-desktop;
-	}
-
 	main {
-		padding: 0 $leading-rem-desktop;
+		margin: 2rem auto;
+		padding: 0 2rem;
 	}
 
-	pre {
-		width: 100vw;
-		max-width: calc(min(80rem, 100vw - 4rem));
-		margin-left: 50%;
-		transform: translateX(-50%);
-		position: relative;
-		tab-size: 4;
-		font-size: 80%;
+	.articles {
+		margin-left: -1rem;
+		margin-right: -1rem;
+		display: flex;
+		flex-wrap: wrap;
+
+		&__item {
+			width: 50%;
+			padding: 0 1rem;
+			margin-bottom: 2rem;
+		}
 	}
+
 
 	.logo {
 		height: 50px;
@@ -829,7 +811,45 @@ body.no-animate * {
 				padding: 1rem;
 			}
 		}
+
+		nav {
+			padding: 1rem 2rem;
+		}
 	}
+
+	.toggle-menu {
+		display: none;
+	}
+	.toggle-dark {
+		width: 50px;
+		height: 50px;
+		margin-left: 1rem;
+	}
+
+	#main_menu_visible:checked ~ .page-overlay {
+		visibility: hidden;
+	}
+}
+
+@include large-screen {
+	html {
+		font-size: $base-desktop;
+	}
+
+	* {
+		line-height: $line-height-desktop;
+	}
+
+	pre {
+		width: 100vw;
+		max-width: calc(min(80rem, 100vw - 4rem));
+		margin-left: 50%;
+		transform: translateX(-50%);
+		position: relative;
+		tab-size: 4;
+		font-size: 80%;
+	}
+
 
 	.table.table--wide {
 		width: 100vw;
@@ -859,35 +879,11 @@ body.no-animate * {
 	figcaption {
 		line-height: $line-height-desktop;
 	}
+}
 
-	.toggle-menu {
-		display: none;
-	}
-	.toggle-dark {
-		width: 50px;
-		height: 50px;
-		margin-left: 1rem;
-	}
-
-	#main_menu_visible:checked ~ .page-overlay {
-		visibility: hidden;
-	}
-
+@include x-large-screen {
 	.articles {
 		$self: &;
-
-		&__info {
-			padding: ($leading-rem-desktop/2) 0 $leading-rem-desktop 0;
-		}
-
-		&__image {
-			position: static;
-			padding: 0;
-			img, picture {
-				position: static;
-				width: auto;
-			}
-		}
 
 		#{$self}__item--first {
 			width: 100%;
@@ -896,14 +892,17 @@ body.no-animate * {
 			#{$self}__image {
 				width: 40%;
 				flex: 0 0 auto;
+				position: static;
+				padding: 0;
 				img, picture {
-					max-width: unset;
+					width: 828px;
+					position: static;
 				}
 			}
 			#{$self}__info {
 				width: 60%;
 				flex: 0 0 auto;
-				padding: $leading-rem;
+				padding: 1rem;
 			}
 		}
 	}
