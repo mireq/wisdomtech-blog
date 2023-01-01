@@ -17,7 +17,7 @@ def get_thumbnail_alias_options(alias):
 	return deepcopy(settings.THUMBNAIL_ALIASES[''][alias])
 
 
-def thumbnail_tag(source, alias, attrs=None):
+def thumbnail_tag(source, alias, attrs=None, sizes=None):
 	if not source:
 		return ''
 
@@ -28,7 +28,12 @@ def thumbnail_tag(source, alias, attrs=None):
 		attrs = ' '.join(attrs)
 	attrs = mark_safe(' ' + attrs if attrs else '')
 
-	sizes = DEFAULT_SIZES
+	sizes = DEFAULT_SIZES if sizes is None else sizes
+	if not 1 in sizes:
+		sizes = [1] + sizes
+
+	has_absolute = False
+
 	formats = DEFAULT_FORMATS
 	if thumbnail_options.get('alpha'):
 		formats = [None]
@@ -37,10 +42,26 @@ def thumbnail_tag(source, alias, attrs=None):
 	thumbnails = {}
 	for output_format in formats:
 		for size in sizes:
+			is_absolute = False
+			try:
+				size = int(size)
+			except ValueError:
+				if size.endswith('px'):
+					is_absolute = True
+					try:
+						size = int(size[:-2])
+					except ValueError:
+						raise RuntimeError("Invalid size")
+				else:
+					raise RuntimeError("Invalid size")
 			opts = thumbnail_options.copy()
 			if output_format is not None:
 				opts['output_format'] = output_format
-			opts['size'] = (opts['size'][0] * size, opts['size'][1] * size)
+			if is_absolute:
+				opts['size'] = (size, int(size / opts['size'][0] * opts['size'][1]))
+				has_absolute = True
+			else:
+				opts['size'] = (opts['size'][0] * size, opts['size'][1] * size)
 			thumbnails[(output_format, size)] = opts
 
 	webp_srcs = []
@@ -61,10 +82,14 @@ def thumbnail_tag(source, alias, attrs=None):
 			has_alpha = True
 		if output_format is None and size == 1:
 			img_src = thumbnail.url
-		if output_format == 'webp':
-			webp_srcs.append(f'{thumbnail.url} {size}x')
+		if has_absolute:
+			size_hint = f'{thumbnail.width}w'
 		else:
-			img_srcs.append(f'{thumbnail.url} {size}x')
+			size_hint = f'{size}x'
+		if output_format == 'webp':
+			webp_srcs.append(f'{thumbnail.url} {size_hint}')
+		else:
+			img_srcs.append(f'{thumbnail.url} {size_hint}')
 
 	webp_srcs = ', '.join(webp_srcs)
 	img_srcs = ', '.join(img_srcs)
