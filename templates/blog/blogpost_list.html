@@ -10,7 +10,11 @@
 		<article class="articles__item{% if loop.first and not page_obj.has_previous() %} articles__item--first{% endif %}">
 			<div class="articles__image">
 				{% if item.gallery and item.gallery.primary_attachment %}
-					{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list", attrs={"alt": item, "loading": "lazy", "width": "828", "height": "569"}) }}
+					{% if loop.first and not page_obj.has_previous() %}
+						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list_first", attrs={"alt": item, "loading": "lazy", "width": "828", "height": "569"}) }}
+					{% else %}
+						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list", attrs={"alt": item, "loading": "lazy", "width": "561", "height": "385"}) }}
+					{% endif %}
 				{% endif %}
 			</div>
 			<div class="articles__info">

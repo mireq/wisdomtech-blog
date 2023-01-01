@@ -235,9 +235,18 @@ THUMBNAIL_PROCESSORS = (
 THUMBNAIL_ALIASES = {
 	'': {
 		# 16:11
-		'blog_list': {
+		'blog_list_first': {
 			'size': (828, 569),
 			'upscale': (828, 569),
+			'background': '#ffffff',
+			'quality': 70,
+			'upscale': True,
+			'crop': True,
+			'alpha': False,
+		},
+		'blog_list': {
+			'size': (561, 385),
+			'upscale': (561, 385),
 			'background': '#ffffff',
 			'quality': 70,
 			'upscale': True,
