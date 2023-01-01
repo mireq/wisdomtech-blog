@@ -83,13 +83,13 @@ $headings: (
 }
 
 @mixin medium-screen {
-	@media screen and (min-width: 24em) {
+	@media screen and (min-width: 40em) {
 		@content;
 	}
 }
 
 @mixin large-screen {
-	@media screen and (min-width: #{ $max-width + 10em }) {
+	@media screen and (min-width: #{ $max-width + 8em }) {
 		@content;
 	}
 }
@@ -749,6 +749,19 @@ body.no-animate * {
 	main {
 		padding: 0 $leading-rem;
 	}
+
+	.articles {
+		margin-left: -8px;
+		margin-right: -8px;
+		display: flex;
+		flex-wrap: wrap;
+
+		&__item {
+			width: 50%;
+			padding: 0 8px;
+		}
+
+	}
 }
 
 @include large-screen {
@@ -863,16 +876,6 @@ body.no-animate * {
 
 	.articles {
 		$self: &;
-
-		margin-left: -8px;
-		margin-right: -8px;
-		display: flex;
-		flex-wrap: wrap;
-
-		&__item {
-			width: 50%;
-			padding: 0 8px;
-		}
 
 		&__info {
 			padding: ($leading-rem-desktop/2) 0 $leading-rem-desktop 0;
