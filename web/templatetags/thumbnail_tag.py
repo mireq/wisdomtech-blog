@@ -48,12 +48,18 @@ def thumbnail_tag(source, alias, attrs=None):
 	img_src = ''
 	has_alpha = False
 
+	output_size = None
+
 	for props, options in thumbnails.items():
 		output_format, size = props
 		if output_format == 'webp' and has_alpha:
 			continue
 
 		thumbnail = get_thumbnailer(source).get_thumbnail(options)
+		if output_size is None:
+			output_size = (0, 0)
+			if thumbnail:
+				output_size = (thumbnail.width, thumbnail.height)
 		if not thumbnail:
 			continue
 		__, ext = os.path.splitext(thumbnail.name)
