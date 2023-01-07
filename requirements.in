@@ -5,6 +5,7 @@ django-easy-autoslug
 django-jinja
 django-libsass
 django-parler
+django-tinymce
 django-universal-paginator
 easy_thumbnails<2.8.4
 jinja2

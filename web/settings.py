@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 	'django_attachments',
 	'django_universal_paginator',
 	'easy_thumbnails',
+	'tinymce',
 	'blog',
 	'parler',
 	'web',

@@ -13,6 +13,7 @@ register_converter(CursorPageConverter, 'page')
 
 urlpatterns = [
 	path('dashboard/', admin.site.urls),
+	path('tinymce/', include('tinymce.urls')),
 	path('', include('blog.urls')),
 	path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon/favicon.ico'), permanent=True)),
 ]
