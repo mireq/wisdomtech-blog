@@ -6,7 +6,7 @@ django-jinja
 django-libsass
 django-parler
 django-universal-paginator
-easy_thumbnails
+easy_thumbnails<2.8.4
 jinja2
 libsass
 lxml
