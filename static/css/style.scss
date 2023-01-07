@@ -8,6 +8,8 @@ License ....... Creative Commmons Attribution 3.0
 License URL ... https://raw.githubusercontent.com/matejlatin/Gutenberg/master/license.txt
 */
 
+$content_onlyd: false !default;
+
 @import "../fonts/FiraSansCondensed/_fonts";
 @import "../fonts/Lora/_fonts";
 @import "../fonts/FiraCode/_fonts";
@@ -718,6 +720,8 @@ div.table {
 	}
 }
 
+@if not ($content_only) {
+
 @include palette($palette-light);
 
 /*
@@ -906,4 +910,6 @@ body.no-animate * {
 			}
 		}
 	}
+}
+
 }

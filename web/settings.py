@@ -277,5 +277,6 @@ TINYMCE_CONFIGS = {
 			]},
 		],
 		'style_formats_merge': True,
+		'content_css': '/static/css/tinymce.css',
 	}
 }
