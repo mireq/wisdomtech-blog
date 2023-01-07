@@ -1,7 +1,8 @@
-import sys
 import re
+import sys
 from pathlib import Path
 
+import pygments.lexers
 from django.templatetags.static import static
 
 from .scss import scss_load_svg, scss_info_svg
@@ -268,5 +269,13 @@ TINYMCE_CONFIGS = {
 		'plugins': 'advlist autolink link image lists charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking table emoticons template paste help',
 		'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullscreen | forecolor backcolor emoticons | help | code',
 		'menubar': True,
+		'style_formats': [
+			{'title': 'Source ocde', 'items': [
+				{'title': lexer[0], 'block': 'pre', 'classes': [f'code-{lexer[1][0]}']}
+				for lexer in pygments.lexers.get_all_lexers()
+				if lexer[1]
+			]},
+		],
+		'style_formats_merge': True,
 	}
 }
