@@ -258,3 +258,10 @@ THUMBNAIL_ALIASES = {
 }
 
 THUMBNAIL_BASEDIR = 'thumbs'
+
+TINYMCE_CONFIGS = {
+	'basic': {
+		"plugins": "lists,link,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,paste,code,help,wordcount",
+		"toolbar": "undo redo | bold italic | bullist numlist outdent indent | removeformat | help",
+	}
+}

@@ -31,7 +31,7 @@ class BlogPostForm(TranslatableModelForm):
 		model = BlogPost
 		fields = ['title', 'slug', 'is_published', 'pub_time', 'summary', 'perex', 'content', 'gallery', 'attachments', 'page_title', 'meta_description']
 		widgets = {
-			'summary': RichTextWidget(),
-			'perex': RichTextWidget(),
-			'content': RichTextWidget(),
+			'summary': RichTextWidget(config='basic'),
+			'perex': RichTextWidget(config='basic'),
+			'content': RichTextWidget(config='content'),
 		}
