@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from django_attachments.models import Library
 from parler.forms import TranslatableModelForm
-from tinymce.widgets import TinyMCE
 
 from .models import BlogPost
+from web.utils.widgets import RichTextWidget
 
 
 class BlogPostForm(TranslatableModelForm):
@@ -31,7 +31,7 @@ class BlogPostForm(TranslatableModelForm):
 		model = BlogPost
 		fields = ['title', 'slug', 'is_published', 'pub_time', 'summary', 'perex', 'content', 'gallery', 'attachments', 'page_title', 'meta_description']
 		widgets = {
-			'summary': TinyMCE(attrs={'cols': 80, 'rows': 30}),
-			'perex': TinyMCE(attrs={'cols': 80, 'rows': 30}),
-			'content': TinyMCE(attrs={'cols': 80, 'rows': 30}),
+			'summary': RichTextWidget(),
+			'perex': RichTextWidget(),
+			'content': RichTextWidget(),
 		}
