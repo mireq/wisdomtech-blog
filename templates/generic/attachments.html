@@ -6,6 +6,36 @@
 		<title>{% trans %}Attachments{% endtrans %}</title>
 	</head>
 	<body>
-		{{ object_list }}
+		<main id="files" class="files">
+			{% for file in object_list %}
+				<div class="files__item" data-url="{{ file.file.url }}" data-name="{{ file }}">
+					{{ file }}
+				</div>
+			{% endfor %}
+		</main>
 	</body>
+	<script charset="utf-8">
+
+document.getElementById('files').onclick = function(e) {
+	var target = e.target;
+	var url = target.dataset.url;
+	if (url === undefined) {
+		target = target.closest('[data-url]');
+		if (target === null) {
+			return false;
+		}
+	}
+
+	var data = target.dataset;
+	data = JSON.parse(JSON.stringify(data));
+
+	window.parent.postMessage({
+		mceAction: 'selectFile',
+		data: data
+	}, origin);
+
+	return false;
+}
+
+	</script>
 </html>

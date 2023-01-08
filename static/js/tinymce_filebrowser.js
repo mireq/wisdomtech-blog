@@ -7,12 +7,10 @@ function attachments_filebrowser(callback, value, meta) {
 		{
 			'title': 'Files',
 			'url': url,
-			'width': 1024,
-			'height': 800,
 			'onMessage': function (dialogApi, details) {
-				callback(details.content)
-				dialogApi.close()
-			}
+				callback(details.data.url, {alt: details.data.name});
+				dialogApi.close();
+			},
 		},
 	);
 }
