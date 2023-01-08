@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django_attachments.models import Library
 from parler.forms import TranslatableModelForm
+from django.urls import reverse
 
 from .models import BlogPost
 from web.utils.widgets import RichTextWidget
@@ -12,6 +13,9 @@ class BlogPostForm(TranslatableModelForm):
 		self.fields['gallery'].required = False
 		self.fields['attachments'].required = False
 		self.fields['slug'].required = False
+		if self.instance and self.instance.pk:
+			url = reverse('blog:post_attachments', kwargs={'pk': self.instance.pk})
+			self.fields['content'].widget.set_edit_url(url)
 
 	def save(self, commit=True):
 		obj = super().save(commit=False)

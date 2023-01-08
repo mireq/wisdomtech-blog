@@ -6,6 +6,8 @@ from tinymce.widgets import TinyMCE
 
 
 class RichTextWidget(TinyMCE):
+	edit_url = None
+
 	def __init__(self, *args, config: Optional[Union[str, Iterable]], **kwargs):
 		mce_attrs = None
 
@@ -21,3 +23,9 @@ class RichTextWidget(TinyMCE):
 					mce_attrs.update(configs.get(name, {}))
 
 		super().__init__(*args, mce_attrs=mce_attrs, **kwargs)
+
+	def set_edit_url(self, url: str):
+		self.edit_url = url
+		self.attrs['edit_url'] = url
+		self.mce_attrs['file_picker_callback'] = 'attachments_filebrowser'
+		self.mce_attrs['images_upload_url'] = url

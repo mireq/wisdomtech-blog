@@ -267,6 +267,10 @@ TINYMCE_DEFAULT_CONFIG = {
 	"plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
 	"toolbar": "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
 	'content_css': '/static/css/tinymce.css',
+	'file_picker_types': 'file image media',
+}
+TINYMCE_EXTRA_MEDIA = {
+	'js': ['/static/js/tinymce_filebrowser.js']
 }
 
 TINYMCE_CONFIGS = {

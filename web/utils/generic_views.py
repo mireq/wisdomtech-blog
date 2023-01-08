@@ -1,7 +1,62 @@
 # -*- coding: utf-8 -*-
+from typing import Optional, List
+
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db import models
+from django.shortcuts import get_object_or_404
 from django.views import generic
+from django_attachments.fields import LibraryField
+from django_attachments.models import Attachment
 from django_universal_paginator.cursor import CursorPaginateMixin
 
 
 class ListView(CursorPaginateMixin, generic.ListView):
 	pass
+
+
+class AttachmentListAndUploadView(PermissionRequiredMixin, generic.ListView):
+	"""
+	View used to list and uplaod libraries
+	"""
+
+	model_class = None
+	library_fields = None
+	template_name = 'generic/attachments.html'
+	permission_required = 'django_attachments.change_attachment'
+
+	def get_library_fields(self) -> Optional[List[str]]:
+		return self.library_fields
+
+	def get_model_class(self) -> models.Model:
+		return self.model_class
+
+	def get_model_instance(self, fields=None) -> models.Model:
+		qs = self.get_model_class()._default_manager.filter(pk=self.kwargs['pk'])
+		if fields is not None:
+			qs = qs.only(*fields)
+		return get_object_or_404(qs)
+
+	def get_library_ids(self) -> List[int]:
+		fields = self.get_library_fields()
+		# Search all library fields if model has not defined any
+		if fields is None:
+			fields = [
+				field.name
+				for field in self.get_model_class()._meta.get_fields()
+				if isinstance(field, LibraryField)
+			]
+
+		# get attached objecct
+		instance = self.get_model_instance(fields)
+
+		# returns all relevant ID's
+		return [
+			getattr(instance, f'{field}_id')
+			for field in fields
+			if getattr(instance, f'{field}_id') is not None
+		]
+
+	def get_queryset(self):
+		return (Attachment.objects
+			.filter(library__in=self.get_library_ids())
+			.order_by('-pk'))
