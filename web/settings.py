@@ -260,6 +260,15 @@ THUMBNAIL_ALIASES = {
 
 THUMBNAIL_BASEDIR = 'thumbs'
 
+TINYMCE_DEFAULT_CONFIG = {
+	"theme": "silver",
+	"height": 500,
+	"menubar": False,
+	"plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
+	"toolbar": "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+	'content_css': '/static/css/tinymce.css',
+}
+
 TINYMCE_CONFIGS = {
 	'basic': {
 		'plugins': 'lists,link,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,paste,code,help,wordcount',
@@ -277,6 +286,5 @@ TINYMCE_CONFIGS = {
 			]},
 		],
 		'style_formats_merge': True,
-		'content_css': '/static/css/tinymce.css',
 	}
 }
