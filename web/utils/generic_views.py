@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
+import json
 from typing import Optional, List
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db import models
+from django.http.response import HttpResponseServerError, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views import generic
-from django_attachments.fields import LibraryField
-from django_attachments.models import Attachment
+from django_attachments.fields import LibraryField, GalleryField
+from django_attachments.models import Library, Attachment
 from django_universal_paginator.cursor import CursorPaginateMixin
 
 
@@ -60,3 +62,37 @@ class AttachmentListAndUploadView(PermissionRequiredMixin, generic.ListView):
 		return (Attachment.objects
 			.filter(library__in=self.get_library_ids())
 			.order_by('-pk'))
+
+	def error_response(self, msg):
+		return HttpResponseServerError(json.dumps({'error': msg}), content_type="application/json")
+
+	def bad_request_response(self, msg):
+		return HttpResponseBadRequest(json.dumps({'error': msg}), content_type="application/json")
+
+	def post(self, request, *args, **kwargs):
+		if not 'file' in request.FILES:
+			return self.bad_request_response("POST data has no file attribute")
+
+		# find gallery field
+		field = None
+		for f in self.get_model_class()._meta.get_fields():
+			if isinstance(f, GalleryField):
+				field = f
+
+		if field is None:
+			return self.error_response("Model has no gallery field")
+
+		instance = self.get_model_instance()
+
+		# get or create library
+		library = getattr(instance, field.name, None)
+		if library is None:
+			library = Library()
+			library.save()
+			setattr(instance, field.name, library)
+			instance.save(update_fields=[field.name])
+
+		# save attachment
+		attachment = Attachment.objects.create(file=request.FILES['file'], library=library)
+
+		return JsonResponse({'location': attachment.file.url})

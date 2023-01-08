@@ -28,4 +28,5 @@ class RichTextWidget(TinyMCE):
 		self.edit_url = url
 		self.attrs['edit_url'] = url
 		self.mce_attrs['file_picker_callback'] = 'attachments_filebrowser'
+		self.mce_attrs['images_upload_handler'] = 'attachments_upload_handler'
 		self.mce_attrs['images_upload_url'] = url
