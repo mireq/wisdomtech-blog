@@ -1,0 +1,81 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+body {
+	padding: 16px;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+%small-shadow {
+	box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.04),
+		0 4px 8px rgba(0, 0, 0, 0.04), 0 8px 16px rgba(0, 0, 0, 0.04);
+}
+
+%large-shadow {
+	box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+		0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+		0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+}
+
+.files {
+	$self: &;
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-top: -10px;
+	&__item {
+		width: 276px;
+		height: 276px;
+		max-width: 100%;
+		padding: 10px;
+		position: relative;
+		&:hover {
+			z-index: 1;
+		}
+	}
+	&__thumbnail {
+		width: 256px;
+		height: 256px;
+		background: rgba(#888, 0.25);
+		@extend %small-shadow;
+		img {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+	}
+	&__name {
+		position: absolute;
+		overflow: hidden;
+		left: 10px;
+		right: 10px;
+		bottom: 10px;
+		text-align: center;
+		font-size: 80%;
+		padding-top: 16px;
+		span {
+			display: block;
+			background: red;
+			padding: .25em .5em;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			background: rgba(#fff, 0.5);
+			backdrop-filter: blur(5px);
+			box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.02), 0 -1px 2px rgba(0, 0, 0, 0.04), 0 -2px 4px rgba(0, 0, 0, 0.04), 0 -4px 8px rgba(0, 0, 0, 0.04);
+
+		}
+	}
+	&__item:hover #{$self}__thumbnail {
+		@extend %large-shadow;
+	}
+}

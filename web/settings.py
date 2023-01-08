@@ -240,7 +240,6 @@ THUMBNAIL_ALIASES = {
 		# 16:11
 		'blog_list_first': {
 			'size': (828, 569),
-			'upscale': (828, 569),
 			'background': '#ffffff',
 			'quality': 50,
 			'upscale': True,
@@ -249,7 +248,14 @@ THUMBNAIL_ALIASES = {
 		},
 		'blog_list': {
 			'size': (561, 385),
-			'upscale': (561, 385),
+			'background': '#ffffff',
+			'quality': 60,
+			'upscale': True,
+			'crop': True,
+			'alpha': False,
+		},
+		'attachment_browser': {
+			'size': (256, 256),
 			'background': '#ffffff',
 			'quality': 60,
 			'upscale': True,
