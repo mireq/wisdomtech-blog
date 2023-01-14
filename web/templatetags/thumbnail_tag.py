@@ -72,6 +72,8 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
 						opts[attr_key] = attr_list[num]
 			thumbnails[(output_format, size)] = opts
 
+	# index to remove duplicated images if source size is lower
+	generated_images = set()
 	webp_srcs = []
 	img_srcs = []
 	img_src = ''
@@ -94,6 +96,14 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
 			size_hint = f'{thumbnail.width}w'
 		else:
 			size_hint = f'{size}x'
+
+		# check duplicates
+		thumbnail_key = (output_format, thumbnail.width)
+		# check presence, there can be a rounding error
+		if thumbnail_key in generated_images or (output_format, thumbnail.width + 1) in generated_images or (output_format, thumbnail.width - 1) in generated_images:
+			continue
+		generated_images.add(thumbnail_key)
+
 		if output_format == 'webp':
 			webp_srcs.append(f'{thumbnail.url} {size_hint}')
 		else:
