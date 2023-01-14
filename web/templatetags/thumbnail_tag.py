@@ -17,7 +17,7 @@ def get_thumbnail_alias_options(alias):
 	return deepcopy(settings.THUMBNAIL_ALIASES[''][alias])
 
 
-def thumbnail_tag(source, alias, attrs=None, sizes=None):
+def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
 	if not source:
 		return ''
 
@@ -28,9 +28,12 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None):
 		attrs = ' '.join(attrs)
 	attrs = mark_safe(' ' + attrs if attrs else '')
 
+	size_attrs = size_attrs or {}
+	size_attrs_offset = 0
 	sizes = DEFAULT_SIZES if sizes is None else sizes
 	if not 1 in sizes:
 		sizes = [1] + sizes
+		size_attrs_offset = -1
 
 	has_absolute = False
 
@@ -41,7 +44,7 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None):
 	# preparing options
 	thumbnails = {}
 	for output_format in formats:
-		for size in sizes:
+		for num, size in enumerate(sizes):
 			is_absolute = False
 			try:
 				size = int(size)
@@ -62,6 +65,11 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None):
 				has_absolute = True
 			else:
 				opts['size'] = (opts['size'][0] * size, opts['size'][1] * size)
+			num += size_attrs_offset
+			if num >= 0:
+				for attr_key, attr_list in size_attrs.items():
+					if num < len(attr_list):
+						opts[attr_key] = attr_list[num]
 			thumbnails[(output_format, size)] = opts
 
 	webp_srcs = []
