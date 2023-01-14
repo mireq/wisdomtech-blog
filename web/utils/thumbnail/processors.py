@@ -104,6 +104,17 @@ def scale_and_crop(im, size, crop=False, upscale=False, zoom=None, target=None, 
 					bottom -= remove
 					diff_y = diff_y - add - remove
 				box = (left, top, right, bottom)
+			else:
+				# Move focal point to match diff x / y
+				focal_point_x = halftarget_x + min(diff_x, max(-diff_x, 2 * (focal_point_x - halftarget_x))) // 2
+				focal_point_y = halftarget_y + min(diff_y, max(-diff_y, 2 * (focal_point_y - halftarget_y))) // 2
+				box = [
+					max(0, focal_point_x - halftarget_x),
+					max(0, focal_point_y - halftarget_y),
+				]
+				box.append(int(min(source_x, box[0] + source_x - diff_x)))
+				box.append(int(min(source_y, box[1] + source_y - diff_y)))
+
 			# Finally, crop the image!
 			im = im.crop(box)
 	return im
