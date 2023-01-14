@@ -24,25 +24,52 @@ class ThumbnailTest(TestCase):
 		self.assertEqual((0, 0, 6, 6), crop.bbox)
 		self.assertEqual((6, 6), crop.resize)
 
-		# this should reduce height
+		# ceil used to calculate
 		im = self.make_image((10, 9))
 		crop = calc_scale_and_crop(im, (5, 5))
-		self.assertEqual((5, 4), crop.resize)
+		self.assertEqual((5, 5), crop.resize)
 
-		# in this case is not possible to use x axis as primary, reduce y
+		# correctly reduce size
 		im = self.make_image((8, 10))
 		crop = calc_scale_and_crop(im, (5, 5))
 		self.assertEqual((4, 5), crop.resize)
-
-		# one coordinate bigger, one lower
-		im = self.make_image((6, 4))
-		crop = calc_scale_and_crop(im, (5, 5))
-		self.assertEqual((5, 3), crop.resize)
 
 	def test_upscale(self):
 		im = self.make_image((5, 5))
 		crop = calc_scale_and_crop(im, (6, 6))
 		self.assertIsNone(crop.resize)
 
+		# properly scale
 		crop = calc_scale_and_crop(im, (6, 6), upscale=True)
 		self.assertEqual((6, 6), crop.resize)
+
+		# scale to 7
+		crop = calc_scale_and_crop(im, (8, 7), upscale=True)
+		self.assertEqual((7, 7), crop.resize)
+
+		# scale only to 4
+		crop = calc_scale_and_crop(im, (4, 8), upscale=True)
+		self.assertEqual((4, 4), crop.resize)
+
+		# test ceil rounding
+		im = self.make_image((6, 7))
+		crop = calc_scale_and_crop(im, (7, 8), upscale=True)
+		self.assertEqual((7, 8), crop.resize)
+
+	def test_crop_resize(self):
+		im = self.make_image((7, 6))
+		crop = calc_scale_and_crop(im, (5, 5), crop=True)
+		self.assertEqual((6, 5), crop.resize)
+		self.assertEqual((0, 0, 5, 5), crop.bbox)
+
+		im = self.make_image((100, 200))
+		crop = calc_scale_and_crop(im, (100, 100), crop=True)
+		self.assertEqual((0, 50, 100, 150), crop.bbox)
+
+		im = self.make_image((75, 110))
+		crop = calc_scale_and_crop(im, (100, 100), crop=True)
+		self.assertEqual((0, 17, 75, 92), crop.bbox)
+
+		im = self.make_image((75, 110))
+		crop = calc_scale_and_crop(im, (100, 100), crop=True, target=(0, 0))
+		self.assertEqual((0, 0, 75, 75), crop.bbox)
