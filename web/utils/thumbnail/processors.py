@@ -1,8 +1,57 @@
 # -*- coding: utf-8 -*-
 import re
+from dataclasses import dataclass
+from fractions import Fraction
+from math import floor, ceil
+from typing import Tuple, Union, Optional
 
 from PIL import Image
 from easy_thumbnails.processors import _compare_entropy
+
+
+@dataclass
+class CropOp:
+	bbox: Tuple[int, int, int, int]
+	resize: Optional[Tuple[int, int]]
+
+
+def calc_scale_and_crop(
+	im: Image,
+	size: Tuple[int, int],
+	crop: Union[bool, str] = False,
+	upscale: bool = None,
+	zoom: Optional[float] = None,
+	target: Optional[Union[Tuple[float, float], str]] = None
+) -> CropOp:
+
+	requested_x, requested_y = size
+	source_x, source_y = im.size
+	requested_aspect = Fraction(requested_x, requested_y)
+	source_aspect = Fraction(source_x, source_y)
+	resize = None
+
+	# calculate scale
+	scale = (Fraction(requested_x, source_x), Fraction(requested_y, source_y))
+	scale = max(scale) if crop else min(scale)
+	if zoom is not None:
+		scale *= (100 + zoom) / 100
+
+	# limit scale if upscale is prohibited
+	if scale > 1 and not upscale:
+		scale = Fraction(1, 1)
+
+	# resize image
+	resize = (ceil(source_x * scale), floor(source_y * scale))
+	if resize[0] > requested_x:
+		resize = (floor(source_x * scale), floor(source_y * scale))
+	source_x, source_y = resize
+
+	bbox = (0, 0, source_x, source_y)
+
+	if resize == im.size:
+		resize = None
+
+	return CropOp(bbox, resize)
 
 
 def scale_and_crop(im, size, crop=False, upscale=False, zoom=None, target=None, preserve_aspect=False, **kwargs):
