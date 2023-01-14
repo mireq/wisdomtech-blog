@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+import logging
+
+from utils.syntax_highlight import format_code
+
+
+logger = logging.getLogger(__name__)
+
+
 def process_content(content: str):
 	if not content:
 		return content
@@ -9,15 +17,14 @@ def process_content(content: str):
 	def replace_element(element, content):
 		if callable(content):
 			content = content(element)
-		if isinstance(content, str):
-			code = f'<div>{content}</div>'
-			subtree = None
-			try:
-				subtree = lxml.html.fromstring(code)
-			except etree.ParserError:
-				return
-		else:
-			subtree = content
+		if not isinstance(content, str):
+			content = etree.tostring(content, encoding='utf-8').decode('utf-8')
+		code = f'<div>{content}</div>'
+		subtree = None
+		try:
+			subtree = lxml.html.fromstring(code)
+		except etree.ParserError:
+			return
 		previous = element.getprevious()
 		if subtree.text is not None:
 			if previous is not None:
@@ -27,11 +34,19 @@ def process_content(content: str):
 				parent.text = (parent.text or '') + subtree.text
 		for child in subtree.iterchildren():
 			element.addprevious(child)
-		print(element)
 		element.drop_tree()
 
 	def highlight_code(element, lang):
-		return "ook"
+		content = etree.tostring(element, encoding='utf-8').decode('utf-8')
+		tag_begin = content[:content.find('>')+1]
+		tag_end = content[content.rfind('<'):]
+		content[content.find('>')+1:content.rfind('<')]
+		try:
+			code = format_code(content, lang)
+			return f'{tag_begin}{code}{tag_end}'
+		except Exception:
+			logger.exception("Failed to highlight code")
+			return element
 
 	try:
 		tree = lxml.html.fromstring(content)
@@ -43,7 +58,7 @@ def process_content(content: str):
 			language = None
 			for c in cls:
 				if c.startswith('code-'):
-					language = cls[len('code-'):]
+					language = c[len('code-'):]
 					break
 			if language is not None:
 				replace_element(element, lambda element, lang=language: highlight_code(element, lang))
