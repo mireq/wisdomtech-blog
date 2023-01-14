@@ -52,7 +52,7 @@ PYTHON_INSTALL_DIR=${PYTHON_INSTALL_DIR:-/usr/bin}
 
 EXTRA_SYNC_REQUIREMENTS=""
 EXTRA_INSTALL_REQUIREMENTS=""
-EXTRA_COMPILE_OPTS="-v --no-emit-index-url --annotation-style line"
+EXTRA_COMPILE_OPTS="-v --no-emit-index-url --annotation-style line --resolver=backtracking"
 
 if [[ ! -z $USE_HASHES ]]
 then
