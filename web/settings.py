@@ -240,14 +240,14 @@ THUMBNAIL_ALIASES = {
 		# 16:11
 		'blog_list_first': {
 			'size': (828, 569),
-			'quality': 50,
+			'quality': 60,
 			'crop': 'smart',
 			'preserve_aspect': True,
 			'alpha': False,
 		},
 		'blog_list': {
 			'size': (561, 385),
-			'quality': 60,
+			'quality': 70,
 			'crop': 'smart',
 			'preserve_aspect': True,
 			'alpha': False,
@@ -255,7 +255,7 @@ THUMBNAIL_ALIASES = {
 		'attachment_browser': {
 			'size': (256, 256),
 			'quality': 60,
-			'crop': 'smart',
+			'crop': True,
 			'preserve_aspect': True,
 			'alpha': False,
 		},
