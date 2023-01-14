@@ -240,30 +240,35 @@ THUMBNAIL_ALIASES = {
 		# 16:11
 		'blog_list_first': {
 			'size': (828, 569),
-			'background': '#ffffff',
 			'quality': 50,
-			'upscale': True,
-			'crop': True,
+			'crop': 'smart',
+			'preserve_aspect': True,
 			'alpha': False,
 		},
 		'blog_list': {
 			'size': (561, 385),
-			'background': '#ffffff',
 			'quality': 60,
-			'upscale': True,
-			'crop': True,
+			'crop': 'smart',
+			'preserve_aspect': True,
 			'alpha': False,
 		},
 		'attachment_browser': {
 			'size': (256, 256),
-			'background': '#ffffff',
 			'quality': 60,
-			'upscale': True,
-			'crop': True,
+			'crop': 'smart',
+			'preserve_aspect': True,
 			'alpha': False,
 		},
 	}
 }
+
+THUMBNAIL_PROCESSORS = (
+	'easy_thumbnails.processors.colorspace',
+	'easy_thumbnails.processors.autocrop',
+	'web.utils.thumbnail.processors.scale_and_crop',
+	'easy_thumbnails.processors.filters',
+	'easy_thumbnails.processors.background',
+)
 
 THUMBNAIL_BASEDIR = 'thumbs'
 
