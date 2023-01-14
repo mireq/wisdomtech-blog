@@ -104,7 +104,7 @@ def scale_and_crop(im, size, crop=False, upscale=False, zoom=None, target=None, 
 					bottom -= remove
 					diff_y = diff_y - add - remove
 				box = (left, top, right, bottom)
-			else:
+			elif preserve_aspect:
 				# Move focal point to match diff x / y
 				focal_point_x = halftarget_x + min(diff_x, max(-diff_x, 2 * (focal_point_x - halftarget_x))) // 2
 				focal_point_y = halftarget_y + min(diff_y, max(-diff_y, 2 * (focal_point_y - halftarget_y))) // 2
