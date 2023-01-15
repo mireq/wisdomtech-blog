@@ -4,7 +4,12 @@ from web.utils.generic_views import ListView, AttachmentListAndUploadView, Detai
 
 
 class BlogPostListView(ListView):
-	paginate_by = 10
+
+	def get_paginate_by(self, queryset): # pylint: disable=unused-argument
+		if 'page' in self.request.GET:
+			return 10
+		else:
+			return 9
 
 	def get_queryset(self):
 		return (BlogPost.objects
