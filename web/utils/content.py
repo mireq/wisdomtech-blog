@@ -15,7 +15,7 @@ def process_content(content: str):
 	if not content:
 		return content
 
-	from .lxml_utils import replace_element, highlight_code
+	from .lxml_utils import replace_element, highlight_code, make_thumbnails
 	from lxml import etree
 	import lxml.html
 
@@ -37,6 +37,8 @@ def process_content(content: str):
 					break
 			if language is not None:
 				replace_element(element, lambda element, lang=language: highlight_code(element, lang))
+		if element.tag == 'img' and 'src' in element.attrib:
+			replace_element(element, make_thumbnails)
 
 	code = etree.tostring(tree, encoding='utf-8', method='html').decode('utf-8')
 	return unwrap_tag(code)[0]

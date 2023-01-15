@@ -251,6 +251,11 @@ THUMBNAIL_ALIASES = {
 			'preserve_aspect': True,
 			'alpha': False,
 		},
+		'article': {
+			'size': (696, 2000),
+			'quality': 70,
+			'preserve_aspect': True,
+		},
 		'attachment_browser': {
 			'size': (256, 256),
 			'quality': 60,
