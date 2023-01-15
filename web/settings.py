@@ -285,6 +285,39 @@ TINYMCE_EXTRA_MEDIA = {
 	'js': ['/static/js/tinymce_filebrowser.js']
 }
 
+SOURCE_CODE_LEXERS = [
+	('c', "C"),
+	('cmake', "CMake"),
+	('common-lisp', "Common Lisp"),
+	('cpp', "C++"),
+	('csharp', "C#"),
+	('css', "CSS"),
+	('d', "D"),
+	('django', "Django/Jinja"),
+	('docker', "Docker"),
+	('glsl', "GLSL"),
+	('go', "Go"),
+	('haskell', "Haskell"),
+	('html', "HTML"),
+	('html+django', "HTML+Django/Jinja"),
+	('java', "Java"),
+	('javascript', "JavaScript"),
+	('json', "JSON"),
+	('lua', "Lua"),
+	('make', "Makefile"),
+	('mysql', "MySQL"),
+	('php', "PHP"),
+	('plpgsql', "PL/pgSQL"),
+	('postgresql', "PostgreSQL SQL dialect"),
+	('python', "Python"),
+	('ruby', "Ruby"),
+	('sh', "Bash"),
+	('sql', "SQL"),
+	('tex', "TeX"),
+	('toml', "TOML"),
+	('xml', "XML"),
+]
+
 TINYMCE_CONFIGS = {
 	'basic': {
 		'plugins': 'lists,link,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,paste,code,help,wordcount',
@@ -296,9 +329,8 @@ TINYMCE_CONFIGS = {
 		'menubar': True,
 		'style_formats': [
 			{'title': 'Source ocde', 'items': [
-				{'title': lexer[0], 'block': 'pre', 'classes': [f'code-{lexer[1][0]}']}
-				for lexer in pygments.lexers.get_all_lexers()
-				if lexer[1]
+				{'title': name, 'block': 'pre', 'classes': [f'code-{code}']}
+				for code, name in SOURCE_CODE_LEXERS
 			]},
 		],
 		'style_formats_merge': True,
