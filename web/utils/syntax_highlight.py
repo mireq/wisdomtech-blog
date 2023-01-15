@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 import logging
 import operator
-import sys
 import re
+import sys
 from builtins import chr as chr_
 from collections import namedtuple
 from html.entities import entitydefs
@@ -23,7 +23,7 @@ LEXERS = {}
 ENTITY_PATTERN = re.compile(r'&(\w+?);')
 DECIMAL_ENTITY_PATTERN = re.compile(r'&\#(\d+?);')
 
-AdditionalTag = namedtuple('AdditionalTag', ['action', 'pos', 'elem'])
+AdditionalTag = namedtuple('AdditionalTag', ['action', 'pos', 'elem', 'text'])
 pattern = re.compile(r'&(\w+?);')
 dec_pattern = re.compile(r'&\#(\d+?);')
 
@@ -70,14 +70,21 @@ def html_split_text_and_tags(code):
 		context = etree.iterparse(fp, events=('start', 'end'), html=True, remove_comments=True, remove_pis=True)
 		for action, elem in context:
 
+			if elem.tag.lower() == 'br':
+				if action == 'end':
+					text.write('\n')
+					text.write(elem.tail or '')
+					elem.clear()
+				continue
+
 			if action == 'start':
 				if elem.tag not in ignore_tags:
-					additional_tags.append(AdditionalTag(action, text.tell(), elem))
+					additional_tags.append(AdditionalTag(action, text.tell(), elem, elem.text))
 				text.write(elem.text or '')
 
 			if action == 'end':
 				if elem.tag not in ignore_tags:
-					additional_tags.append(AdditionalTag(action, text.tell(), elem))
+					additional_tags.append(AdditionalTag(action, text.tell(), elem, elem.text))
 				text.write(elem.tail or '')
 				elem.clear()
 
@@ -128,6 +135,7 @@ class HtmlMarkupMerge(object):
 			fp = BytesIO(f'<pre>{code}</pre>'.encode('utf-8'))
 			ignore_tags = {'html', 'body'}
 			context = etree.iterparse(fp, events=('start', 'end'), html=True, remove_comments=True, remove_pis=True)
+
 			for action, elem in context:
 
 				if elem.tag in ignore_tags: # Don't include html / body
@@ -184,10 +192,13 @@ class HtmlMarkupMerge(object):
 				self.xf.write(begin)
 				self.text_pos += len(begin)
 				self.next_additional_tag_index += 1
-				if next_tag.action == 'start':
-					self.push_tag(next_tag.elem)
-				elif next_tag.action == 'end':
-					self.pop_tag(next_tag.elem)
+				if next_tag.action == 'start' and next_tag.text is None:
+					self.xf.write(next_tag.elem)
+				else:
+					if next_tag.action == 'start':
+						self.push_tag(next_tag.elem)
+					elif next_tag.action == 'end':
+						self.pop_tag(next_tag.elem)
 
 
 def format_code(code, lang):
