@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django_attachments.fields import LibraryField, GalleryField
 from django_autoslugfield import AutoSlugField
@@ -88,6 +89,10 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 
 	def __str__(self):
 		return '%s' % self.fast_translation_getter('title')
+
+	def get_absolute_url(self):
+		slug = self.fast_translation_getter('slug')
+		return reverse('blog:post_detail', kwargs={'slug': slug, 'pk': self.pk})
 
 	class Meta:
 		verbose_name = _("Blog post")

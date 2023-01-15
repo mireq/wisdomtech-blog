@@ -16,6 +16,10 @@ class ListView(CursorPaginateMixin, generic.ListView):
 	pass
 
 
+class DetailView(generic.DetailView):
+	pass
+
+
 class AttachmentListAndUploadView(PermissionRequiredMixin, generic.ListView):
 	"""
 	View used to list and uplaod libraries

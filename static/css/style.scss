@@ -601,6 +601,10 @@ div.table {
 .articles {
 	$self: &;
 
+	h2 a {
+		text-decoration: none;
+	}
+
 	title, address {
 		display: inline;
 	}
