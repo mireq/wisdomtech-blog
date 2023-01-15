@@ -19,10 +19,14 @@ def process_content(content: str):
 	from lxml import etree
 	import lxml.html
 
-	try:
-		tree = lxml.html.fromstring(content)
-	except etree.ParserError:
-		return content
+	fragments = lxml.html.fragments_fromstring(content)
+	tree = lxml.html.Element('div')
+	for fragment in fragments:
+		if isinstance(fragment, str):
+			tree.text = fragment
+		else:
+			tree.append(fragment)
+
 	for action, element in etree.iterwalk(tree):
 		if element.tag == 'pre' and action == 'end':
 			cls = element.attrib.get('class', '').split()
