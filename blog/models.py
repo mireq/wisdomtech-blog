@@ -94,6 +94,13 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 		slug = self.fast_translation_getter('slug')
 		return reverse('blog:post_detail', kwargs={'slug': slug, 'pk': self.pk})
 
+	def get_page_title(self):
+		page_title = self.fast_translation_getter('page_title')
+		if page_title:
+			return page_title
+		else:
+			return str(self)
+
 	class Meta:
 		verbose_name = _("Blog post")
 		verbose_name_plural = _("Blog posts")

@@ -21,7 +21,7 @@
 				<time datetime="{{ item.pub_time|date("Y-m-d H:i:s") }}">{{ item.pub_time|date("SHORT_DATE_FORMAT") }}</time>
 				<address><a rel="author" href="/">{{ item.author }}</a></address>
 				<h2><a href="{{ item.get_absolute_url() }}">{{ item }}</a></h2>
-				<p>{{ item.fast_translation_getter("summary")|safe }}</p>
+				<p>{{ item|translated_field("summary")|safe }}</p>
 			</div>
 			<a class="articles__link" href="{{ item.get_absolute_url() }}" title="{{ item }}"></a>
 		</article>
