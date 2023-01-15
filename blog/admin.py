@@ -17,6 +17,7 @@ class BlogPostAdmin(AttachmentsAdminMixin, TranslatableAdmin, admin.ModelAdmin):
 	fieldsets = (
 		(None, {'fields': ('title', 'slug', ('pub_time', 'is_published'), 'author', 'summary', 'perex', 'content')}),
 		(_("Files"), {'fields': ('gallery', 'attachments')}),
+		(_("SEO"), {'fields': ('page_title', "meta_description"), 'classes': ('collapse',)}),
 	)
 
 	def save_form(self, request, form, change):
