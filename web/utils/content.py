@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from utils.syntax_highlight import format_code
+from web.utils.syntax_highlight import format_code
 
 
 logger = logging.getLogger(__name__)
