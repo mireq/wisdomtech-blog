@@ -288,6 +288,7 @@ TINYMCE_EXTRA_MEDIA = {
 	'js': ['/static/js/tinymce_filebrowser.js']
 }
 
+
 SOURCE_CODE_LEXERS = [
 	('c', "C"),
 	('cmake', "CMake"),
