@@ -2,7 +2,6 @@ import re
 import sys
 from pathlib import Path
 
-import pygments.lexers
 from django.templatetags.static import static
 
 from .scss import scss_load_svg, scss_info_svg
@@ -280,6 +279,10 @@ TINYMCE_DEFAULT_CONFIG = {
 	"toolbar": "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
 	'content_css': '/static/css/tinymce.css',
 	'file_picker_types': 'file image media',
+	'image_caption': True,
+	'relative_urls': False,
+	'remove_script_host': False,
+	'convert_urls': False,
 }
 TINYMCE_EXTRA_MEDIA = {
 	'js': ['/static/js/tinymce_filebrowser.js']
@@ -328,7 +331,7 @@ TINYMCE_CONFIGS = {
 		'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullscreen | forecolor backcolor emoticons | help | code',
 		'menubar': True,
 		'style_formats': [
-			{'title': 'Source ocde', 'items': [
+			{'title': 'Source code', 'items': [
 				{'title': name, 'block': 'pre', 'classes': [f'code-{code}']}
 				for code, name in SOURCE_CODE_LEXERS
 			]},
