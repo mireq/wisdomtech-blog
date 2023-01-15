@@ -17,58 +17,7 @@ from lxml import etree
 logger = logging.getLogger(__name__)
 
 
-LEXERS = (
-	('ada', 'ADA'),
-	('apacheconf', 'ApacheConf'),
-	('awk', 'Awk'),
-	('bash', 'Bash'),
-	('csharp', 'C#'),
-	('cpp', 'C++'),
-	('c', 'C'),
-	('cmake', 'CMake'),
-	('css', 'CSS'),
-	('clojure', 'Clojure'),
-	('clojurescript', 'ClojureScript'),
-	('coffee', 'CoffeeScript'),
-	('cl', 'Common Listp'),
-	('d', 'D'),
-	('dart', 'Dart'),
-	('diff', 'Diff'),
-	('django', 'Django/Jinja'),
-	('eiffel', 'Eiffel'),
-	('erlang', 'Erlang'),
-	('fortran', 'Fortran'),
-	('glsl', 'GLSL'),
-	('go', 'Go'),
-	('groovy', 'Groovy'),
-	('html', 'HTML'),
-	('haskell', 'Haskell'),
-	('json', 'JSON'),
-	('java', 'Java'),
-	('js', 'JavaScript'),
-	('lua', 'Lua'),
-	('mak', 'Makefile'),
-	('mysql', 'MySQL'),
-	('ocaml', 'OCaml'),
-	('pas', 'Pascal'),
-	('php', 'PHP'),
-	('plsql', 'PL/pgSQL'),
-	('perl', 'Perl'),
-	('python', 'Python'),
-	('qml', 'QML'),
-	('ruby', 'Ruby'),
-	('rust', 'Rust'),
-	('scala', 'Scala'),
-	('scheme', 'Scheme'),
-	('smalltalk', 'Smalltalk'),
-	('tcl', 'Tcl'),
-	('tex', 'TeX'),
-	('ts', 'TypeScript'),
-	('xml', 'XML'),
-	('xquery', 'XQuery'),
-	('xslt', 'XSLT'),
-	('vhdl', 'vhdl'),
-)
+LEXERS = {}
 
 
 ENTITY_PATTERN = re.compile(r'&(\w+?);')
@@ -245,7 +194,12 @@ def format_code(code, lang):
 	import pygments
 	from pygments import lexers, formatters, util
 
-	if not lang in dict(LEXERS):
+	if not LEXERS:
+		for lex in pygments.lexers.get_all_lexers():
+			for shortcut in lex[1]:
+				LEXERS[shortcut] = lex[0]
+
+	if not lang in LEXERS:
 		return None
 
 	if len(code) > 200000:
