@@ -23,6 +23,7 @@
 				<h2><a href="{{ item.get_absolute_url() }}">{{ item }}</a></h2>
 				<p>{{ item.fast_translation_getter("summary")|safe }}</p>
 			</div>
+			<a class="articles__link" href="{{ item.get_absolute_url() }}" title="{{ item }}"></a>
 		</article>
 	{% endfor %}
 </section>
