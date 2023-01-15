@@ -27,27 +27,19 @@ def replace_element(element: etree.ElementBase, content: Union[etree.ElementBase
 	# if it's element, convert it to string
 	if not isinstance(content, str):
 		content = etree.tostring(content, encoding='utf-8').decode('utf-8')
-	# wrap content (needed to correctly parse it)
-	code = f'<div>{content}</div>'
-	# parse code
-	tree = None
-	try:
-		tree = lxml.html.fromstring(code)
-	except etree.ParserError:
-		return
 
-	# insert text of tree
+	fragments = lxml.html.fragments_fromstring(content)
 	previous = element.getprevious()
-	if tree.text is not None:
-		if previous is not None:
-			previous.tail = (previous.tail or '') + tree.text
+	parent = element.getparent()
+
+	for fragment in fragments:
+		if isinstance(fragment, str):
+			if previous is None:
+				parent.text = (parent.text or '') + fragment
+			else:
+				parent.tail = (parent.tail or '') + fragment
 		else:
-			parent = element.getparent()
-			parent.text = (parent.text or '') + tree.text
-	# and children
-	for child in tree.iterchildren():
-		element.addprevious(child)
-	# drop old element
+			element.addprevious(fragment)
 	element.drop_tree()
 
 
