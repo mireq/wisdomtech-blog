@@ -79,5 +79,5 @@ def process_content(content: str):
 			if language is not None:
 				replace_element(element, lambda element, lang=language: highlight_code(element, lang))
 
-	code = etree.tostring(tree, encoding='utf-8').decode('utf-8')
+	code = etree.tostring(tree, encoding='utf-8', method='html').decode('utf-8')
 	return unwrap_tag(code)[0]
