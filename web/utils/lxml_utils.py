@@ -44,7 +44,8 @@ def replace_element(element: etree.ElementBase, content: Union[etree.ElementBase
 
 
 def highlight_code(element, lang):
-	content = etree.tostring(element, encoding='utf-8').decode('utf-8')
+	content = etree.tostring(element, encoding='utf-8', method='html').decode('utf-8')
+	content = content[:content.rfind('>')+1]
 	content, tag_begin, tag_end = unwrap_tag(content)
 	try:
 		code = format_code(content, lang)
