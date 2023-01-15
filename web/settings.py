@@ -336,6 +336,18 @@ TINYMCE_CONFIGS = {
 				for code, name in SOURCE_CODE_LEXERS
 			]},
 		],
+		'formats': {
+			'alignleft': [
+				{'selector': 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,span,article', 'styles': {'textAlign': 'left'}},
+				{'selector': 'img,table', 'classes': 'u-float-left'},
+				{'selector': 'figure', 'collapsed': False, 'classes': 'u-float-left', 'ceFalseOverride': True }
+			],
+			'alignright': [
+				{'selector': 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,span,article', 'styles': {'textAlign': 'right'}},
+				{'selector': 'img,table', 'classes': 'u-float-right'},
+				{'selector': 'figure', 'collapsed': False, 'classes': 'u-float-right', 'ceFalseOverride': True }
+			],
+		},
 		'style_formats_merge': True,
 	}
 }
