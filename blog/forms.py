@@ -16,6 +16,7 @@ class BlogPostForm(TranslatableModelForm):
 		if self.instance and self.instance.pk:
 			url = reverse('blog:post_attachments', kwargs={'pk': self.instance.pk})
 			self.fields['content'].widget.set_edit_url(url)
+		self.fields['author'].required = False
 
 	def save(self, commit=True):
 		obj = super().save(commit=False)
