@@ -18,7 +18,7 @@ class UserAdmin(AttachmentsAdminMixin, TranslatableAdmin, BaseUserAdmin):
 			fieldsets += (
 				(_("Info"), {'fields': ('subtitle', 'short_description', 'description',)}),
 				(_("SEO"), {'fields': ('page_title', "meta_description"), 'classes': ('collapse',)}),
-				(_("Files"), {'fields': ('gallery')}),
+				(_("Files"), {'fields': ('gallery',)}),
 			)
 		return fieldsets
 
