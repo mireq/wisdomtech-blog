@@ -339,8 +339,12 @@ TINYMCE_CONFIGS = {
 		'toolbar': 'undo redo | bold italic | bullist numlist outdent indent | removeformat | help | code',
 	},
 	'content': {
-		'plugins': 'advlist autolink link image lists charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking table emoticons template paste help',
+		'plugins': 'advlist autolink link image lists charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking table emoticons template paste language help',
 		'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullscreen | forecolor backcolor emoticons | help | code',
+		'content_langs': [
+			{'title': title, 'code': code}
+			for code, title in LANGUAGES
+		],
 		'menubar': True,
 		'style_formats': [
 			{'title': 'Source code', 'items': [
