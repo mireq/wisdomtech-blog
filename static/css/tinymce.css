@@ -704,3 +704,11 @@ h1 {
   position: relative;
   margin-right: -2rem;
   left: 1rem; }
+
+@media screen and (min-width: 800px) {
+  .table.table--wide {
+    width: 100vw;
+    max-width: calc(min(1200px, 100vw - 4rem));
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: relative; } }
