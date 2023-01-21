@@ -294,6 +294,21 @@ TINYMCE_DEFAULT_CONFIG = {
 		{'title': "Default", 'value': None},
 		{'title': "Gallery", 'value': 'gallery'},
 	],
+	'content_langs': [
+		{'title': title, 'code': code}
+		for code, title in LANGUAGES
+	],
+	'table_appearance_options': False,
+	'table_default_attributes': {},
+	'table_default_styles': {},
+	'table_class_list': [
+		{'title': 'None', 'value': 'table'},
+		{'title': 'Wide', 'value': 'table table--wide'},
+	],
+	'table_column_resizing': 'preservetable',
+	'table_header_type': 'section',
+	'table_sizing_mode': 'responsive',
+
 }
 TINYMCE_EXTRA_MEDIA = {
 	'js': ['/static/js/tinymce_filebrowser.js']
@@ -341,10 +356,6 @@ TINYMCE_CONFIGS = {
 	'content': {
 		'plugins': 'advlist autolink link image lists charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking table emoticons template paste language help',
 		'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullscreen | forecolor backcolor emoticons | help | code',
-		'content_langs': [
-			{'title': title, 'code': code}
-			for code, title in LANGUAGES
-		],
 		'menubar': True,
 		'style_formats': [
 			{'title': 'Source code', 'items': [
