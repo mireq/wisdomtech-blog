@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+from collections import namedtuple
 from copy import deepcopy
 
 from django.conf import settings
@@ -13,22 +14,20 @@ DEFAULT_SIZES = [1, 2]
 DEFAULT_FORMATS = [None, 'webp']
 
 
+ThumbnailInfo = namedtuple('ThumbnailInfo', ['thumbnail', 'url', 'size', 'size_hint', 'format'])
+
+
 def get_thumbnail_alias_options(alias):
 	return deepcopy(settings.THUMBNAIL_ALIASES[''][alias])
 
 
-def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
+def generate_thumbnails(source, alias, sizes=None, size_attrs=None):
 	if not source:
-		return ''
+		return []
 
 	thumbnail_options = get_thumbnail_alias_options(alias)
 	if thumbnail_options.get('preserve_aspect') and thumbnail_options.get('size'):
 		thumbnail_options['preserve_aspect'] = thumbnail_options['size']
-
-	if isinstance(attrs, dict):
-		attrs = [f'{escape_html(key)}="{escape_html(val)}"' for key, val in attrs.items()]
-		attrs = ' '.join(attrs)
-	attrs = mark_safe(' ' + attrs if attrs else '')
 
 	size_attrs = size_attrs or {}
 	size_attrs_offset = 0
@@ -76,10 +75,8 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
 
 	# index to remove duplicated images if source size is lower
 	generated_images = set()
-	webp_srcs = []
-	img_srcs = []
-	img_src = ''
 	has_alpha = False
+	thumbnail_instances = []
 
 	for props, options in thumbnails.items():
 		output_format, size = props
@@ -92,12 +89,6 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
 		__, ext = os.path.splitext(thumbnail.name)
 		if ext == '.png':
 			has_alpha = True
-		if output_format is None and size == 1:
-			img_src = thumbnail.url
-		if has_absolute:
-			size_hint = f'{thumbnail.width}w'
-		else:
-			size_hint = f'{size}x'
 
 		# check duplicates
 		thumbnail_key = (output_format, thumbnail.width)
@@ -106,21 +97,51 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
 			continue
 		generated_images.add(thumbnail_key)
 
-		if output_format == 'webp':
-			webp_srcs.append(f'{thumbnail.url} {size_hint}')
+		thumbnail_instances.append(ThumbnailInfo(
+			thumbnail,
+			thumbnail.url,
+			(thumbnail.width, thumbnail.height),
+			f'{thumbnail.width}w' if has_absolute else f'{size}x',
+			output_format,
+		))
+
+	return thumbnail_instances
+
+
+def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
+	thumbnails = generate_thumbnails(source, alias, sizes, size_attrs)
+	if not thumbnails:
+		return ''
+
+	first = thumbnails[0]
+
+	if isinstance(attrs, dict):
+		attrs = attrs.copy()
+		attrs.setdefault('width', str(first.size[0]))
+		attrs.setdefault('height', str(first.size[1]))
+		attrs = [f'{escape_html(key)}="{escape_html(val)}"' for key, val in attrs.items()]
+		attrs = ' '.join(attrs)
+	attrs = mark_safe(' ' + attrs if attrs else '')
+
+	img_srcs = []
+	webp_srcs = []
+
+	for thumbnail in thumbnails:
+		if thumbnail.format == 'webp':
+			webp_srcs.append(f'{thumbnail.url} {thumbnail.size_hint}')
 		else:
-			img_srcs.append(f'{thumbnail.url} {size_hint}')
+			img_srcs.append(f'{thumbnail.url} {thumbnail.size_hint}')
 
 	webp_srcs = ', '.join(webp_srcs)
 	img_srcs = ', '.join(img_srcs)
 	if img_srcs:
 		img_srcs = format_html(' srcset="{}"', img_srcs)
+	img_src = first.url
 
 	if webp_srcs:
 		return format_html('<picture><source type="image/webp" srcset="{}"><img src="{}"{}{}></picture>', webp_srcs, img_src, img_srcs, attrs)
 	else:
 		return format_html('<img src="{}"{}{}>', img_src, img_srcs, attrs)
-
 
 
 library.global_function(thumbnail_tag)
