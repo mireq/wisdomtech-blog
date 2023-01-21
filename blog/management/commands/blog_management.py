@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from django.core.management import BaseCommand, CommandParser
 
 from ...models import BlogPost
@@ -6,6 +8,7 @@ from web.utils.content import process_content
 
 
 BlogPostTranslation = BlogPost._parler_meta.root_model
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -27,6 +30,10 @@ class Command(BaseCommand):
 	def preprocess_content(self, *args, **kwargs):
 		for trans in BlogPostTranslation.objects.all():
 			old_content = trans.processed_content
-			new_content = process_content(trans.content)
+			try:
+				new_content = process_content(trans.content)
+			except Exception:
+				logger.exception("Content cannot be processed")
+				continue
 			if old_content != new_content:
 				BlogPostTranslation.objects.filter(pk=trans.pk).update(processed_content=new_content)
