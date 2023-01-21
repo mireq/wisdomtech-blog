@@ -11,9 +11,9 @@
 			<div class="articles__image">
 				{% if item.gallery and item.gallery.primary_attachment %}
 					{% if loop.first and not page_obj.has_previous() %}
-						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list_first", attrs={"alt": item, "width": "828", "height": "569"}, sizes=["328px", "496px", "656px", "984px", "1656px"], size_attrs={'quality': [60, 60, 60, 50, 20]}) }}
+						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list_first", attrs={"alt": item}, sizes=["328px", "496px", "656px", "984px", "1656px"], size_attrs={'quality': [60, 60, 60, 50, 20]}) }}
 					{% else %}
-						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list", attrs={"alt": item, "loading": "lazy", "width": "561", "height": "385"}, sizes=["328px", "496px", "656px", "984px", "1122px"], size_attrs={'quality': [60, 60, 60, 50, 30]}) }}
+						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list", attrs={"alt": item, "loading": "lazy"}, sizes=["328px", "496px", "656px", "984px", "1122px"], size_attrs={'quality': [60, 60, 60, 50, 30]}) }}
 					{% endif %}
 				{% endif %}
 			</div>
