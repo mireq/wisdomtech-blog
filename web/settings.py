@@ -290,6 +290,10 @@ TINYMCE_DEFAULT_CONFIG = {
 	'relative_urls': False,
 	'remove_script_host': False,
 	'convert_urls': False,
+	'rel_list': [
+		{'title': "Default", 'value': None},
+		{'title': "Gallery", 'value': 'gallery'},
+	],
 }
 TINYMCE_EXTRA_MEDIA = {
 	'js': ['/static/js/tinymce_filebrowser.js']
