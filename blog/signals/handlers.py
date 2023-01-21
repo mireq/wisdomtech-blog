@@ -15,4 +15,4 @@ BlogPostTranslation = BlogPost._parler_meta.root_model
 def blog_post_pre_save(sender, instance: BlogPostTranslation, **kwargs): # pylint: disable=unused-argument
 	content = instance.content
 	content = re.sub(r'\r\n', '\n', content)
-	instance.processed_content = process_content(content)
+	instance.processed_content = process_content(content, instance.language_code)

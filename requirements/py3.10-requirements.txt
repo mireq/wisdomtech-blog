@@ -21,13 +21,14 @@ easy-thumbnails==2.8.5    # via -r requirements.in, django-attachments-managemen
 jinja2==3.1.2             # via -r requirements.in, django-jinja
 libsass==0.22.0           # via -r requirements.in, django-libsass
 lxml==4.9.2               # via -r requirements.in
-markupsafe==2.1.1         # via jinja2
+markupsafe==2.1.2         # via jinja2
 model-bakery==1.9.0       # via -r requirements.in
 packaging==23.0           # via build
 pillow==9.4.0             # via easy-thumbnails
 pip-tools==6.12.1         # via -r requirements.in
 psycopg2-binary==2.9.5    # via -r requirements.in
 pygments==2.14.0          # via -r requirements.in
+pyphen==0.13.2            # via -r requirements.in
 pyproject-hooks==1.0.0    # via build
 rcssmin==1.1.1            # via django-compressor
 rjsmin==1.2.1             # via django-compressor

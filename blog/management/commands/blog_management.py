@@ -31,7 +31,7 @@ class Command(BaseCommand):
 		for trans in BlogPostTranslation.objects.all():
 			old_content = trans.processed_content
 			try:
-				new_content = process_content(trans.content)
+				new_content = process_content(trans.content, trans.language_code)
 			except Exception:
 				logger.exception("Content cannot be processed")
 				continue
