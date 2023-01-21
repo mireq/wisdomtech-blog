@@ -75,7 +75,7 @@ def make_thumbnails(element):
 			field_file = FieldFile(instance=None, field=field, name=image_path)
 			field_file.file = fp
 
-			thumbnails = generate_thumbnails(field_file, 'article', sizes=['328px', '496px', '656px', '1044px', '1392px'], size_attrs={'quality': [60, 60, 60, 50, 40]})
+			thumbnails = generate_thumbnails(field_file, 'article')
 			if not thumbnails:
 				return element
 

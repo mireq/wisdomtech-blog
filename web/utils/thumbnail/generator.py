@@ -25,6 +25,13 @@ def generate_thumbnails(source, alias, sizes=None, size_attrs=None):
 	if thumbnail_options.get('preserve_aspect') and thumbnail_options.get('size'):
 		thumbnail_options['preserve_aspect'] = thumbnail_options['size']
 
+	thumbnail_sizes = thumbnail_options.pop('sizes', None)
+	thumbnail_size_attrs = thumbnail_options.pop('size_attrs', None)
+	if sizes is None:
+		sizes = thumbnail_sizes
+	if size_attrs is None:
+		size_attrs = thumbnail_size_attrs
+
 	size_attrs = size_attrs or {}
 	size_attrs_offset = 0
 	sizes = DEFAULT_SIZES if sizes is None else sizes
