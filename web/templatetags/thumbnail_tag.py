@@ -22,6 +22,8 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
 		return ''
 
 	thumbnail_options = get_thumbnail_alias_options(alias)
+	if thumbnail_options.get('preserve_aspect') and thumbnail_options.get('size'):
+		thumbnail_options['preserve_aspect'] = thumbnail_options['size']
 
 	if isinstance(attrs, dict):
 		attrs = [f'{escape_html(key)}="{escape_html(val)}"' for key, val in attrs.items()]
@@ -100,7 +102,7 @@ def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
 		# check duplicates
 		thumbnail_key = (output_format, thumbnail.width)
 		# check presence, there can be a rounding error
-		if thumbnail_key in generated_images or (output_format, thumbnail.width + 1) in generated_images or (output_format, thumbnail.width - 1) in generated_images:
+		if thumbnail_key in generated_images:
 			continue
 		generated_images.add(thumbnail_key)
 

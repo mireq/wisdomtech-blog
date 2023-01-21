@@ -129,10 +129,10 @@ def scale_and_crop(im, size, crop=False, upscale=False, zoom=None, target=None, 
 
 		# preserve ratio for smaller images
 		if preserve_aspect and (target_x > source_x or target_y > source_y):
-			if target_y / source_y > target_x / source_x:
-				diff_x = source_x - ((source_y * target_x) // target_y)
+			if preserve_aspect[1] / source_y > preserve_aspect[0] / source_x:
+				diff_x = source_x - ((source_y * preserve_aspect[0]) // preserve_aspect[1])
 			else:
-				diff_y = source_y - ((source_x * target_y) // target_x)
+				diff_y = source_y - ((source_x * preserve_aspect[1]) // preserve_aspect[0])
 
 		if crop != 'scale' and (diff_x or diff_y):
 			if isinstance(target, str):
