@@ -135,6 +135,10 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 		verbose_name=_("Blog tags"),
 		blank=True,
 	)
+	words = models.IntegerField(
+		verbose_name=_("Number of words"),
+		default=0
+	)
 
 	translations = TranslatedFields(
 		title=models.CharField(
