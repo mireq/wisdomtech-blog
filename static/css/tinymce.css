@@ -693,6 +693,35 @@ body {
 h1 {
   margin-top: 1rem; }
 
+pre {
+  position: relative; }
+  pre.u-nowrap {
+    border-radius: 0px; }
+    pre.u-nowrap::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 0px;
+      height: 0px;
+      border-top: 0px solid transparent;
+      border-bottom: 19px solid transparent;
+      border-right: 19px solid #af005f;
+      position: absolute; }
+  pre[class*="code-"]::before {
+    content: attr(class);
+    display: block;
+    color: #fff;
+    background: #af005f;
+    font-size: 85%;
+    border-radius: 3px;
+    padding: .25em 0.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: auto;
+    width: min-content;
+    margin-bottom: .5em; }
+
 .u-float-left {
   float: left;
   position: relative;
