@@ -659,6 +659,19 @@ sub {
 	}
 }
 
+.pagination {
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: .5rem 0;
+		padding: .5rem 0;
+		@extend %clearfix;
+	}
+	a {
+		text-decoration: none;
+	}
+}
+
 @mixin palette($palette, $html: false) {
 	$font-color: map-get($palette, "font-body");
 	$background-color: map-get($palette, "background-body");
@@ -726,6 +739,10 @@ sub {
 		box-shadow:
 			0 8px 0 0 $font-color,
 			0 16px 0 0 $font-color;
+	}
+
+	.pagination ul {
+		border-top: 1px solid map-get($palette, "border-light");
 	}
 
 	@include medium-screen {
@@ -857,6 +874,17 @@ body.no-animate * {
 
 	#main_menu_visible:checked ~ .page-overlay {
 		visibility: hidden;
+	}
+
+	.pagination {
+		&__item {
+			&--previous {
+				float: left;
+			}
+			&--next {
+				float: right;
+			}
+		}
 	}
 }
 
