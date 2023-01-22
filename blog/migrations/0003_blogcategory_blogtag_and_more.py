@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
 		migrations.AddField(
 			model_name='blogposttranslation',
 			name='words',
-			field=models.IntegerField(default=0),
+			field=models.IntegerField(default=0, editable=False),
 		),
 		migrations.AddField(
 			model_name='blogpost',

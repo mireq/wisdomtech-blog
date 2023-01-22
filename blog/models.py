@@ -176,7 +176,8 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 		),
 		words = models.IntegerField(
 			verbose_name=_("Number of words"),
-			default=0
+			default=0,
+			editable=False
 		),
 		meta = {'unique_together': [('language_code', 'slug'),]},
 	)
