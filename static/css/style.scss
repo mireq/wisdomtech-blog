@@ -165,6 +165,7 @@ pre {
 	font-weight: 500;
 	tab-size: 2;
 	white-space: pre-wrap;
+	overflow-x: scroll;
 
 	strong {
 		background: #00f;
@@ -231,6 +232,9 @@ a {
 }
 .u-align-right {
 	text-align: right;
+}
+.u-nowrap {
+	white-space: pre;
 }
 .u-hidden-checkbox {
 	z-index: -1;

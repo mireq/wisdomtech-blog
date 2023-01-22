@@ -261,6 +261,7 @@ pre {
   border-radius: 6px;
   font-weight: 500;
   tab-size: 2;
+  white-space: pre-wrap;
   overflow-x: scroll; }
   pre strong {
     background: #00f;
@@ -311,6 +312,9 @@ a {
 
 .u-align-right {
   text-align: right; }
+
+.u-nowrap {
+  white-space: pre; }
 
 .u-hidden-checkbox {
   z-index: -1;

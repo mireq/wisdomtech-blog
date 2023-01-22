@@ -366,7 +366,8 @@ TINYMCE_CONFIGS = {
 				{'title': name, 'block': 'pre', 'classes': [f'code-{code}']}
 				for code, name in SOURCE_CODE_LEXERS
 			]},
-			{'title': pgettext_lazy('style', "Wide"), 'format': 'pre_wide', 'selector': 'table,pre'},
+			{'title': pgettext_lazy('style', "Wide"), 'format': 'wide'},
+			{'title': pgettext_lazy('style', "Don't wrap code"), 'format': 'pre_no_wrap'},
 		],
 		'formats': {
 			'alignleft': [
@@ -379,7 +380,8 @@ TINYMCE_CONFIGS = {
 				{'selector': 'img,table', 'classes': 'u-float-right'},
 				{'selector': 'figure', 'collapsed': False, 'classes': 'u-float-right', 'ceFalseOverride': True }
 			],
-			'pre_wide': { 'selector': 'table,pre', 'attributes': {'title': pgettext_lazy('style', "Wide")} , 'classes': 'u-wide'},
+			'wide': {'selector': 'table,pre', 'attributes': {'title': pgettext_lazy('style', "Wide")}, 'classes': 'u-wide'},
+			'pre_no_wrap': {'selector': 'pre', 'attributes': {'title': pgettext_lazy('style', "Don't wrap code")}, 'classes': 'u-nowrap'},
 		},
 		'style_formats_merge': True,
 	}
