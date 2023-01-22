@@ -135,10 +135,6 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 		verbose_name=_("Blog tags"),
 		blank=True,
 	)
-	words = models.IntegerField(
-		verbose_name=_("Number of words"),
-		default=0
-	)
 
 	translations = TranslatedFields(
 		title=models.CharField(
@@ -177,6 +173,10 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 		meta_description=models.TextField(
 			_("Meta description"),
 			blank=True
+		),
+		words = models.IntegerField(
+			verbose_name=_("Number of words"),
+			default=0
 		),
 		meta = {'unique_together': [('language_code', 'slug'),]},
 	)
