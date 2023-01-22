@@ -329,48 +329,56 @@ header {
 	font-family: $font-menu;
 	font-weight: bold;
 
-	ul {
-		padding: 80px 0 0 0;
-		margin: 0;
-		list-style: none;
-		font-size: 1.5rem;
-		overflow-y: auto;
+
+	nav {
+		max-width: $max-width;
+		padding: 1rem;
+		margin: 0 auto;
+		border-bottom: 1px solid;
+	}
+}
+
+.main-menu {
+	padding: 80px 0 0 0;
+	margin: 0;
+	list-style: none;
+	font-size: 1.5rem;
+	overflow-y: auto;
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 1000;
+	max-width: 14rem;
+	transform: translateX(14rem);
+
+	visibility: hidden;
+	transition: visibility 0.3s linear, transform 0.3s ease;
+	@extend %large-shadow;
+	label {
+		cursor: pointer;
+		display: block;
+		text-transform: uppercase;
+		box-sizing: content-box;
+		height: 40px;
+		line-height: 40px;
+		text-align: right;
+		font-weight: bold;
+		padding: 1rem;
 		position: fixed;
+		width: auto;
+		max-width: 14rem;
 		top: 0;
 		right: 0;
-		height: 100%;
-		width: 100%;
-		z-index: 1000;
-		max-width: 14rem;
-		transform: translateX(14rem);
-
-		visibility: hidden;
-		transition: visibility 0.3s linear, transform 0.3s ease;
-		@extend %large-shadow;
-		label {
-			cursor: pointer;
-			display: block;
-			text-transform: uppercase;
-			box-sizing: content-box;
-			height: 40px;
-			line-height: 40px;
-			text-align: right;
-			font-weight: bold;
-			padding: 1rem;
-			position: fixed;
-			width: auto;
-			max-width: 14rem;
-			top: 0;
-			right: 0;
-			left: 0;
-			vertical-align: middle;
-			background: map-get($palette-light, "link-hover-background");
-			color: map-get($palette-light, "link-hover");
-			&:before {
-				content: '>';
-				float: left;
-				font-weight: normal;
-			}
+		left: 0;
+		vertical-align: middle;
+		background: map-get($palette-light, "link-hover-background");
+		color: map-get($palette-light, "link-hover");
+		&:before {
+			content: '>';
+			float: left;
+			font-weight: normal;
 		}
 	}
 
@@ -381,15 +389,8 @@ header {
 		text-align: right;
 		font-weight: bold;
 	}
-
-
-	nav {
-		max-width: $max-width;
-		padding: 1rem;
-		margin: 0 auto;
-		border-bottom: 1px solid;
-	}
 }
+
 
 hr {
 	text-align: center;
@@ -700,17 +701,17 @@ sub {
 		}
 	}
 	header {
-		ul {
-			background-color: map-get($palette, "background-body");
-			label {
-				border-bottom: 1px solid map-get($palette, "background-body");
-			}
+		nav {
+			border-color: map-get($palette, "border-light");
+		}
+	}
+	.main-menu {
+		background-color: map-get($palette, "background-body");
+		label {
+			border-bottom: 1px solid map-get($palette, "background-body");
 		}
 		a {
 			color: $font-color;
-		}
-		nav {
-			border-color: map-get($palette, "border-light");
 		}
 	}
 	hr {
@@ -829,23 +830,24 @@ body.no-animate * {
 	}
 
 	header {
-		ul {
-			padding: 0;
-			margin: -1rem -1rem 0 0;
-			position: static;
-			float: right;
-			z-index: unset;
-			box-shadow: none;
-			transition: none;
-			transform: none;
-			visibility: visible;
-			max-width: unset;
-			overflow: visible;
-			width: auto;
+		nav {
+			padding: 1rem 2rem;
 		}
-		li:first-child {
-			display: none;
-		}
+	}
+
+	.main-menu {
+		padding: 0;
+		margin: -1rem -1rem 0 0;
+		position: static;
+		float: right;
+		z-index: unset;
+		box-shadow: none;
+		transition: none;
+		transform: none;
+		visibility: visible;
+		max-width: unset;
+		overflow: visible;
+		width: auto;
 		li {
 			text-align: left;
 			display: inline-block;
@@ -857,9 +859,8 @@ body.no-animate * {
 				padding: 1rem;
 			}
 		}
-
-		nav {
-			padding: 1rem 2rem;
+		li:first-child {
+			display: none;
 		}
 	}
 
