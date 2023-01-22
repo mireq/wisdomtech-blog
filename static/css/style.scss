@@ -583,10 +583,6 @@ sub {
 	backdrop-filter: blur(1px);
 }
 
-div.table {
-	overflow-x: auto;
-}
-
 #main_menu_visible:checked ~ header {
 	ul {
 		transform: translateX(0);
@@ -880,7 +876,7 @@ body.no-animate * {
 	}
 
 
-	.table.table--wide {
+	.u-wide {
 		width: 100vw;
 		max-width: calc(min(1200px, 100vw - 4rem));
 		margin-left: 50%;

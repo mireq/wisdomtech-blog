@@ -339,8 +339,8 @@ TINYMCE_DEFAULT_CONFIG = {
 	'table_default_attributes': {},
 	'table_default_styles': {},
 	'table_class_list': [
-		{'title': 'None', 'value': 'table'},
-		{'title': 'Wide', 'value': 'table table--wide'},
+		{'title': 'None', 'value': ''},
+		{'title': 'Wide', 'value': 'u-wide'},
 	],
 	'table_column_resizing': 'preservetable',
 	'table_header_type': 'section',
