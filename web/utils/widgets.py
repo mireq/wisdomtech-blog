@@ -1,8 +1,20 @@
 # -*- coding: utf-8 -*-
+from collections.abc import Collection, Mapping
+from copy import deepcopy
 from typing import Iterable, Union, Optional
 
 from django.conf import settings
+from django.utils.functional import Promise
 from tinymce.widgets import TinyMCE
+
+
+def recursive_map(val, fn):
+	if isinstance(val, Mapping):
+		return type(val)({k: recursive_map(v, fn) for k, v in val.items()})
+	elif isinstance(val, Collection) and not isinstance(val, str) and not isinstance(val, Promise):
+		return type(val)(recursive_map(v, fn) for v in val)
+	else:
+		return fn(val)
 
 
 class RichTextWidget(TinyMCE):
@@ -30,3 +42,8 @@ class RichTextWidget(TinyMCE):
 		self.mce_attrs['file_picker_callback'] = 'attachments_filebrowser'
 		self.mce_attrs['images_upload_handler'] = 'attachments_upload_handler'
 		self.mce_attrs['images_upload_url'] = url
+
+	def get_mce_config(self, *args, **kwargs):
+		config = deepcopy(super().get_mce_config(*args, **kwargs))
+		config = recursive_map(config, lambda v: str(v) if isinstance(v, Promise) else v)
+		return config
