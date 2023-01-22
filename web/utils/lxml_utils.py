@@ -86,6 +86,7 @@ def make_thumbnails(element):
 			img_attrs['height'] = str(first.size[1])
 			img_attrs['src'] = str(first.url)
 			img_attrs['loading'] = 'lazy'
+			img_attrs['data-original-image'] = field_file.url
 
 			img_srcs = []
 			webp_srcs = []
