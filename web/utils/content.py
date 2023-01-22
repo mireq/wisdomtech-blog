@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 import re
+from io import StringIO
 from typing import Tuple
 
 
 HYPHENATE_TAGS_INCLUDE = {'p', 'td', 'th', 'figcaption', 'ul', 'ol', 'dl', 'blockquote'}
 HYPHENATE_TAGS_EXCLUDE = {'code', 'pre'}
 WORD_SPLIT_RX = re.compile(r'(\w+)')
+BLOCK_ELEMENTS = {'address', 'article', 'aside', 'blockquote', 'details', 'dialog', 'dd', 'div', 'dl', 'dt', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1>, <h2>, <h3>, <h4>, <h5>, <h6', 'header', 'hgroup', 'hr', 'li', 'main', 'nav', 'ol', 'p', 'pre', 'section', 'table', 'ul'}
 
 
 def unwrap_tag(content) -> Tuple[str, str, str]:
@@ -33,6 +35,9 @@ def process_content(content: str, language_code: str):
 	from lxml import etree
 	import lxml.html
 	import pyphen
+
+	# dos to unix
+	content = re.sub(r'\r\n', '\n', content)
 
 	dictionaries = {}
 
@@ -78,3 +83,27 @@ def process_content(content: str, language_code: str):
 
 	code = etree.tostring(tree, encoding='utf-8', method='html').decode('utf-8')
 	return unwrap_tag(code)[0]
+
+
+def count_words(content: str) -> int:
+	from lxml import etree
+	import lxml.html
+
+	text = StringIO()
+
+	fragments = lxml.html.fragments_fromstring(content)
+	for fragment in fragments:
+		if isinstance(fragment, str):
+			text.write(fragment)
+		else:
+			for __, element in etree.iterwalk(fragment, events=['end']):
+				if element.tag in BLOCK_ELEMENTS:
+					text.write(' ')
+				if element.text:
+					text.write(element.text)
+				if element.tag in BLOCK_ELEMENTS:
+					text.write(' ')
+				if element.tail:
+					text.write(element.tail)
+
+	return len(text.getvalue().strip().split())

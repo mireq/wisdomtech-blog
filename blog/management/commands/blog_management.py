@@ -4,7 +4,7 @@ import logging
 from django.core.management import BaseCommand, CommandParser
 
 from ...models import BlogPost
-from web.utils.content import process_content
+from web.utils.content import process_content, count_words
 
 
 BlogPostTranslation = BlogPost._parler_meta.root_model
@@ -32,8 +32,11 @@ class Command(BaseCommand):
 			old_content = trans.processed_content
 			try:
 				new_content = process_content(trans.content, trans.language_code)
+				new_words = count_words(trans.content)
 			except Exception:
 				logger.exception("Content cannot be processed")
 				continue
-			if old_content != new_content:
-				BlogPostTranslation.objects.filter(pk=trans.pk).update(processed_content=new_content)
+			if old_content != new_content or trans.words != new_words:
+				(BlogPostTranslation.objects
+					.filter(pk=trans.pk)
+					.update(processed_content=new_content, words=new_words))
