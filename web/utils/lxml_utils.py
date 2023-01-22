@@ -4,6 +4,7 @@ from copy import deepcopy
 from typing import Union, Callable, Tuple
 
 import lxml.html
+from PIL import Image
 from django.conf import settings
 from django.core.files.storage import default_storage
 from django.db.models.fields.files import FieldFile
@@ -62,6 +63,14 @@ def highlight_code(element, lang):
 		return element
 
 
+def set_image_size(element, fp):
+	img = Image.open(fp)
+	size = img.size
+	img.close()
+	element.attrib['width'] = str(size[0])
+	element.attrib['height'] = str(size[1])
+
+
 def make_thumbnails(element):
 	src = element.attrib['src']
 
@@ -71,6 +80,15 @@ def make_thumbnails(element):
 	image_path = src[len(settings.MEDIA_URL):]
 	try:
 		with default_storage.open(image_path, 'rb') as fp:
+			classes = element.attrib.get('class', '').split()
+			if 'no-thumbnail' in classes:
+				try:
+					set_image_size(element, fp)
+					return element
+				except Exception:
+					logger.exception("Failed to set image size")
+					return element
+
 			field = Attachment._meta.get_field('file')
 			field_file = FieldFile(instance=None, field=field, name=image_path)
 			field_file.file = fp

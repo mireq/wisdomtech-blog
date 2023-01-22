@@ -278,43 +278,6 @@ THUMBNAIL_PROCESSORS = (
 
 THUMBNAIL_BASEDIR = 'thumbs'
 
-TINYMCE_DEFAULT_CONFIG = {
-	"theme": "silver",
-	"height": 500,
-	"menubar": False,
-	"plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
-	"toolbar": "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
-	'content_css': '/static/css/tinymce.css',
-	'file_picker_types': 'file image media',
-	'image_caption': True,
-	'relative_urls': False,
-	'remove_script_host': False,
-	'convert_urls': False,
-	'rel_list': [
-		{'title': "Default", 'value': None},
-		{'title': "Gallery", 'value': 'gallery'},
-	],
-	'content_langs': [
-		{'title': title, 'code': code}
-		for code, title in LANGUAGES
-	],
-	'table_appearance_options': False,
-	'table_default_attributes': {},
-	'table_default_styles': {},
-	'table_class_list': [
-		{'title': 'None', 'value': 'table'},
-		{'title': 'Wide', 'value': 'table table--wide'},
-	],
-	'table_column_resizing': 'preservetable',
-	'table_header_type': 'section',
-	'table_sizing_mode': 'responsive',
-
-}
-TINYMCE_EXTRA_MEDIA = {
-	'js': ['/static/js/tinymce_filebrowser.js']
-}
-
-
 SOURCE_CODE_LEXERS = [
 	('c', "C"),
 	('cmake', "CMake"),
@@ -347,6 +310,46 @@ SOURCE_CODE_LEXERS = [
 	('toml', "TOML"),
 	('xml', "XML"),
 ]
+
+TINYMCE_EXTRA_MEDIA = {
+	'js': ['/static/js/tinymce_filebrowser.js']
+}
+
+TINYMCE_DEFAULT_CONFIG = {
+	"theme": "silver",
+	"height": 500,
+	"menubar": False,
+	"plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,code,help,wordcount",
+	"toolbar": "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+	'content_css': '/static/css/tinymce.css',
+	'file_picker_types': 'file image media',
+	'image_caption': True,
+	'relative_urls': False,
+	'remove_script_host': False,
+	'convert_urls': False,
+	'rel_list': [
+		{'title': "Default", 'value': None},
+		{'title': "Gallery", 'value': 'gallery'},
+	],
+	'content_langs': [
+		{'title': title, 'code': code}
+		for code, title in LANGUAGES
+	],
+	'table_appearance_options': False,
+	'table_default_attributes': {},
+	'table_default_styles': {},
+	'table_class_list': [
+		{'title': 'None', 'value': 'table'},
+		{'title': 'Wide', 'value': 'table table--wide'},
+	],
+	'table_column_resizing': 'preservetable',
+	'table_header_type': 'section',
+	'table_sizing_mode': 'responsive',
+	'image_class_list': [
+		{'title': 'None', 'value': ''},
+		{'title': 'No thumbnail', 'value': 'no-thumbnail'},
+	],
+}
 
 TINYMCE_CONFIGS = {
 	'basic': {
