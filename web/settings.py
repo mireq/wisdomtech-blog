@@ -365,7 +365,7 @@ TINYMCE_CONFIGS = {
 			{'title': pgettext_lazy('style', "Source code"), 'items':
 				[{'title': pgettext_lazy('style', "Don't wrap code"), 'format': 'pre_no_wrap'}] +
 				[
-					{'title': name, 'block': 'pre', 'classes': [f'code-{code}']}
+					{'title': name, 'block': 'pre', 'attributes': {'data-code-highlight': code}}
 					for code, name in SOURCE_CODE_LEXERS
 				]
 			},
@@ -382,8 +382,8 @@ TINYMCE_CONFIGS = {
 				{'selector': 'img,table', 'classes': 'u-float-right'},
 				{'selector': 'figure', 'collapsed': False, 'classes': 'u-float-right', 'ceFalseOverride': True }
 			],
-			'wide': {'selector': 'table,pre', 'attributes': {'title': pgettext_lazy('style', "Wide")}, 'classes': 'u-wide'},
-			'pre_no_wrap': {'selector': 'pre', 'attributes': {'title': pgettext_lazy('style', "Don't wrap code")}, 'classes': 'u-nowrap'},
+			'wide': {'selector': 'table,pre', 'classes': 'u-wide'},
+			'pre_no_wrap': {'selector': 'pre', 'classes': 'u-nowrap'},
 		},
 		'style_formats_merge': True,
 	}

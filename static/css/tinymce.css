@@ -708,8 +708,8 @@ pre {
       border-bottom: 19px solid transparent;
       border-right: 19px solid #af005f;
       position: absolute; }
-  pre[class*="code-"]::before {
-    content: attr(class);
+  pre[data-code-highlight]::before {
+    content: attr(data-code-highlight);
     display: block;
     color: #fff;
     background: #af005f;

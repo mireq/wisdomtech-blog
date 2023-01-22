@@ -95,8 +95,8 @@ pre {
 			position: absolute;
 		}
 	}
-	&[class*="code-"]::before {
-		content: attr(class);
+	&[data-code-highlight]::before {
+		content: attr(data-code-highlight);
 		display: block;
 		color: #fff;
 		background: #af005f;

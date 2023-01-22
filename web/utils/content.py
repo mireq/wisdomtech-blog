@@ -70,12 +70,7 @@ def process_content(content: str, language_code: str):
 			element.tail = hyphenate_text(element.tail, get_dict(lang_stack[-1]))
 		if action == 'end':
 			if element.tag == 'pre':
-				cls = element.attrib.get('class', '').split()
-				language = None
-				for c in cls:
-					if c.startswith('code-'):
-						language = c[len('code-'):]
-						break
+				language = element.attrib.get('data-code-highlight')
 				if language is not None:
 					replace_element(element, lambda element, lang=language: highlight_code(element, lang))
 			if element.tag == 'img' and 'src' in element.attrib:
