@@ -164,7 +164,7 @@ pre {
 	border-radius: 6px;
 	font-weight: 500;
 	tab-size: 2;
-	overflow-x: scroll;
+	white-space: pre-wrap;
 
 	strong {
 		background: #00f;
@@ -866,15 +866,12 @@ body.no-animate * {
 	}
 
 	pre {
-		width: 100vw;
-		max-width: calc(min(1200px, 100vw - 4rem));
-		margin-left: 50%;
-		transform: translateX(-50%);
-		position: relative;
-		tab-size: 4;
-		font-size: 80%;
+		font-size: 66.66667%;
 	}
 
+	pre.u-wide {
+		font-size: 80%;
+	}
 
 	.u-wide {
 		width: 100vw;
