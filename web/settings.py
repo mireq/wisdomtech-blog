@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 from django.templatetags.static import static
+from django.utils.translation import pgettext_lazy
 
 from .scss import scss_load_svg, scss_info_svg
 
@@ -329,7 +330,7 @@ TINYMCE_DEFAULT_CONFIG = {
 	'convert_urls': False,
 	'rel_list': [
 		{'title': "Default", 'value': None},
-		{'title': "Gallery", 'value': 'gallery'},
+		{'title': pgettext_lazy('link rel', "Gallery"), 'value': 'gallery'},
 	],
 	'content_langs': [
 		{'title': title, 'code': code}
@@ -339,15 +340,15 @@ TINYMCE_DEFAULT_CONFIG = {
 	'table_default_attributes': {},
 	'table_default_styles': {},
 	'table_class_list': [
-		{'title': 'None', 'value': ''},
-		{'title': 'Wide', 'value': 'u-wide'},
+		{'title': pgettext_lazy('table style', "None"), 'value': ''},
+		{'title': pgettext_lazy('table style', "Wide"), 'value': 'u-wide'},
 	],
 	'table_column_resizing': 'preservetable',
 	'table_header_type': 'section',
 	'table_sizing_mode': 'responsive',
 	'image_class_list': [
-		{'title': 'None', 'value': ''},
-		{'title': 'No thumbnail', 'value': 'no-thumbnail'},
+		{'title': pgettext_lazy('image style', "None"), 'value': ''},
+		{'title': pgettext_lazy('image style', "No thumbnail"), 'value': 'no-thumbnail'},
 	],
 }
 
@@ -361,7 +362,7 @@ TINYMCE_CONFIGS = {
 		'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullscreen | forecolor backcolor emoticons | help | code',
 		'menubar': True,
 		'style_formats': [
-			{'title': 'Source code', 'items': [
+			{'title': pgettext_lazy('style', "Source code"), 'items': [
 				{'title': name, 'block': 'pre', 'classes': [f'code-{code}']}
 				for code, name in SOURCE_CODE_LEXERS
 			]},
