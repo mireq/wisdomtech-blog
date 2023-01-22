@@ -4,7 +4,7 @@ from typing import Optional, List
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db import models
-from django.http.response import HttpResponseServerError, HttpResponseBadRequest, JsonResponse
+from django.http.response import HttpResponseServerError, HttpResponseBadRequest, JsonResponse, HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404
 from django.views import generic
 from django_attachments.fields import LibraryField, GalleryField
@@ -17,7 +17,31 @@ class ListView(CursorPaginateMixin, generic.ListView):
 
 
 class DetailView(generic.DetailView):
-	pass
+	def get_object(self, *args, **kwargs):
+		"""
+		Get cached object
+		"""
+		obj = getattr(self, 'object', None)
+		if obj is None:
+			obj = super().get_object(*args, **kwargs)
+			self.object = obj
+		return obj
+
+	def dispatch(self, request, *args, **kwargs):
+		"""
+		Check object slug and redirect if needed
+		"""
+		if self.request.method == 'GET':
+
+			# if request contains slug
+			if 'slug' in self.kwargs:
+				obj = self.get_object()
+				# compare requested slug to object slug
+				requested_slug = self.kwargs['slug']
+				obj_slug = obj.fast_translation_slug if hasattr(obj, 'fast_translation_slug') else obj.slug
+				if requested_slug != obj_slug:
+					return HttpResponsePermanentRedirect(obj.get_absolute_url())
+		return super().dispatch(request, *args, **kwargs)
 
 
 class AttachmentListAndUploadView(PermissionRequiredMixin, generic.ListView):
