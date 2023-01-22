@@ -317,10 +317,10 @@ hgroup {
 		font-style: italic;
 	}
 
-	address {
+	address, .words {
 		display: inline;
 		&:before {
-			content: '    ·    ';
+			content: '   ·   ';
 		}
 	}
 }
@@ -609,9 +609,9 @@ sub {
 		display: inline;
 	}
 
-	address {
+	address, .words {
 		&:before {
-			content: '    ·    ';
+			content: '   ·   ';
 		}
 	}
 

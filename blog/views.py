@@ -13,7 +13,7 @@ class BlogPostListView(ListView):
 	def get_queryset(self):
 		return (BlogPost.objects
 			.published()
-			.fast_translate(fields=['title', 'slug', 'summary'])
+			.fast_translate(fields=['title', 'slug', 'summary', 'words'])
 			.select_related('gallery', 'gallery__primary_attachment')
 		)
 
