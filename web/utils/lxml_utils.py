@@ -81,13 +81,15 @@ def make_thumbnails(element):
 	try:
 		with default_storage.open(image_path, 'rb') as fp:
 			classes = element.attrib.get('class', '').split()
+
+			try:
+				set_image_size(element, fp)
+			except Exception:
+				logger.exception("Failed to set image size")
+				return element
+
 			if 'no-thumbnail' in classes:
-				try:
-					set_image_size(element, fp)
-					return element
-				except Exception:
-					logger.exception("Failed to set image size")
-					return element
+				return element
 
 			field = Attachment._meta.get_field('file')
 			field_file = FieldFile(instance=None, field=field, name=image_path)
@@ -99,6 +101,19 @@ def make_thumbnails(element):
 
 			img_attrs = dict(element.attrib)
 			first = thumbnails[0]
+
+			original_size = None
+			thumbnail_size = None
+			try:
+				original_size = default_storage.size(image_path)
+				thumbnail_size = default_storage.size(first.thumbnail.name)
+			except NotADirectoryError:
+				pass
+
+			if original_size is not None and thumbnail_size is not None:
+				if original_size < thumbnail_size:
+					return element
+
 
 			img_attrs['width'] = str(first.size[0])
 			img_attrs['height'] = str(first.size[1])
