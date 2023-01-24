@@ -4,18 +4,30 @@ from django.utils.translation import gettext_lazy as _
 from django_attachments.admin import AttachmentsAdminMixin
 from parler.admin import TranslatableAdmin
 
-from .forms import BlogPostForm
-from .models import BlogPost
+from .forms import BlogCategoryForm, BlogPostForm
+from .models import BlogCategory, BlogPost
+
+
+class BlogCategoryAdmin(TranslatableAdmin, admin.ModelAdmin):
+	form = BlogCategoryForm
+	search_fields = ['fast_translation_title']
+	fieldsets = (
+		(None, {'fields': ('title', 'slug',)}),
+		(_("SEO"), {'fields': ('page_title', "meta_description"), 'classes': ('collapse',)}),
+	)
+
+	def get_queryset(self, request):
+		return super().get_queryset(request).fast_translate(fallback=True)
 
 
 class BlogPostAdmin(AttachmentsAdminMixin, TranslatableAdmin, admin.ModelAdmin):
 	form = BlogPostForm
 	list_display = ['get_title', 'is_published', 'pub_time', 'author']
-	list_filter = ['author', 'pub_time']
+	list_filter = ['author', 'category', 'pub_time']
 	raw_id_fields = ['author']
 	search_fields = ['fast_translation_title']
 	fieldsets = (
-		(None, {'fields': ('title', 'slug', ('pub_time', 'is_published'), 'author', 'summary', 'perex', 'content')}),
+		(None, {'fields': ('title', 'slug', ('pub_time', 'is_published'), 'author', 'category', 'summary', 'perex', 'content')}),
 		(_("Files"), {'fields': ('gallery', 'attachments')}),
 		(_("SEO"), {'fields': ('page_title', "meta_description"), 'classes': ('collapse',)}),
 	)
@@ -36,3 +48,4 @@ class BlogPostAdmin(AttachmentsAdminMixin, TranslatableAdmin, admin.ModelAdmin):
 
 
 admin.site.register(BlogPost, BlogPostAdmin)
+admin.site.register(BlogCategory, BlogCategoryAdmin)

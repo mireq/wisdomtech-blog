@@ -1,10 +1,20 @@
 # -*- coding: utf-8 -*-
+from django.urls import reverse
 from django_attachments.models import Library
 from parler.forms import TranslatableModelForm
-from django.urls import reverse
 
-from .models import BlogPost
+from .models import BlogPost, BlogCategory
 from web.utils.widgets import RichTextWidget
+
+
+class BlogCategoryForm(TranslatableModelForm):
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['slug'].required = False
+
+	class Meta:
+		model = BlogCategory
+		fields = ['title', 'slug', 'page_title', 'meta_description']
 
 
 class BlogPostForm(TranslatableModelForm):
@@ -17,6 +27,8 @@ class BlogPostForm(TranslatableModelForm):
 			url = reverse('blog:post_attachments', kwargs={'pk': self.instance.pk})
 			self.fields['content'].widget.set_edit_url(url)
 		self.fields['author'].required = False
+		if 'category' in self.fields:
+			self.fields['category'].queryset = BlogCategory.objects.fast_translate(fallback=True).order_by('fast_translation_title')
 
 	def save(self, commit=True):
 		obj = super().save(commit=False)
@@ -34,7 +46,7 @@ class BlogPostForm(TranslatableModelForm):
 
 	class Meta:
 		model = BlogPost
-		fields = ['title', 'slug', 'is_published', 'pub_time', 'summary', 'perex', 'content', 'gallery', 'attachments', 'page_title', 'meta_description']
+		fields = ['title', 'slug', 'category', 'is_published', 'pub_time', 'summary', 'perex', 'content', 'gallery', 'attachments', 'page_title', 'meta_description']
 		widgets = {
 			'summary': RichTextWidget(config='basic'),
 			'perex': RichTextWidget(config='basic'),
