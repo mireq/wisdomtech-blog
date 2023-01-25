@@ -11,7 +11,7 @@ django==4.1.5             # via -r requirements.in, django-appconf, django-attac
 django-appconf==1.0.5     # via django-compressor
 django-attachments-management==1.0.0  # via -r requirements.in
 django-compressor==4.3    # via -r requirements.in, django-libsass
-django-easy-autoslug==1.0.3  # via -r requirements.in
+django-easy-autoslug==1.0.4  # via -r requirements.in
 django-jinja==2.10.2      # via -r requirements.in
 django-libsass==0.9       # via -r requirements.in
 django-parler==2.3        # via -r requirements.in
