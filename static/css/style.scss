@@ -658,14 +658,28 @@ sub {
 }
 
 .users {
+	&__item {
+		position: relative;
+	}
+
 	&__image {
 		position: relative;
 		background: rgba(#888, 0.2);
-		padding-bottom: 100%;
+		aspect-ratio: 1;
 		img, picture {
 			width: 100%;
 			position: absolute;
 		}
+	}
+
+	&__subtitle {
+		margin-top: .5rem;
+		opacity: .75;
+		font-style: italic;
+	}
+
+	h2 {
+		margin-top: .5rem;
 	}
 }
 
@@ -963,6 +977,21 @@ body.no-animate * {
 
 	figcaption {
 		line-height: $line-height-desktop;
+	}
+
+	.users {
+		margin-left: -1rem;
+		margin-right: -1rem;
+
+		&__item {
+			display: flex;
+			margin-bottom: 2rem;
+			align-items: start;
+		}
+		&__image, &__info {
+			width: 100%;
+			margin: 1rem;
+		}
 	}
 }
 

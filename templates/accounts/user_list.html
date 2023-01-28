@@ -14,7 +14,9 @@
 				{% endif %}
 			</div>
 			<div class="users__info">
-				<h2>{{ user }}</h2>
+				<div class="users__subtitle">{{ item|translated_field("subtitle") }}</div>
+				<h2>{{ item }}</h2>
+				{{ item|translated_field("short_description")|safe }}
 			</div>
 			<a class="u-full-link" href="#" title="{{ item }}"></a>
 		</article>
