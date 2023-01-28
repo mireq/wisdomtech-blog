@@ -60,6 +60,11 @@ $palette-dark: (
 	"border-light": #888,
 );
 
+// Default palette
+$palette: $palette-light;
+$font-color: map-get($palette, "font-body");
+$background-color: map-get($palette, "background-body");
+
 $headings: (
 	h1: (2.5, 2, 4, 1),
 	h2: (1.6875, 1.5, 2.5, .5),
@@ -135,6 +140,9 @@ html {
 	font-size: $base;
 	font-family: $font-body;
 	font-weight: 500;
+	background-color: $background-color;
+	color: $font-color;
+	@include tiny-scrollbar($font-color, $background-color);
 }
 
 * {
@@ -207,10 +215,17 @@ blockquote {
 
 a {
 	background: transparent;
+	color: map-get($palette, "link-normal");
 
 	&:active,
 	&:hover {
 		outline: 0;
+		color: map-get($palette, "link-hover");
+		background-color: map-get($palette, "link-hover-background");
+	}
+
+	&:active {
+		color: map-get($palette, "link-active");
 	}
 }
 
@@ -295,6 +310,7 @@ h5,
 h6 {
 	font-family: $font-header;
 	font-weight: bold;
+	color: map-get($palette, "font-headings");
 }
 
 hgroup {
@@ -334,7 +350,7 @@ header {
 		max-width: $max-width;
 		padding: 1rem;
 		margin: 0 auto;
-		border-bottom: 1px solid;
+		border-bottom: 1px solid map-get($palette, "border-light");
 	}
 }
 
@@ -352,6 +368,7 @@ header {
 	z-index: 1000;
 	max-width: 14rem;
 	transform: translateX(14rem);
+	background: map-get($palette, "background-body");
 
 	visibility: hidden;
 	transition: visibility 0.3s linear, transform 0.3s ease;
@@ -374,6 +391,7 @@ header {
 		left: 0;
 		vertical-align: middle;
 		background: map-get($palette-light, "link-hover-background");
+		border-bottom: 1px solid map-get($palette, "background-body");
 		color: map-get($palette-light, "link-hover");
 		&:before {
 			content: '>';
@@ -388,6 +406,7 @@ header {
 		padding: .25rem 1rem;
 		text-align: right;
 		font-weight: bold;
+		color: $font-color;
 	}
 }
 
@@ -399,6 +418,7 @@ hr {
 	margin-top: 1.5rem;
 	margin-bottom: 1.5rem;
 	height: 1.5rem;
+	color: map-get($palette, "font-body");
 	&:before {
 		content: "···";
 		letter-spacing: 1em;
@@ -429,6 +449,10 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 	margin-bottom: 1em;
+}
+
+table, thead, tbody, tfoot {
+	border-color: map-get($palette, "font-body");
 }
 
 th {
@@ -466,6 +490,7 @@ code {
 	display: inline;
 	padding: 0;
 	margin: 0;
+	background: rgba($font-color, 0.1);
 }
 
 table, img, figure {
@@ -532,6 +557,7 @@ sub {
 		display: block;
 		position: absolute;
 		margin-top: (40px - 24px)/2 + 2px;
+		@include svg('img/logo.svg', "svg { color: #{$font-color}; }", $height: 24px);
 	}
 	&:hover, &:visited:hover {
 		background-color: transparent;
@@ -554,6 +580,10 @@ sub {
 		width: 22px;
 		height: 3px;
 		border-radius: 1px;
+		background: $font-color;
+		box-shadow:
+			0 8px 0 0 $font-color,
+			0 16px 0 0 $font-color;
 	}
 }
 
@@ -572,6 +602,7 @@ sub {
 		display: block;
 		left: 10px;
 		top: 10px;
+		@include svg('img/sun-solid.svg', "svg { color: #{$font-color}; }", $height: 20px);
 	}
 }
 
@@ -666,6 +697,7 @@ sub {
 		padding: 0;
 		margin: .5rem 0;
 		padding: .5rem 0;
+		border-top: 1px solid map-get($palette, "border-light");
 		@extend %clearfix;
 	}
 	a {
@@ -708,7 +740,7 @@ sub {
 	.main-menu {
 		background-color: map-get($palette, "background-body");
 		label {
-			border-bottom: 1px solid map-get($palette, "background-body");
+			border-bottom-color: map-get($palette, "background-body");
 		}
 		a {
 			color: $font-color;
@@ -730,6 +762,9 @@ sub {
 		&:before {
 			@include svg('img/logo.svg', "svg { color: #{$font-color}; }", $height: 24px);
 		}
+		&:hover, &:visited:hover {
+			background-color: transparent;
+		}
 	}
 	.toggle-dark:before {
 		@include svg('img/sun-solid.svg', "svg { color: #{$font-color}; }", $height: 20px);
@@ -746,6 +781,12 @@ sub {
 		border-top: 1px solid map-get($palette, "border-light");
 	}
 
+	.articles__link {
+		&:hover, &:visited:hover {
+			background-color: transparent;
+		}
+	}
+
 	@include medium-screen {
 		.logo:before {
 			@include svg-geometry('img/logo.svg');
@@ -753,7 +794,7 @@ sub {
 		.toggle-dark:before {
 			@include svg-geometry('img/sun-solid.svg', $height: 30px);
 		}
-		header li a:hover {
+		.main-menu a:hover {
 			background: transparent;
 			color: map-get($palette-light, "primary");
 		}
@@ -764,8 +805,6 @@ sub {
 }
 
 @if not ($content_only) {
-
-@include palette($palette-light);
 
 /*
 @media (prefers-color-scheme: dark) {
@@ -885,6 +924,22 @@ body.no-animate * {
 			&--next {
 				float: right;
 			}
+		}
+	}
+
+	@include medium-screen {
+		.logo:before {
+			@include svg-geometry('img/logo.svg');
+		}
+		.toggle-dark:before {
+			@include svg-geometry('img/sun-solid.svg', $height: 30px);
+		}
+		.main-menu a:hover {
+			background: transparent;
+			color: map-get($palette-light, "primary");
+		}
+		.articles__item--first .articles__info {
+			background-color: map-get($palette, "background-body");
 		}
 	}
 }
