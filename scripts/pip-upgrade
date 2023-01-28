@@ -1,6 +1,27 @@
 #!/bin/bash
 set -e
 
+
+if [[ -f "requirements.dev.txt" && ! -f "requirements.dev.in" ]]
+then
+	UNSAFE_PACKAGES=$(<requirements.dev.txt)
+else
+	UNSAFE_PACKAGES="django-extensions ipython ptipython ptvsd pylint-django watchdog werkzeug commitizen pre-commit"
+fi
+if [[ ! -z $EXTRA_UNSAFE_PACKAGES ]]
+then
+	UNSAFE_PACKAGES="$UNSAFE_PACKAGES $EXTRA_UNSAFE_PACKAGES"
+fi
+UNSAFE_PACKAGES="$UNSAFE_PACKAGES setuptools distribute pip"
+
+UNSAFE_PACKAGES_ARG=""
+for p in $UNSAFE_PACKAGES
+do
+	if [[ ! -z $p ]]; then
+		UNSAFE_PACKAGES_ARG="$UNSAFE_PACKAGES_ARG --unsafe-package $p"
+	fi
+done
+
 DIRNAME="`pwd`/`dirname ${BASH_SOURCE:-$0}`"
 DIRNAME=`cd "${DIRNAME}/..";pwd`
 cd $DIRNAME
@@ -52,7 +73,7 @@ PYTHON_INSTALL_DIR=${PYTHON_INSTALL_DIR:-/usr/bin}
 
 EXTRA_SYNC_REQUIREMENTS=""
 EXTRA_INSTALL_REQUIREMENTS=""
-EXTRA_COMPILE_OPTS="-v --no-emit-index-url --annotation-style line --resolver=backtracking"
+EXTRA_COMPILE_OPTS="-v --no-emit-index-url --no-emit-options --annotation-style line --resolver=backtracking"
 
 if [[ ! -z $USE_HASHES ]]
 then
@@ -85,7 +106,7 @@ then
 		virtualenv_dir="$VIRTUALENV_DIR/py$env_name"
 		[ ! -d $virtualenv_dir ] && $PYTHON_INSTALL_DIR/python$env_name -m venv $virtualenv_dir && $virtualenv_dir/bin/pip install --upgrade pip
 		$virtualenv_dir/bin/pip install --upgrade pip-tools
-		$virtualenv_dir/bin/pip-compile $EXTRA_COMPILE_OPTS $COMPILE_ARGS requirements.in --output-file requirements/py$env_name-requirements.txt &
+		$virtualenv_dir/bin/pip-compile $EXTRA_COMPILE_OPTS $COMPILE_ARGS $UNSAFE_PACKAGES_ARG requirements.in --output-file requirements/py$env_name-requirements.txt &
 	done
 	wait
 fi
@@ -120,7 +141,8 @@ if [ -z $SKIP_INSTALL ]
 then
 	if [ -z $USE_HASHES ]
 	then
-		pip-sync requirements/py$current_python-requirements.txt $EXTRA_SYNC_REQUIREMENTS
+		#pip-sync requirements/py$current_python-requirements.txt $EXTRA_SYNC_REQUIREMENTS
+		pip install -r requirements/py$current_python-requirements.txt $EXTRA_INSTALL_REQUIREMENTS
 	else
 		pip install -r requirements/py$current_python-requirements.txt $EXTRA_INSTALL_REQUIREMENTS
 		if [[ -f "requirements.live.txt" ]]
