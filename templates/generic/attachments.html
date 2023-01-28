@@ -21,6 +21,8 @@
 					</div>
 					<div class="files__name"><span>{{ file }}</span></div>
 				</div>
+			{% else %}
+				<div class="files__none">{% trans %}No uploaded files{% endtrans %}</div>
 			{% endfor %}
 		</main>
 	</body>

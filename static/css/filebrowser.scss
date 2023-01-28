@@ -78,4 +78,11 @@ body {
 	&__item:hover #{$self}__thumbnail {
 		@extend %large-shadow;
 	}
+	&__none {
+		display: block;
+		width: 100%;
+		text-align: left;
+		font-size: 120%;
+		opacity: .75;
+	}
 }
