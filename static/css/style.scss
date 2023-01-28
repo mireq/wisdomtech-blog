@@ -987,6 +987,10 @@ body.no-animate * {
 			display: flex;
 			margin-bottom: 2rem;
 			align-items: start;
+			flex-direction: row;
+			&:nth-child(2n) {
+				flex-direction: row-reverse;
+			}
 		}
 		&__image, &__info {
 			width: 100%;
