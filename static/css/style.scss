@@ -310,7 +310,7 @@ hgroup {
 		font-style: italic;
 	}
 
-	address, .words {
+	address, .info__words, .info__category {
 		display: inline;
 		&:before {
 			content: '   ·   ';

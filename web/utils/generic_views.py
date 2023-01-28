@@ -27,6 +27,15 @@ class RedirectOnBadSlugMixin(object):
 			if requested_slug != obj_slug:
 				return HttpResponsePermanentRedirect(obj.get_absolute_url())
 
+	def dispatch(self, request, *args, **kwargs):
+		"""
+		Check object slug and redirect if needed
+		"""
+		if self.request.method == 'GET':
+			return self.redirect_on_bad_slug() or super().dispatch(request, *args, **kwargs)
+
+		return super().dispatch(request, *args, **kwargs)
+
 
 class DetailView(RedirectOnBadSlugMixin, generic.DetailView):
 	def get_object(self, *args, **kwargs):
@@ -38,15 +47,6 @@ class DetailView(RedirectOnBadSlugMixin, generic.DetailView):
 			obj = super().get_object(*args, **kwargs)
 			self.object = obj
 		return obj
-
-	def dispatch(self, request, *args, **kwargs):
-		"""
-		Check object slug and redirect if needed
-		"""
-		if self.request.method == 'GET':
-			return self.redirect_on_bad_slug() or super().dispatch(request, *args, **kwargs)
-
-		return super().dispatch(request, *args, **kwargs)
 
 
 class AttachmentListAndUploadView(PermissionRequiredMixin, generic.ListView):
