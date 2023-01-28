@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -12,12 +13,15 @@ register_converter(CursorPageConverter, 'page')
 
 
 urlpatterns = [
-	path('', include('accounts.urls')),
-	path('', include('blog.urls')),
 	path('dashboard/', admin.site.urls),
 	path('tinymce/', include('tinymce.urls')),
 	path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon/favicon.ico'), permanent=True)),
 ]
+urlpatterns += i18n_patterns(
+	path('', include('accounts.urls')),
+	path('', include('blog.urls')),
+	prefix_default_language=False,
+)
 urlpatterns += [
 	path('elements/', TemplateView.as_view(template_name='elements.html')),
 ]
