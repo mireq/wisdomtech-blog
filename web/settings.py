@@ -291,6 +291,9 @@ THUMBNAIL_PROCESSORS = (
 
 THUMBNAIL_BASEDIR = 'thumbs'
 
+THUMBNAIL_CACHE = 'default'
+THUMBNAIL_CACHE_PREFIX = 'tmb_'
+
 SOURCE_CODE_LEXERS = [
 	('c', "C"),
 	('cmake', "CMake"),

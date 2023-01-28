@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+import json
+from hashlib import md5
+
+from django.conf import settings
+from django.core.cache import caches
 from django.utils.html import escape as escape_html, format_html
 from django.utils.safestring import mark_safe
 from django_jinja import library
@@ -6,8 +11,21 @@ from django_jinja import library
 from web.utils.thumbnail.generator import generate_thumbnails
 
 
+CACHE_NAME = getattr(settings, 'THUMBNAIL_CACHE', None)
+USE_CACHE = bool(CACHE_NAME)
+CACHE_PREFIX = getattr(settings, 'THUMBNAIL_CACHE_PREFIX', 'tmb_')
+
+
 def thumbnail_tag(source, alias, attrs=None):
-	thumbnails = generate_thumbnails(source, alias)
+	if USE_CACHE:
+		key = CACHE_PREFIX + md5(json.dumps([str(source), alias]).encode('utf-8')).hexdigest()
+		thumbnails = caches[CACHE_NAME].get(key)
+		if thumbnails is None:
+			thumbnails = generate_thumbnails(source, alias)
+			caches[CACHE_NAME].set(key, thumbnails, timeout=3600)
+	else:
+		thumbnails = generate_thumbnails(source, alias)
+
 	if not thumbnails:
 		return ''
 
