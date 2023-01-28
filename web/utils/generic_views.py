@@ -16,7 +16,19 @@ class ListView(CursorPaginateMixin, generic.ListView):
 	pass
 
 
-class DetailView(generic.DetailView):
+class RedirectOnBadSlugMixin(object):
+	def redirect_on_bad_slug(self):
+		# if request contains slug
+		if 'slug' in self.kwargs:
+			obj = self.get_object()
+			# compare requested slug to object slug
+			requested_slug = self.kwargs['slug']
+			obj_slug = obj.fast_translation_slug if hasattr(obj, 'fast_translation_slug') else obj.slug
+			if requested_slug != obj_slug:
+				return HttpResponsePermanentRedirect(obj.get_absolute_url())
+
+
+class DetailView(RedirectOnBadSlugMixin, generic.DetailView):
 	def get_object(self, *args, **kwargs):
 		"""
 		Get cached object
@@ -32,15 +44,8 @@ class DetailView(generic.DetailView):
 		Check object slug and redirect if needed
 		"""
 		if self.request.method == 'GET':
+			return self.redirect_on_bad_slug() or super().dispatch(request, *args, **kwargs)
 
-			# if request contains slug
-			if 'slug' in self.kwargs:
-				obj = self.get_object()
-				# compare requested slug to object slug
-				requested_slug = self.kwargs['slug']
-				obj_slug = obj.fast_translation_slug if hasattr(obj, 'fast_translation_slug') else obj.slug
-				if requested_slug != obj_slug:
-					return HttpResponsePermanentRedirect(obj.get_absolute_url())
 		return super().dispatch(request, *args, **kwargs)
 
 
