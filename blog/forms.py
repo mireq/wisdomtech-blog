@@ -17,6 +17,16 @@ class BlogCategoryForm(TranslatableModelForm):
 		fields = ['title', 'slug', 'page_title', 'meta_description']
 
 
+class BlogTagForm(TranslatableModelForm):
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['slug'].required = False
+
+	class Meta:
+		model = BlogCategory
+		fields = ['title', 'slug']
+
+
 class BlogPostForm(TranslatableModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)

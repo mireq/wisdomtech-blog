@@ -4,8 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from django_attachments.admin import AttachmentsAdminMixin
 from parler.admin import TranslatableAdmin
 
-from .forms import BlogCategoryForm, BlogPostForm
-from .models import BlogCategory, BlogPost
+from .forms import BlogCategoryForm, BlogTagForm, BlogPostForm
+from .models import BlogCategory, BlogTag, BlogPost
 
 
 class BlogCategoryAdmin(TranslatableAdmin, admin.ModelAdmin):
@@ -15,6 +15,14 @@ class BlogCategoryAdmin(TranslatableAdmin, admin.ModelAdmin):
 		(None, {'fields': ('title', 'slug',)}),
 		(_("SEO"), {'fields': ('page_title', "meta_description"), 'classes': ('collapse',)}),
 	)
+
+	def get_queryset(self, request):
+		return super().get_queryset(request).fast_translate(fallback=True)
+
+
+class BlogTagAdmin(TranslatableAdmin, admin.ModelAdmin):
+	form = BlogTagForm
+	search_fields = ['fast_translation_title']
 
 	def get_queryset(self, request):
 		return super().get_queryset(request).fast_translate(fallback=True)
@@ -47,5 +55,6 @@ class BlogPostAdmin(AttachmentsAdminMixin, TranslatableAdmin, admin.ModelAdmin):
 	get_title.short_description = _("Title")
 
 
-admin.site.register(BlogPost, BlogPostAdmin)
 admin.site.register(BlogCategory, BlogCategoryAdmin)
+admin.site.register(BlogTag, BlogTagAdmin)
+admin.site.register(BlogPost, BlogPostAdmin)
