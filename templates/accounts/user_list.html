@@ -10,11 +10,7 @@
 		<article class="users__item">
 			<div class="users__image">
 				{% if item.gallery and item.gallery.primary_attachment %}
-					{% if loop.first and not page_obj.has_previous() %}
-						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list_first", attrs={"alt": item}) }}
-					{% else %}
-						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list", attrs={"alt": item, "loading": "lazy"}) }}
-					{% endif %}
+					{{ thumbnail_tag(item.gallery.primary_attachment.file, "user_list", attrs={"alt": item, "loading": "lazy"}) }}
 				{% endif %}
 			</div>
 			<div class="users__info">
