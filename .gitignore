@@ -10,7 +10,6 @@
 /static/img/preview/
 /static/img/previews/
 /wtshop
-/requirements.dev.txt
 /requirements.txt
 /out.html
 *.afm
