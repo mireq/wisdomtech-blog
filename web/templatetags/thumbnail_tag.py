@@ -16,7 +16,7 @@ USE_CACHE = bool(CACHE_NAME)
 CACHE_PREFIX = getattr(settings, 'THUMBNAIL_CACHE_PREFIX', 'tmb_')
 
 
-def thumbnail_tag(source, alias, attrs=None):
+def generate_thumbnails_cached(source, alias):
 	if USE_CACHE:
 		key = CACHE_PREFIX + md5(json.dumps([str(source), alias]).encode('utf-8')).hexdigest()
 		thumbnails = caches[CACHE_NAME].get(key)
@@ -25,6 +25,11 @@ def thumbnail_tag(source, alias, attrs=None):
 			caches[CACHE_NAME].set(key, thumbnails, timeout=3600)
 	else:
 		thumbnails = generate_thumbnails(source, alias)
+	return thumbnails
+
+
+def thumbnail_tag(source, alias, attrs=None, only_data=False):
+	thumbnails = generate_thumbnails_cached(source, alias)
 
 	if not thumbnails:
 		return ''
@@ -53,6 +58,9 @@ def thumbnail_tag(source, alias, attrs=None):
 	if img_srcs:
 		img_srcs = format_html(' srcset="{}"', img_srcs)
 	img_src = first['url']
+
+	if only_data:
+		return thumbnails
 
 	if webp_srcs:
 		return format_html('<picture><source type="image/webp" srcset="{}"><img src="{}"{}{}></picture>', webp_srcs, img_src, img_srcs, attrs)

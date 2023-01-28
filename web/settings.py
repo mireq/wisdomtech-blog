@@ -288,6 +288,13 @@ THUMBNAIL_ALIASES = {
 			'sizes': ['328px', '496px', '656px', '984px', '1122px'],
 			'size_attrs': {'quality': [60, 60, 60, 50, 30]},
 		},
+		'og_image': {
+			'size': (1200, 630),
+			'quality': 80,
+			'crop': 'smart',
+			'preserve_aspect': True,
+			'alpha': False,
+		},
 	}
 }
 

@@ -1,0 +1,11 @@
+{%- if object -%}
+	<meta property="og:title" content="{{ object.get_page_title() }}" />
+	{%- if object.gallery and object.gallery.primary_attachment -%}
+		{%- set thumbnails=thumbnail_tag(object.gallery.primary_attachment.file, "og_image", only_data=1) -%}
+		{%- if thumbnails -%}
+			<meta property="og:image" content="{{ thumbnails[0]['url']|build_absolute_uri }}"/>
+			<meta property="og:image:width" content="{{ thumbnails[0]['size'][0] }}"/>
+			<meta property="og:image:height" content="{{ thumbnails[0]['size'][1] }}"/>
+		{%- endif -%}
+	{%- endif -%}
+{%- endif -%}

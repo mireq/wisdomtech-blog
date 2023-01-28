@@ -5,6 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	{% block meta_description_tag %}<meta name="description" content="{% block meta_description %}Wisdom blog{% endblock %}">{% endblock %}
+	{% block social_headers %}{% include "partials/social_headers.html" %}{% endblock %}
 	{% compress css file style %}
 		<link rel="stylesheet" type="text/x-scss" href="{{ static("css/style.scss") }}" />
 	{% endcompress %}
