@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 
+{% block meta_description %}{% if object %}{{ object|translated_field("meta_description") }}{% else %}{{ super() }}{% endif %}{% endblock %}
+
 {% block content %}
-<hgroup class="u-hidden">
-	<h1>{% trans %}Wisdom blog{% endtrans %}</h1>
-</hgroup>
+{% if object %}
+	<hgroup>
+		<h1>{{ object }}</h1>
+	</hgroup>
+{% else %}
+	<hgroup class="u-hidden">
+		<h1>{% trans %}Wisdom blog{% endtrans %}</h1>
+	</hgroup>
+{% endif %}
 
 <section class="articles">
 	{% for item in object_list %}

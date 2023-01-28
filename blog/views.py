@@ -31,6 +31,9 @@ class CategoryBlogPostListView(RedirectOnBadSlugMixin, BlogPostListView):
 	def get_queryset(self):
 		return super().get_queryset().filter(category=self.get_object())
 
+	def get_context_data(self, **kwargs):
+		return super().get_context_data(object=self.get_object(), **kwargs)
+
 
 class BlogPostAttachmentsList(AttachmentListAndUploadView):
 	model_class = BlogPost
