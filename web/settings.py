@@ -252,6 +252,8 @@ THUMBNAIL_ALIASES = {
 			'crop': 'smart',
 			'preserve_aspect': True,
 			'alpha': False,
+			'sizes': ['328px', '496px', '656px', '984px', '1656px'],
+			'size_attrs': {'quality': [60, 60, 60, 50, 20]},
 		},
 		'blog_list': {
 			'size': (561, 385),
@@ -259,6 +261,8 @@ THUMBNAIL_ALIASES = {
 			'crop': 'smart',
 			'preserve_aspect': True,
 			'alpha': False,
+			'sizes': ['328px', '496px', '656px', '984px', '1122px'],
+			'size_attrs': {'quality': [60, 60, 60, 50, 30]},
 		},
 		'article': {
 			'size': (696, 2000),

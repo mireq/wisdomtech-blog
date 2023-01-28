@@ -6,8 +6,8 @@ from django_jinja import library
 from web.utils.thumbnail.generator import generate_thumbnails
 
 
-def thumbnail_tag(source, alias, attrs=None, sizes=None, size_attrs=None):
-	thumbnails = generate_thumbnails(source, alias, sizes, size_attrs)
+def thumbnail_tag(source, alias, attrs=None):
+	thumbnails = generate_thumbnails(source, alias)
 	if not thumbnails:
 		return ''
 
