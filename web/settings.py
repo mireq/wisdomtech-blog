@@ -114,16 +114,24 @@ TEMPLATES = [
 
 CACHES = {
 	'default': {
-		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-		'KEY_PREFIX': 'linuxos',
-		'LOCATION': 'linuxos-default',
+		'BACKEND': 'django_pylibmc_threadsafe.PyLibMCCache',
+		'LOCATION': '127.0.0.1:11211',
+		'KEY_PREFIX': 'blog',
+		'OPTIONS': {
+			'binary': True,
+			'ignore_exc': True,
+			'behaviors': {
+				'ketama': True,
+			}
+		}
 	},
 	'jinja': {
 		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
 		'KEY_PREFIX': 'jinja',
-		'LOCATION': 'linuxos-jinja',
+		'LOCATION': 'blog-jinja',
 	},
 }
+
 
 WSGI_APPLICATION = 'web.wsgi.application'
 

@@ -7,6 +7,7 @@ django-libsass
 django-parler
 django-tinymce
 django-universal-paginator
+django_pylibmc_threadsafe
 easy_thumbnails
 jinja2
 libsass
@@ -15,4 +16,5 @@ model_bakery
 pip-tools
 psycopg2-binary
 pygments
+pylibmc
 pyphen
