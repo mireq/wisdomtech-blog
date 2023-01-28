@@ -889,6 +889,7 @@ body.no-animate * {
 		&:before {
 			top: 5px;
 			left: 5px;
+			@include svg-geometry('img/sun-solid.svg', $height: 30px);
 		}
 	}
 
@@ -907,9 +908,6 @@ body.no-animate * {
 		}
 	}
 
-	.toggle-dark:before {
-		@include svg-geometry('img/sun-solid.svg', $height: 30px);
-	}
 	.main-menu a:hover {
 		background: transparent;
 		color: map-get($palette-light, "primary");
