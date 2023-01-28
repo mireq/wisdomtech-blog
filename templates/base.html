@@ -37,6 +37,13 @@
 					<li><label for="main_menu_visible">{% trans %}Menu{% endtrans %}</label></li>
 					<li><a href="{{ url("blog:post_list") }}">{% trans %}Blog{% endtrans %}</a></li>
 					<li><a href="{{ url("accounts:user_list") }}">{% trans %}About Us{% endtrans %}</a></li>
+					{% for code, label in LANGUAGES %}
+						{% if code != LANGUAGE_CODE %}
+							<li>
+								<a href="{{ translated_url(code, "blog:post_list") }}">{{ code|upper }}</a>
+							</li>
+						{% endif %}
+					{% endfor %}
 				</ul>
 
 				<a class="logo" href="{{ url("blog:post_list") }}">Wisdomblog.</a>

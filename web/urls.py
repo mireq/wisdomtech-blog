@@ -16,6 +16,7 @@ urlpatterns = [
 	path('dashboard/', admin.site.urls),
 	path('tinymce/', include('tinymce.urls')),
 	path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon/favicon.ico'), permanent=True)),
+	path('i18n/', include('django.conf.urls.i18n')),
 ]
 urlpatterns += i18n_patterns(
 	path('', include('accounts.urls')),
