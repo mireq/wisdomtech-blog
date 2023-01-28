@@ -34,12 +34,12 @@
 				<button class="toggle-dark" id="toggle_dark_mode" aria-label="Toggle dark mode"></button>
 
 				<ul class="main-menu">
-					<li><label for="main_menu_visible">Menu</label></li>
-					<li><a href="{{ url("blog:post_list") }}">Blog</a></li>
-					<li><a href="/">About Us</a></li>
+					<li><label for="main_menu_visible">{% trans %}Menu{% endtrans %}</label></li>
+					<li><a href="{{ url("blog:post_list") }}">{% trans %}Blog{% endtrans %}</a></li>
+					<li><a href="/">{% trans %}About Us{% endtrans %}</a></li>
 				</ul>
 
-				<a class="logo" href="/">Wisdomblog.</a>
+				<a class="logo" href="{{ url("blog:post_list") }}">Wisdomblog.</a>
 			</nav>
 		</header>
 		<main class="{% block mainclass %}{% endblock %}">
