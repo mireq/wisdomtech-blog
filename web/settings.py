@@ -256,7 +256,7 @@ THUMBNAIL_ALIASES = {
 			'size_attrs': {'quality': [60, 60, 60, 50, 20]},
 		},
 		'blog_list': {
-			'size': (561, 385),
+			'size': (546, 375),
 			'quality': 70,
 			'crop': 'smart',
 			'preserve_aspect': True,
@@ -279,7 +279,7 @@ THUMBNAIL_ALIASES = {
 			'alpha': False,
 		},
 		'user_list': {
-			'size': (561, 561),
+			'size': (546, 546),
 			'quality': 70,
 			'crop': 'smart',
 			'preserve_aspect': True,
