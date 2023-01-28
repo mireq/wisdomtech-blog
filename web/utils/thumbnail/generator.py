@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-from collections import namedtuple
 from copy import deepcopy
+from typing import List
 
 from django.conf import settings
 from easy_thumbnails.files import get_thumbnailer
@@ -10,14 +10,12 @@ from easy_thumbnails.files import get_thumbnailer
 DEFAULT_SIZES = [1, 2]
 DEFAULT_FORMATS = [None, 'webp']
 
-ThumbnailInfo = namedtuple('ThumbnailInfo', ['thumbnail', 'url', 'size', 'size_hint', 'format'])
-
 
 def get_thumbnail_alias_options(alias):
 	return deepcopy(settings.THUMBNAIL_ALIASES[''][alias])
 
 
-def generate_thumbnails(source, alias):
+def generate_thumbnails(source, alias) -> List[dict]:
 	if not source:
 		return []
 
@@ -96,12 +94,11 @@ def generate_thumbnails(source, alias):
 			continue
 		generated_images.add(thumbnail_key)
 
-		thumbnail_instances.append(ThumbnailInfo(
-			thumbnail,
-			thumbnail.url,
-			(thumbnail.width, thumbnail.height),
-			f'{thumbnail.width}w' if has_absolute else f'{size}x',
-			output_format,
-		))
+		thumbnail_instances.append({
+			'url': thumbnail.url,
+			'size': [thumbnail.width, thumbnail.height],
+			'size_hint': f'{thumbnail.width}w' if has_absolute else f'{size}x',
+			'format': output_format,
+		})
 
 	return thumbnail_instances

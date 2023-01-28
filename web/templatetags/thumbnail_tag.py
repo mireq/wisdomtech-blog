@@ -15,8 +15,8 @@ def thumbnail_tag(source, alias, attrs=None):
 
 	if isinstance(attrs, dict):
 		attrs = attrs.copy()
-		attrs.setdefault('width', str(first.size[0]))
-		attrs.setdefault('height', str(first.size[1]))
+		attrs.setdefault('width', str(first['size'][0]))
+		attrs.setdefault('height', str(first['size'][1]))
 		attrs = [f'{escape_html(key)}="{escape_html(val)}"' for key, val in attrs.items()]
 		attrs = ' '.join(attrs)
 	attrs = mark_safe(' ' + attrs if attrs else '')
@@ -25,16 +25,16 @@ def thumbnail_tag(source, alias, attrs=None):
 	webp_srcs = []
 
 	for thumbnail in thumbnails:
-		if thumbnail.format == 'webp':
-			webp_srcs.append(f'{thumbnail.url} {thumbnail.size_hint}')
+		if thumbnail['format'] == 'webp':
+			webp_srcs.append(f'{thumbnail["url"]} {thumbnail["size_hint"]}')
 		else:
-			img_srcs.append(f'{thumbnail.url} {thumbnail.size_hint}')
+			img_srcs.append(f'{thumbnail["url"]} {thumbnail["size_hint"]}')
 
 	webp_srcs = ', '.join(webp_srcs)
 	img_srcs = ', '.join(img_srcs)
 	if img_srcs:
 		img_srcs = format_html(' srcset="{}"', img_srcs)
-	img_src = first.url
+	img_src = first['url']
 
 	if webp_srcs:
 		return format_html('<picture><source type="image/webp" srcset="{}"><img src="{}"{}{}></picture>', webp_srcs, img_src, img_srcs, attrs)
