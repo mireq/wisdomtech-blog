@@ -10,6 +10,8 @@ def is_absolute(url):
 def build_absolute_uri(ctx, url):
 	if is_absolute(url):
 		return url
+	if url == '':
+		return ctx['request'].build_absolute_uri('/')[:-1]
 	return ctx['request'].build_absolute_uri(url)
 
 
