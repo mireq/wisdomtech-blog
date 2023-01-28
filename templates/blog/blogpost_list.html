@@ -24,7 +24,7 @@
 				<h2><a href="{{ item.get_absolute_url() }}">{{ item }}</a></h2>
 				<p>{{ item|translated_field("summary")|safe }}</p>
 			</div>
-			<a class="articles__link" href="{{ item.get_absolute_url() }}" title="{{ item }}"></a>
+			<a class="u-full-link" href="{{ item.get_absolute_url() }}" title="{{ item }}"></a>
 		</article>
 	{% endfor %}
 </section>
