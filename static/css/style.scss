@@ -785,7 +785,7 @@ body.no-animate * {
 
 
 @media screen {
-	html.dark-mode {
+	.dark-mode {
 		@include palette($palette-dark, $html: true);
 	}
 	/*
@@ -937,28 +937,25 @@ body.no-animate * {
 }
 
 @include x-large-screen {
-	.articles {
-		$self: &;
-
-		#{$self}__item--first {
-			width: 100%;
-			display: flex;
-			align-items: end;
-			#{$self}__image {
-				width: 40%;
-				flex: 0 0 auto;
+	.articles__item--first {
+		$self: '.articles';
+		width: 100%;
+		display: flex;
+		align-items: end;
+		#{$self}__image {
+			width: 40%;
+			flex: 0 0 auto;
+			position: static;
+			padding: 0;
+			img, picture {
+				width: 828px;
 				position: static;
-				padding: 0;
-				img, picture {
-					width: 828px;
-					position: static;
-				}
 			}
-			#{$self}__info {
-				width: 60%;
-				flex: 0 0 auto;
-				padding: 1rem;
-			}
+		}
+		#{$self}__info {
+			width: 60%;
+			flex: 0 0 auto;
+			padding: 1rem;
 		}
 	}
 }
