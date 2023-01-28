@@ -9,7 +9,7 @@
 
 	<div class="info">
 		<time datetime="{{ object.pub_time|date("Y-m-d H:i:s") }}">{{ object.pub_time|date("SHORT_DATE_FORMAT") }}</time>
-		<address><a rel="author" href="/">{{ object.author }}</a></address>
+		<address><a rel="author" href="{{ object.author.get_absolute_url() }}">{{ object.author }}</a></address>
 		<span class="words" title="{% trans %}Read time{% endtrans %}">{{ object|translated_field("words")|read_time }}</span>
 	</div>
 
