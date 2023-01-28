@@ -39,6 +39,27 @@ $dt-yellow: #f1fa8c;
 pre {
 	background: $dt-gray-dark;
 	color: $dt-gray-light;
+	padding: 1rem;
+	font-size: 75%;
+	line-height: 1.4;
+	border-radius: 6px;
+	font-weight: 500;
+	tab-size: 2;
+	white-space: pre-wrap;
+	overflow-x: scroll;
+
+	strong {
+		background: #00f;
+		filter: invert(1);
+	}
+	em {
+		background: #202;
+		filter: invert(1);
+	}
+
+	* {
+		line-height: 1.4;
+	}
 
 	.hll,
 	.s,

@@ -74,12 +74,6 @@ $headings: (
 	h6: (1, 1, 2.5, .5)
 );
 
-%large-shadow {
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
-		0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
-		0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
-}
-
 %clearfix {
 	&:before, &:after {
 		content: "";
@@ -165,30 +159,6 @@ main {
 	max-width: $max-width-detail;
 }
 
-pre {
-	padding: 1rem;
-	font-size: 75%;
-	line-height: 1.4;
-	border-radius: 6px;
-	font-weight: 500;
-	tab-size: 2;
-	white-space: pre-wrap;
-	overflow-x: scroll;
-
-	strong {
-		background: #00f;
-		filter: invert(1);
-	}
-	em {
-		background: #202;
-		filter: invert(1);
-	}
-
-	* {
-		line-height: 1.4;
-	}
-}
-
 p {
 	margin: 0 0 1.625rem;
 }
@@ -233,10 +203,6 @@ a {
 	letter-spacing: .1em;
 	text-transform: uppercase;
 	font-size: 80%;
-}
-
-.u-nowrap {
-	white-space: nowrap;
 }
 
 .u-align-left {
@@ -369,10 +335,12 @@ header {
 	max-width: 14rem;
 	transform: translateX(14rem);
 	background: map-get($palette, "background-body");
-
 	visibility: hidden;
 	transition: visibility 0.3s linear, transform 0.3s ease;
-	@extend %large-shadow;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+		0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+		0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+
 	label {
 		cursor: pointer;
 		display: block;
@@ -472,10 +440,6 @@ tfoot {
 	border-top: 1px solid;
 }
 
-br {
-	margin: 0;
-}
-
 dt {
 	font-weight: bold;
 	margin: 0;
@@ -498,7 +462,7 @@ table, img, figure {
 }
 
 br {
-	margin-bottom: 0;
+	margin: 0;
 }
 
 abbr {
