@@ -41,7 +41,7 @@
 					{% for code, label in LANGUAGES %}
 						{% if code != LANGUAGE_CODE %}
 							<li>
-								<a href="{{ translated_url(code, "blog:post_list") }}">{{ code|upper }}</a>
+								<a href="{{ translated_url(code, "blog:post_list") }}" title="{{ label }}">{{ code|upper }}</a>
 							</li>
 						{% endif %}
 					{% endfor %}
