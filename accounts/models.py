@@ -4,12 +4,13 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_attachments.fields import GalleryField
 from django_attachments.models import Library
-from parler.models import TranslatableModel, TranslatedFields, TranslatableManager
+from parler.models import TranslatedFields
+
+from web.utils.models import TranslatableModel, TranslatableManager
 
 
 class UserManager(TranslatableManager, BaseUserManager):
 	pass
-
 
 
 class User(TranslatableModel, AbstractUser):

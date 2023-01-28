@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<hgroup>
+	<h1>{% trans %}About Us{% endtrans %}</h1>
+</hgroup>
+
+<section class="users">
+	{% for item in object_list %}
+		<article class="users__item">
+			<div class="users__image">
+				{% if item.gallery and item.gallery.primary_attachment %}
+					{% if loop.first and not page_obj.has_previous() %}
+						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list_first", attrs={"alt": item}) }}
+					{% else %}
+						{{ thumbnail_tag(item.gallery.primary_attachment.file, "blog_list", attrs={"alt": item, "loading": "lazy"}) }}
+					{% endif %}
+				{% endif %}
+			</div>
+			<div class="users__info">
+				<h2>{{ user }}</h2>
+			</div>
+			<a class="users__link" href="#" title="{{ item }}"></a>
+		</article>
+	{% endfor %}
+</section>
+
+{{ pagination() }}
+{% endblock %}
