@@ -39,3 +39,10 @@
 
 {{ pagination() }}
 {% endblock %}
+
+{% block footer_links %}
+	{% if object %}
+	{% else %}
+		<a href="{{ url("blog:post_feed") }}">{% trans %}RSS{% endtrans %}</a>
+	{% endif %}
+{% endblock %}

@@ -54,6 +54,9 @@
 			{% block content %}
 			{% endblock %}
 		</main>
+		<footer>
+			{% block footer_links %}{% endblock %}
+		</footer>
 	{% endblock %}
 	{% compress js %}
 		<script src="{{ static("js/app.js") }}" charset="utf-8"></script>
