@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block meta_description_tag %}{% include "partials/meta_description.html" %}{% endblock %}
+{% block meta_description_tag %}{% with default_meta_description=_("Wisdom Blog - because we love technology") %}{% include "partials/meta_description.html" %}{% endwith %}{% endblock %}
 
 {% block content %}
 {% if object %}

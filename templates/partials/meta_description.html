@@ -2,5 +2,9 @@
 	{%- set text=object|translated_field("meta_description") -%}
 	{%- if text -%}
 		<meta name="description" content="{{ text }}">
+	{%- elif default_meta_description -%}
+		<meta name="description" content="{{ default_meta_description }}">
 	{%- endif -%}
+{%- elif default_meta_description -%}
+	<meta name="description" content="{{ default_meta_description }}">
 {%- endif -%}
