@@ -35,7 +35,7 @@ class BlogPostAdmin(AttachmentsAdminMixin, TranslatableAdmin, admin.ModelAdmin):
 	raw_id_fields = ['author']
 	search_fields = ['fast_translation_title']
 	fieldsets = (
-		(None, {'fields': ('title', 'slug', ('pub_time', 'is_published'), 'author', 'category', 'summary', 'perex', 'content')}),
+		(None, {'fields': ('title', 'slug', ('pub_time', 'is_published'), 'author', 'category', 'blog_tags', 'summary', 'perex', 'content')}),
 		(_("Files"), {'fields': ('gallery', 'attachments')}),
 		(_("SEO"), {'fields': ('page_title', "meta_description"), 'classes': ('collapse',)}),
 	)
