@@ -20,7 +20,7 @@ urlpatterns = [
 	path('tinymce/', include('tinymce.urls')),
 	path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/favicon/favicon.ico'), permanent=True)),
 	path('i18n/', include('django.conf.urls.i18n')),
-	path('robots.txt', TemplateView.as_view(template_name='robots.txt'), name='robots'),
+	path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain'), name='robots'),
 ]
 urlpatterns += i18n_patterns(
 	path('', include('accounts.urls')),
