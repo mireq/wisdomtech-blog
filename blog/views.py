@@ -32,12 +32,20 @@ class BlogPostFeed(Feed):
 	def category_translations(self):
 		return dict(BlogCategory.objects.fast_translate(fields=['title']).values_list('pk', 'fast_translation_title'))
 
-	def items(self):
-		return (BlogPost.objects
+	def items(self, obj):
+		qs = (BlogPost.objects
 			.published()
 			.fast_translate(fields=['title', 'slug', 'summary'])
 			.values('pk', 'fast_translation_title', 'fast_translation_slug', 'fast_translation_summary', 'pub_time', 'date_updated', 'author__username', 'author__first_name', 'author__last_name', 'category_id')
 		)
+		if obj is not None:
+			qs = qs.filter(category=obj)
+		return qs
+
+	def get_object(self, request, pk=None, slug=None): # pylint: disable=unused-argument
+		if pk is None:
+			return None
+		return get_object_or_404(BlogCategory.objects.fast_translate(), pk=pk)
 
 	def item_title(self, obj):
 		return obj['fast_translation_title']
