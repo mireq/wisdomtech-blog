@@ -1,0 +1,6 @@
+{% autoescape off %}# robots.txt for {{ ""|build_absolute_uri }}
+
+User-agent: *
+Disallow: /dashboard/
+
+Sitemap: {{ url('robots')|build_absolute_uri }}{% endautoescape %}
