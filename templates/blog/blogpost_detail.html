@@ -2,7 +2,7 @@
 
 {% block head_title %}{{ object.get_page_title() }} | {{ super() }}{% endblock %}
 {% block bodyclass %}detail{% endblock %}
-{% block meta_description %}{{ object|translated_field("meta_description") }}{% endblock %}
+{% block meta_description_tag %}{% include "partials/meta_description.html" %}{% endblock %}
 
 {% block content %}
 <hgroup>

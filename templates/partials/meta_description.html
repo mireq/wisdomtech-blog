@@ -1,0 +1,6 @@
+{%- if object -%}
+	{%- set text=object|translated_field("meta_description") -%}
+	{%- if text -%}
+		<meta name="description" content="{{ text }}">
+	{%- endif -%}
+{%- endif -%}

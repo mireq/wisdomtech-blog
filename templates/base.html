@@ -4,7 +4,7 @@
 	<title>{% block head_title %}Wisdom Blog{% endblock %}</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="{% block meta_description %}Wisdom blog{% endblock %}">
+	{% block meta_description_tag %}<meta name="description" content="{% block meta_description %}Wisdom blog{% endblock %}">{% endblock %}
 	{% compress css file style %}
 		<link rel="stylesheet" type="text/x-scss" href="{{ static("css/style.scss") }}" />
 	{% endcompress %}

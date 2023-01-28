@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block meta_description %}{% if object %}{{ object|translated_field("meta_description") }}{% else %}{{ super() }}{% endif %}{% endblock %}
+{% block meta_description_tag %}{% include "partials/meta_description.html" %}{% endblock %}
 
 {% block content %}
 {% if object %}
