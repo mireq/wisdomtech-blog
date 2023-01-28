@@ -776,13 +776,13 @@ sub {
 */
 
 @media (prefers-reduced-motion) {
-	* {
-		transition: none !important;
+	*, [class] {
+		transition: none;
 	}
 }
 
 body.no-animate * {
-	transition: none !important;
+	transition: none;
 }
 
 
