@@ -12,6 +12,7 @@ register_converter(CursorPageConverter, 'page')
 
 
 urlpatterns = [
+	path('', include('accounts.urls')),
 	path('', include('blog.urls')),
 	path('dashboard/', admin.site.urls),
 	path('tinymce/', include('tinymce.urls')),

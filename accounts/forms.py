@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.forms import UserChangeForm as BaseUserChangeForm, UsernameField
+from django.urls import reverse
 from django_attachments.models import Library
 from parler.forms import TranslatableModelForm
 
@@ -12,6 +13,9 @@ class UserChangeForm(BaseUserChangeForm, TranslatableModelForm):
 		super().__init__(*args, **kwargs)
 		if 'gallery' in self.fields:
 			self.fields['gallery'].required = False
+		if self.instance and self.instance.pk:
+			url = reverse('accounts:user_attachments', kwargs={'pk': self.instance.pk})
+			self.fields['description'].widget.set_edit_url(url)
 
 	def save(self, commit=True):
 		obj = super().save(commit=False)
