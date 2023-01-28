@@ -386,6 +386,9 @@ header {
 		text-align: right;
 		font-weight: bold;
 		color: $font-color;
+		&:hover {
+			color: map-get($palette, "link-hover");
+		}
 	}
 }
 
