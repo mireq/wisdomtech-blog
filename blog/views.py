@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy, reverse
+from django.utils.functional import cached_property
+from django.utils.translation import gettext_lazy as _
 
 from .models import BlogPost, BlogCategory
 from web.utils.generic_views import ListView, AttachmentListAndUploadView, DetailView, RedirectOnBadSlugMixin
@@ -18,6 +22,51 @@ class BlogPostListView(ListView):
 			.fast_translate(fields=['title', 'slug', 'summary', 'words'])
 			.select_related('gallery', 'gallery__primary_attachment')
 		)
+
+
+class BlogPostFeed(Feed):
+	title = _("Articles")
+	link = reverse_lazy('blog:post_list')
+
+	@cached_property
+	def category_translations(self):
+		return dict(BlogCategory.objects.fast_translate(fields=['title']).values_list('pk', 'fast_translation_title'))
+
+	def items(self):
+		return (BlogPost.objects
+			.published()
+			.fast_translate(fields=['title', 'slug', 'summary'])
+			.values('pk', 'fast_translation_title', 'fast_translation_slug', 'fast_translation_summary', 'pub_time', 'date_updated', 'author__username', 'author__first_name', 'author__last_name', 'category_id')
+		)
+
+	def item_title(self, obj):
+		return obj['fast_translation_title']
+
+	def item_link(self, obj):
+		return reverse('blog:post_detail', kwargs={'pk': obj['pk'], 'slug': obj['fast_translation_slug']})
+
+	def item_description(self, obj):
+		return obj['fast_translation_summary']
+
+	def item_author_name(self, obj):
+		name = obj["author__username"]
+		if name is None:
+			return name
+		full_name = (f'{obj["author__first_name"]} {obj["author__last_name"]}').strip()
+		return full_name or name
+
+	def item_pubdate(self, obj):
+		return obj['pub_time']
+
+	def item_updateddate(self, obj):
+		return obj['date_updated']
+
+	def item_categories(self, obj):
+		category = self.category_translations.get(obj['category_id'])
+		if category:
+			return [category]
+		else:
+			return []
 
 
 class CategoryBlogPostListView(RedirectOnBadSlugMixin, BlogPostListView):
