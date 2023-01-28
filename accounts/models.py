@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import AbstractUser, UserManager as BaseUserManager
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django_attachments.fields import GalleryField
 from django_attachments.models import Library
@@ -59,3 +60,13 @@ class User(TranslatableModel, AbstractUser):
 		if self.gallery_id is None:
 			self.gallery = Library.objects.create()
 		return super().save(*args, **kwargs)
+
+	def get_page_title(self):
+		page_title = self.fast_translation_getter('page_title')
+		if page_title:
+			return page_title
+		else:
+			return str(self)
+
+	def get_absolute_url(self):
+		return reverse('accounts:user_detail', kwargs={'pk': self.pk})

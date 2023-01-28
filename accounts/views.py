@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .models import User
-from web.utils.generic_views import AttachmentListAndUploadView, ListView
+from web.utils.generic_views import AttachmentListAndUploadView, ListView, DetailView
 
 
 class UserListView(ListView):
@@ -13,6 +13,15 @@ class UserListView(ListView):
 			.select_related('gallery', 'gallery__primary_attachment')
 			.only('gallery', 'gallery__primary_attachment', 'username', 'first_name', 'last_name', 'email')
 			.order_by('pk')
+		)
+
+
+class UserDetailView(DetailView):
+	def get_queryset(self):
+		return (User.objects
+			.filter(is_active=True)
+			.fast_translate()
+			.select_related('gallery', 'gallery__primary_attachment')
 		)
 
 

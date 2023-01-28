@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head_title %}{{ object.get_page_title() }} | {{ super() }}{% endblock %}
+{% block bodyclass %}detail{% endblock %}
+
+{% block content %}
+<hgroup>
+	<h1>{{ object }}</h1>
+
+	<div class="info">
+		{{ object|translated_field("subtitle") }}
+	</div>
+</hgroup>
+
+{{ object|translated_field("description")|safe }}
+{% endblock %}
