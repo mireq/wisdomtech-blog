@@ -70,11 +70,14 @@
 	$background-size: none, /* background size property */
 	$width: none, /* width of resulting element */
 	$height: none, /* height of resulting element (if only one size is given, second size will be calculated with correct aspect ratio) */
-	$center-offset: none none /* add margin to center image at current position, none means no centering, 0 means center, any other value is offset from center */
+	$center-offset: none none, /* add margin to center image at current position, none means no centering, 0 means center, any other value is offset from center */
+	$set-geometry: true
 ) {
 	background-image: url(load_svg($filename, $style));
 	@if $background-repeat {
 		background-repeat: $background-repeat;
 	}
-	@include svg-geometry($filename, $width, $height, $background-size, $center-offset);
+	@if $set-geometry {
+		@include svg-geometry($filename, $width, $height, $background-size, $center-offset);
+	}
 }

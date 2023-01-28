@@ -751,14 +751,14 @@ sub {
 	}
 	.logo {
 		&:before {
-			@include svg('img/logo.svg', "svg { color: #{$font-color}; }", $height: 24px);
+			@include svg('img/logo.svg', "svg { color: #{$font-color}; }", $set-geometry: false);
 		}
 		&:hover, &:visited:hover {
 			background-color: transparent;
 		}
 	}
 	.toggle-dark:before {
-		@include svg('img/sun-solid.svg', "svg { color: #{$font-color}; }", $height: 20px);
+		@include svg('img/sun-solid.svg', "svg { color: #{$font-color}; }", $set-geometry: false);
 	}
 
 	.toggle-menu:before {
@@ -779,9 +779,6 @@ sub {
 	}
 
 	@include medium-screen {
-		.toggle-dark:before {
-			@include svg-geometry('img/sun-solid.svg', $height: 30px);
-		}
 		.main-menu a:hover {
 			background: transparent;
 			color: map-get($palette-light, "primary");
