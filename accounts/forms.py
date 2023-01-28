@@ -4,6 +4,7 @@ from django_attachments.models import Library
 from parler.forms import TranslatableModelForm
 
 from .models import User
+from web.utils.widgets import RichTextWidget
 
 
 class UserChangeForm(BaseUserChangeForm, TranslatableModelForm):
@@ -27,4 +28,8 @@ class UserChangeForm(BaseUserChangeForm, TranslatableModelForm):
 		fields = ['subtitle', 'short_description', 'description', 'gallery']
 		field_classes = {
 			"username": UsernameField,
+		}
+		widgets = {
+			'short_description': RichTextWidget(config='basic'),
+			'description': RichTextWidget(config='content'),
 		}
