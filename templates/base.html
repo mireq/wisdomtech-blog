@@ -55,7 +55,12 @@
 			{% endblock %}
 		</main>
 		<footer class="footer">
-			{% block footer_links %}{% endblock %}
+			<div class="footer__links">
+				{% block footer_links %}{% endblock %}
+			</div>
+			<div class="footer__copy">
+				&copy; {{ now("Y") }} <a href="{{ url("accounts:user_list") }}">MB &amp; MK</a>
+			</div>
 		</footer>
 	{% endblock %}
 	{% compress js %}

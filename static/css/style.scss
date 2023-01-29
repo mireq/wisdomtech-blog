@@ -331,12 +331,20 @@ header {
 	}
 }
 
-footer {
+.footer {
 	border-top: 1px solid map-get($palette, "border-light");
 	font-style: italic;
 	max-width: $max-width;
 	margin: 0 auto;
 	padding: 1rem;
+	&__links {
+		flex: 1 1 auto;
+	}
+	&__copy {
+		text-align: center;
+		flex: 0 0 auto;
+		font-size: 80%;
+	}
 }
 
 .main-menu {
@@ -736,7 +744,7 @@ sub {
 			border-color: map-get($palette, "border-light");
 		}
 	}
-	footer {
+	.footer {
 		border-top-color: map-get($palette, "border-light");
 	}
 	.main-menu {
@@ -842,8 +850,11 @@ body.no-animate * {
 		margin: 2rem auto;
 		padding: 0 2rem;
 	}
-	footer {
+	.footer {
 		padding: 1rem 2rem;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
 	}
 
 	.articles {
