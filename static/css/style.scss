@@ -332,10 +332,11 @@ header {
 }
 
 footer {
+	border-top: 1px solid map-get($palette, "border-light");
 	font-style: italic;
 	max-width: $max-width;
-	margin: 1em auto;
-	padding: 0 1rem;
+	margin: 0 auto;
+	padding: 1rem;
 }
 
 .main-menu {
@@ -735,6 +736,9 @@ sub {
 			border-color: map-get($palette, "border-light");
 		}
 	}
+	footer {
+		border-top-color: map-get($palette, "border-light");
+	}
 	.main-menu {
 		background-color: map-get($palette, "background-body");
 		label {
@@ -839,7 +843,7 @@ body.no-animate * {
 		padding: 0 2rem;
 	}
 	footer {
-		padding: 0 2rem;
+		padding: 1rem 2rem;
 	}
 
 	.articles {
