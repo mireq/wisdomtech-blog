@@ -321,14 +321,13 @@ hgroup {
 header {
 	font-family: $font-menu;
 	font-weight: bold;
+}
 
-
-	nav {
-		max-width: $max-width;
-		padding: 1rem;
-		margin: 0 auto;
-		border-bottom: 1px solid map-get($palette, "border-light");
-	}
+.site-nav {
+	max-width: $max-width;
+	padding: 1rem;
+	margin: 0 auto;
+	border-bottom: 1px solid map-get($palette, "border-light");
 }
 
 .footer {
@@ -744,10 +743,8 @@ sub {
 			color: map-get($palette, "link-active");
 		}
 	}
-	header {
-		nav {
-			border-color: map-get($palette, "border-light");
-		}
+	.site-nav {
+		border-color: map-get($palette, "border-light");
 	}
 	.footer {
 		border-top-color: map-get($palette, "border-light");
@@ -871,10 +868,8 @@ body.no-animate * {
 		}
 	}
 
-	header {
-		nav {
-			padding: 1rem 2rem;
-		}
+	.site-nav {
+		padding: 1rem 2rem;
 	}
 
 	.main-menu {
