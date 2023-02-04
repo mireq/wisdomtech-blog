@@ -5,7 +5,7 @@ from fractions import Fraction
 from math import floor, ceil
 from typing import Tuple, Union, Optional
 
-from PIL import Image
+from PIL import Image, ImageColor
 from easy_thumbnails.processors import _compare_entropy
 
 
@@ -207,4 +207,21 @@ def scale_and_crop(im, size, crop=False, upscale=False, zoom=None, target=None, 
 
 			# Finally, crop the image!
 			im = im.crop(box)
+	return im
+
+
+def alpha(im, alpha=None, output_format=None, **kwargs):
+	if alpha is False or output_format == 'webp':
+		if im.mode in ('RGBA', 'LA') or (im.mode == 'P' and 'transparency' in im.info):
+			background = kwargs.get('background')
+			if background:
+				bg_image = Image.new('RGBA', im.size, ImageColor.getrgb(background))
+				if im.mode != 'RGBA':
+					im = im.convert('RGBA')
+				im = Image.alpha_composite(bg_image, im).convert('RGB')
+			else:
+				im = im.convert('RGB')
+	elif alpha is True:
+		if im.mode != 'RGBA':
+			im = im.convert('RGBA')
 	return im
