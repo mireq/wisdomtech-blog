@@ -700,11 +700,11 @@ sub {
 }
 
 .pagination {
+	margin: 0 -1rem -1rem -1rem;
 	ul {
 		list-style: none;
-		margin: .5rem 0;
-		padding: .5rem 0;
-		border-top: 1px solid map-get($palette, "border-light");
+		padding: 1rem;
+		margin: 0;
 		@extend %clearfix;
 	}
 	a {
@@ -790,10 +790,6 @@ sub {
 		box-shadow:
 			0 8px 0 0 $font-color,
 			0 16px 0 0 $font-color;
-	}
-
-	.pagination ul {
-		border-top: 1px solid map-get($palette, "border-light");
 	}
 
 	.u-full-link {
@@ -928,6 +924,10 @@ body.no-animate * {
 	}
 
 	.pagination {
+		margin: 0 -2rem -2rem -2rem;
+		ul {
+			padding: 1rem 2rem;
+		}
 		&__item {
 			&--previous {
 				float: left;
