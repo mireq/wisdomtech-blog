@@ -367,7 +367,7 @@ header {
 		0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
 		0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
 
-	label {
+	&__title {
 		cursor: pointer;
 		display: block;
 		text-transform: uppercase;
@@ -394,7 +394,7 @@ header {
 		}
 	}
 
-	a {
+	&__item {
 		display: block;
 		text-decoration: none;
 		padding: .25rem 1rem;
@@ -751,10 +751,10 @@ sub {
 	}
 	.main-menu {
 		background-color: map-get($palette, "background-body");
-		label {
+		&__title {
 			border-bottom-color: map-get($palette, "background-body");
 		}
-		a {
+		&__item {
 			color: $font-color;
 		}
 	}
@@ -796,9 +796,11 @@ sub {
 	}
 
 	@include medium-screen {
-		.main-menu a:hover {
-			background: transparent;
-			color: map-get($palette-light, "primary");
+		.main-menu {
+			&__item:hover {
+				background: transparent;
+				color: map-get($palette-light, "primary");
+			}
 		}
 		.articles__item--first .articles__info {
 			background-color: map-get($palette, "background-body");
@@ -889,15 +891,15 @@ body.no-animate * {
 			text-align: left;
 			display: inline-block;
 			padding: 0;
-			a {
-				line-height: 40px;
-				height: 40px;
-				padding: 1rem;
-				box-sizing: content-box;
+			&:first-child {
+				display: none;
 			}
 		}
-		li:first-child {
-			display: none;
+		&__item {
+			line-height: 40px;
+			height: 40px;
+			padding: 1rem;
+			box-sizing: content-box;
 		}
 	}
 
@@ -933,9 +935,11 @@ body.no-animate * {
 		}
 	}
 
-	.main-menu a:hover {
-		background: transparent;
-		color: map-get($palette-light, "primary");
+	.main-menu {
+		&__item:hover {
+			background: transparent;
+			color: map-get($palette-light, "primary");
+		}
 	}
 	.articles__item--first .articles__info {
 		background-color: map-get($palette, "background-body");
@@ -1008,11 +1012,9 @@ body.no-animate * {
 	}
 
 	.main-menu {
-		li {
-			a {
-				line-height: 50px;
-				height: 50px;
-			}
+		&__item {
+			line-height: 50px;
+			height: 50px;
 		}
 	}
 
