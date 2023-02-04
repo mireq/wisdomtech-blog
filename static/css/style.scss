@@ -712,6 +712,11 @@ sub {
 	}
 }
 
+.table {
+	overflow-x: auto;
+	margin-bottom: .5em;
+}
+
 @mixin palette($palette, $html: false) {
 	$font-color: map-get($palette, "font-body");
 	$background-color: map-get($palette, "background-body");
