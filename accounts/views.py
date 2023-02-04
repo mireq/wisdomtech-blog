@@ -12,7 +12,7 @@ class UserListView(ListView):
 			.fast_translate(fields=['subtitle', 'short_description'])
 			.select_related('gallery', 'gallery__primary_attachment')
 			.only('gallery', 'gallery__primary_attachment', 'username', 'first_name', 'last_name', 'email')
-			.order_by('pk')
+			.order_by('last_name', 'first_name', 'pk')
 		)
 
 
