@@ -10,7 +10,7 @@
 
 	<div class="info">
 		<time datetime="{{ object.pub_time|date("Y-m-d H:i:s") }}">{{ object.pub_time|date("SHORT_DATE_FORMAT") }}</time>
-		<address><a rel="author" href="{{ object.author.get_absolute_url() }}">{{ object.author }}</a></address>
+		<address><a rel="author" href="{{ object.author.get_absolute_url() }}">{{ object.author.get_full_name() }}</a></address>
 		{% if object.category %}
 			<span class="info__category"><a href="{{ object.category.get_absolute_url() }}">{{ object.category }}</a></span>
 		{% endif %}
