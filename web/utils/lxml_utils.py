@@ -81,12 +81,16 @@ def make_thumbnails(element):
 	try:
 		with default_storage.open(image_path, 'rb') as fp:
 			classes = element.attrib.get('class', '').split()
+			size_set = False
 
-			try:
-				set_image_size(element, fp)
-			except Exception:
-				logger.exception("Failed to set image size")
-				return element
+			if not element.attrib.get('width') and not element.attrib.get('height'):
+				try:
+					set_image_size(element, fp)
+				except Exception:
+					logger.exception("Failed to set image size")
+					return element
+			else:
+				size_set = True
 
 			if 'no-thumbnail' in classes:
 				return element
@@ -114,9 +118,9 @@ def make_thumbnails(element):
 				if original_size < thumbnail_size:
 					return element
 
-
-			img_attrs['width'] = str(first['size'][0])
-			img_attrs['height'] = str(first['size'][1])
+			if not size_set:
+				img_attrs['width'] = str(first['size'][0])
+				img_attrs['height'] = str(first['size'][1])
 			img_attrs['src'] = str(first['url'])
 			img_attrs['loading'] = 'lazy'
 			img_attrs['data-original-image'] = field_file.url
