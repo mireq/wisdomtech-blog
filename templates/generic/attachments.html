@@ -14,7 +14,7 @@
 				<div class="files__item" data-url="{{ file.file.url }}" data-name="{{ file }}" title="{{ file }}">
 					<div class="files__thumbnail">
 						{% if file.image_width %}
-							{{ thumbnail_tag(file.file, "attachment_browser", attrs={"alt": file, "width": "256", "height": "256"}, sizes=[2]) }}
+							{{ thumbnail_tag(file.file, "attachment_browser", attrs={"alt": file, "width": "256", "height": "256"}) }}
 						{% else %}
 							<img src="{{ static("django_attachments/img/mimetypes/application/octet-stream.svg") }}" alt="{{ file }}" />
 						{% endif %}

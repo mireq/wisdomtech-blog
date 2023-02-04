@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.db.models import F
+from django.urls import path
 from django.utils.translation import gettext_lazy as _
 from django_attachments.admin import AttachmentsAdminMixin
 from parler.admin import TranslatableAdmin
 
+from . import views
 from .forms import BlogCategoryForm, BlogTagForm, BlogPostForm
 from .models import BlogCategory, BlogTag, BlogPost
 
@@ -62,6 +64,11 @@ class BlogPostAdmin(AttachmentsAdminMixin, TranslatableAdmin, admin.ModelAdmin):
 		return obj.fast_translation_getter('title')
 	get_title.admin_order_field = 'fast_translation_title'
 	get_title.short_description = _("Title")
+
+	def get_urls(self):
+		urls = super().get_urls()
+		attachments = [path('<int:pk>/attachments/', views.BlogPostAttachmentsList.as_view(), name='blog_blogpost_attachments')]
+		return attachments + urls
 
 
 admin.site.register(BlogCategory, BlogCategoryAdmin)

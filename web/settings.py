@@ -280,6 +280,7 @@ THUMBNAIL_ALIASES = {
 			'crop': True,
 			'preserve_aspect': True,
 			'alpha': False,
+			'sizes': [2],
 		},
 		'user_list': {
 			'size': (546, 546),

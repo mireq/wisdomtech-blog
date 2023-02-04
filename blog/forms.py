@@ -42,7 +42,7 @@ class BlogPostForm(TranslatableModelForm):
 		self.fields['attachments'].required = False
 		self.fields['slug'].required = False
 		if self.instance and self.instance.pk:
-			url = reverse('blog:post_attachments', kwargs={'pk': self.instance.pk})
+			url = reverse('admin:blog_blogpost_attachments', kwargs={'pk': self.instance.pk})
 			self.fields['content'].widget.set_edit_url(url)
 		self.fields['author'].required = False
 		if 'category' in self.fields:

@@ -14,7 +14,7 @@ class UserChangeForm(BaseUserChangeForm, TranslatableModelForm):
 		if 'gallery' in self.fields:
 			self.fields['gallery'].required = False
 		if self.instance and self.instance.pk:
-			url = reverse('accounts:user_attachments', kwargs={'pk': self.instance.pk})
+			url = reverse('admin:accounts_user_attachments', kwargs={'pk': self.instance.pk})
 			self.fields['description'].widget.set_edit_url(url)
 
 	def save(self, commit=True):
