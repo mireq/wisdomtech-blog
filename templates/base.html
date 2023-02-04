@@ -35,12 +35,12 @@
 				<button class="toggle-dark" id="toggle_dark_mode" aria-label="Toggle dark mode"></button>
 
 				<ul class="main-menu">
-					<li><label for="main_menu_visible">{% trans %}Menu{% endtrans %}</label></li>
-					<li><a href="{{ url("blog:post_list") }}">{% trans %}Blog{% endtrans %}</a></li>
-					<li><a href="{{ url("accounts:user_list") }}">{% trans %}About Us{% endtrans %}</a></li>
+					<li class="main-menu__title"><label for="main_menu_visible">{% trans %}Menu{% endtrans %}</label></li>
+					<li class="main-menu__item"><a href="{{ url("blog:post_list") }}">{% trans %}Blog{% endtrans %}</a></li>
+					<li class="main-menu__item"><a href="{{ url("accounts:user_list") }}">{% trans %}About Us{% endtrans %}</a></li>
 					{% for code, label in LANGUAGES %}
 						{% if code != LANGUAGE_CODE %}
-							<li>
+							<li class="main-menu__item main-menu__item--language">
 								<a href="{{ translated_url(code, "blog:post_list") }}" title="{{ label }}">{{ code|upper }}</a>
 							</li>
 						{% endif %}
