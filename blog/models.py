@@ -23,7 +23,7 @@ class BlogCategory(TranslatableModel, models.Model):
 		slug=AutoSlugField(
 			verbose_name=_("Slug"),
 			max_length=200,
-			in_respect_to=('pk',),
+			in_respect_to=('language_code',),
 			reserve_chars=0,
 			title_field='title'
 		),
@@ -68,7 +68,7 @@ class BlogTag(TranslatableModel, models.Model):
 		slug=AutoSlugField(
 			verbose_name=_("Slug"),
 			max_length=200,
-			in_respect_to=('pk',),
+			in_respect_to=('language_code',),
 			reserve_chars=0,
 			title_field='title'
 		),
@@ -144,7 +144,7 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 		slug=AutoSlugField(
 			verbose_name=_("Slug"),
 			max_length=200,
-			in_respect_to=('pk',),
+			in_respect_to=('language_code',),
 			reserve_chars=0,
 			title_field='title'
 		),

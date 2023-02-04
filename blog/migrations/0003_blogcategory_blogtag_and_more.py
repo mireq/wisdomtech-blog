@@ -63,7 +63,7 @@ class Migration(migrations.Migration):
 				('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False)),
 				('language_code', models.CharField(db_index=True, max_length=15)),
 				('title', models.CharField(max_length=200)),
-				('slug', django_autoslugfield.fields.AutoSlugField(in_respect_to=('pk',), max_length=200, reserve_chars=0, title_field='title')),
+				('slug', django_autoslugfield.fields.AutoSlugField(in_respect_to=('language_code',), max_length=200, reserve_chars=0, title_field='title')),
 				('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='blog.blogtag')),
 			],
 			options={
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
 				('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False)),
 				('language_code', models.CharField(db_index=True, max_length=15)),
 				('title', models.CharField(max_length=200)),
-				('slug', django_autoslugfield.fields.AutoSlugField(in_respect_to=('pk',), max_length=200, reserve_chars=0, title_field='title')),
+				('slug', django_autoslugfield.fields.AutoSlugField(in_respect_to=('language_code',), max_length=200, reserve_chars=0, title_field='title')),
 				('page_title', models.CharField(blank=True, max_length=200)),
 				('meta_description', models.TextField(blank=True)),
 				('master', parler.fields.TranslationsForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='translations', to='blog.blogcategory')),
