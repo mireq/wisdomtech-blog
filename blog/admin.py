@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from django.db.models import F
 from django.utils.translation import gettext_lazy as _
 from django_attachments.admin import AttachmentsAdminMixin
 from parler.admin import TranslatableAdmin
@@ -47,7 +48,15 @@ class BlogPostAdmin(AttachmentsAdminMixin, TranslatableAdmin, admin.ModelAdmin):
 		return obj
 
 	def get_queryset(self, request):
-		return super().get_queryset(request).fast_translate(fallback=True).select_related('author')
+		return (super().get_queryset(request)
+			.fast_translate(fallback=True)
+			.select_related('author'))
+
+	def get_ordering(self, request):
+		ordering = super().get_ordering(request)
+		if not ordering:
+			return (F('pub_time').desc(nulls_first=True), '-id')
+		return ordering
 
 	def get_title(self, obj):
 		return obj.fast_translation_getter('title')
