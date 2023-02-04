@@ -6,7 +6,7 @@
 
 {% block content %}
 <hgroup>
-	<h1>{{ object }}</h1>
+	<h1>{{ object.get_full_name() }}</h1>
 
 	<div class="info">
 		{{ object|translated_field("subtitle") }}

@@ -15,7 +15,7 @@
 			</div>
 			<div class="users__info">
 				<div class="users__subtitle">{{ item|translated_field("subtitle") }}</div>
-				<h2>{{ item }}</h2>
+				<h2>{{ item.get_full_name() }}</h2>
 				{{ item|translated_field("short_description")|safe }}
 			</div>
 			<a class="u-full-link" href="{{ item.get_absolute_url() }}" title="{{ item }}"></a>
