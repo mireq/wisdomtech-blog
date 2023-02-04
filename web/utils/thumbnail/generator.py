@@ -96,6 +96,7 @@ def generate_thumbnails(source, alias) -> List[dict]:
 
 		thumbnail_instances.append({
 			'url': thumbnail.url,
+			'name': thumbnail.name,
 			'size': [thumbnail.width, thumbnail.height],
 			'size_hint': f'{thumbnail.width}w' if has_absolute else f'{size}x',
 			'format': output_format,

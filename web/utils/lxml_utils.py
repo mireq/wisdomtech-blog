@@ -106,7 +106,7 @@ def make_thumbnails(element):
 			thumbnail_size = None
 			try:
 				original_size = default_storage.size(image_path)
-				thumbnail_size = default_storage.size(first.thumbnail.name)
+				thumbnail_size = default_storage.size(first['name'])
 			except NotADirectoryError:
 				pass
 
@@ -115,9 +115,9 @@ def make_thumbnails(element):
 					return element
 
 
-			img_attrs['width'] = str(first.size[0])
-			img_attrs['height'] = str(first.size[1])
-			img_attrs['src'] = str(first.url)
+			img_attrs['width'] = str(first['size'][0])
+			img_attrs['height'] = str(first['size'][1])
+			img_attrs['src'] = str(first['url'])
 			img_attrs['loading'] = 'lazy'
 			img_attrs['data-original-image'] = field_file.url
 
@@ -125,10 +125,10 @@ def make_thumbnails(element):
 			webp_srcs = []
 
 			for thumbnail in thumbnails:
-				if thumbnail.format == 'webp':
-					webp_srcs.append(f'{thumbnail.url} {thumbnail.size_hint}')
+				if thumbnail['format'] == 'webp':
+					webp_srcs.append(f'{thumbnail["url"]} {thumbnail["size_hint"]}')
 				else:
-					img_srcs.append(f'{thumbnail.url} {thumbnail.size_hint}')
+					img_srcs.append(f'{thumbnail["url"]} {thumbnail["size_hint"]}')
 
 			webp_srcs = ', '.join(webp_srcs)
 			img_srcs = ', '.join(img_srcs)
