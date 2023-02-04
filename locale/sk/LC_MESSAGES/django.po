@@ -1,0 +1,195 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-04 16:16+0100\n"
+"PO-Revision-Date: 2023-02-04 16:21+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "SEO"
+msgstr "SEO"
+
+msgid "Files"
+msgstr "Súbory"
+
+msgid "Accounts"
+msgstr "Účty"
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "Links to other sites e.g twitter: ...(newline)facebook: ..."
+msgstr "Odkazy na iné stránky napr. twitter: ...(nový riadok)facebook: ..."
+
+msgid "Subtitle"
+msgstr "Podtituok"
+
+msgid "Short description"
+msgstr "Krátky popis"
+
+msgid "Processed description"
+msgstr "Spracovaný popis"
+
+msgid "Page title"
+msgstr "Titulok stránky"
+
+msgid "Meta description"
+msgstr "Meta popis"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Blog tags"
+msgstr "Tagy blogu"
+
+msgid "Separated with comma charracter"
+msgstr "Oddelené čiarkou"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid "Blog category"
+msgstr "Kategória blogu"
+
+msgid "Blog categories"
+msgstr "Kategórie blogu"
+
+msgid "Blog tag"
+msgstr "Tag blogu"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Gallery"
+msgstr "Galéria"
+
+msgid "Attachments"
+msgstr "Prílohy"
+
+msgid "Is published"
+msgstr "Publikovaný"
+
+msgid "Publication time"
+msgstr "Čas publikácie"
+
+msgid "Summary"
+msgstr "Sumarizácia"
+
+msgid "Perex"
+msgstr "Perex"
+
+msgid "Content"
+msgstr "Obsah"
+
+msgid "Processed content"
+msgstr "Spracovaný obsah"
+
+msgid "Number of words"
+msgstr "Počet slov"
+
+msgid "Blog post"
+msgstr "Článok blogu"
+
+msgid "Blog posts"
+msgstr "Články blogu"
+
+msgid "Articles"
+msgstr "Články"
+
+msgid "About Us"
+msgstr "O nás"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Read time"
+msgstr "Čas čítania"
+
+msgid "Wisdom Blog - because we love technology"
+msgstr "Wisdom Blog - because we love technology"
+
+msgid "Wisdom blog"
+msgstr "Wisdom blog"
+
+msgid "RSS"
+msgstr "RSS"
+
+msgid "No uploaded files"
+msgstr "Žiadne nahrané súbory"
+
+msgid "Previous page"
+msgstr "Predcáhdzajúca strana"
+
+msgid "Newer"
+msgstr "Novšie"
+
+msgid "Next page"
+msgstr "Nasledujúca strana"
+
+msgid "Older"
+msgstr "Staršie"
+
+msgctxt "link rel"
+msgid "Gallery"
+msgstr "Galéria"
+
+msgctxt "table style"
+msgid "None"
+msgstr "Žiaden"
+
+msgctxt "table style"
+msgid "Wide"
+msgstr "Široká"
+
+msgctxt "image style"
+msgid "None"
+msgstr "Žiaden"
+
+msgctxt "image style"
+msgid "No thumbnail"
+msgstr "Bez náhľadu"
+
+msgctxt "style"
+msgid "Source code"
+msgstr "Zdrojový kód"
+
+msgctxt "style"
+msgid "Don't wrap code"
+msgstr "Nezalamovať kód"
+
+msgctxt "style"
+msgid "Wide"
+msgstr "Široký"
+
+#, python-format
+msgid "%(min)s minute"
+msgid_plural "%(min)s minutes"
+msgstr[0] "%(min)s minúta"
+msgstr[1] "%(min)s minúty"
+msgstr[2] "%(min)s minúty"
+msgstr[3] "%(min)s minút"
+
+msgid "Date created"
+msgstr "Dátum vytvorenia"
+
+msgid "Date updated"
+msgstr "Dátum aktualizácie"
