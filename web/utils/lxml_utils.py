@@ -147,3 +147,14 @@ def make_thumbnails(element):
 		return element
 
 	return element
+
+
+def wrap_table(element):
+	wrapper = lxml.etree.Element('div')
+	classes = ['table']
+	if 'class' in element.attrib:
+		classes.extend(element.attrib['class'].split())
+		del element.attrib['class']
+	wrapper.attrib['class'] = ' '.join(classes)
+	wrapper.append(element)
+	return wrapper

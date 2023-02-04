@@ -31,7 +31,7 @@ def process_content(content: str, language_code: str):
 	if not content:
 		return content
 
-	from .lxml_utils import replace_element, highlight_code, make_thumbnails
+	from .lxml_utils import replace_element, highlight_code, make_thumbnails, wrap_table
 	from lxml import etree
 	import lxml.html
 	import pyphen
@@ -80,6 +80,8 @@ def process_content(content: str, language_code: str):
 					replace_element(element, lambda element, lang=language: highlight_code(element, lang))
 			if element.tag == 'img' and 'src' in element.attrib:
 				replace_element(element, make_thumbnails)
+			if element.tag == 'table':
+				replace_element(element, wrap_table)
 
 	code = etree.tostring(tree, encoding='utf-8', method='html').decode('utf-8')
 	return unwrap_tag(code)[0]
