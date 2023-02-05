@@ -29,4 +29,11 @@ server {
 }
 ```
 
+Pay attention to permissions. If you don't run django app under same user as
+nginx, you will need trick to access cache. Something like:
 
+```
+bindfs -u web -g web /tmp/blog_cache /tmp/blog_cache_chmod/
+```
+
+and then use `/tmp/blog_cache_chmod/` for `NGINX_CACHE_DIR`.
