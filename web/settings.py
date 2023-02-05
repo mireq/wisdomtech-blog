@@ -306,6 +306,8 @@ THUMBNAIL_BASEDIR = 'thumbs'
 THUMBNAIL_CACHE = 'default'
 THUMBNAIL_CACHE_PREFIX = 'tmb_'
 
+NGINX_CACHE_DIR = None
+
 SOURCE_CODE_LEXERS = [
 	('c', "C"),
 	('cmake', "CMake"),
