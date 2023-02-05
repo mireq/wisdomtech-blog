@@ -27,11 +27,8 @@ urlpatterns += i18n_patterns(
 	path('', include('blog.urls')),
 	path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 	prefix_default_language=False,
-
 )
-urlpatterns += [
-	path('elements/', TemplateView.as_view(template_name='elements.html')),
-]
+
 if not settings.DEBUG:
 	handler404 = 'web.error_handlers.error_404'
 	handler500 = 'web.error_handlers.error_500'
