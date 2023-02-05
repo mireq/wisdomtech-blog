@@ -10,15 +10,15 @@ uwsgi_cache_path <cache_dir>/list levels=1:2 keys_zone=blog_cache_list:10m max_s
 
 server {
 	…
-	location =/ {
+	location ~ ^/(en/|sk/|)$ {
 		uwsgi_cache blog_cache_list;
 		uwsgi_cache_valid 200 1d;
-		uwsgi_cache_key "${arg_page}";
+		uwsgi_cache_key "${uri}:${arg_page}";
 
 		include         snippets/call-uwsgi.conf;
 	}
 
-	location ~ ^/[-a-zA-Z0-9_]+-p\d+/$ {
+	location ~ ^/(en/|sk/|)[-a-zA-Z0-9_]+-p\d+/$ {
 		uwsgi_cache blog_cache;
 		uwsgi_cache_valid 200 7d;
 		uwsgi_cache_key "${uri}";
