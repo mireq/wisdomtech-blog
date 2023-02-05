@@ -20,7 +20,7 @@ server {
 
 	location ~ ^/(en/|sk/|)[-a-zA-Z0-9_]+-p\d+/$ {
 		uwsgi_cache blog_cache;
-		uwsgi_cache_valid 200 7d;
+		uwsgi_cache_valid 200 301 302 7d;
 		uwsgi_cache_key "${uri}";
 
 		include         snippets/call-uwsgi.conf;
