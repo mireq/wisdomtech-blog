@@ -1,8 +1,18 @@
 # Blog platform based on django
 
-This is very simple blog platform for django.
+This is simple blog platform for django framework. It's fast, very well optimized with minimal javascript overhead.
 
-Style is inspired by [Gutenberg](http://matejlatin.github.io/Gutenberg/)
+Other features:
+
+- mobile device support
+- dark mode
+- good printing style
+- server side syntax highligting (supports marking parts of source code with bold / emphasis elements)
+- file uploader
+- file browser (integrated to wysiwyg)
+- hyphenation
+
+Style based on [Gutenberg](http://matejlatin.github.io/Gutenberg/)
 
 ## Screenshot
 
