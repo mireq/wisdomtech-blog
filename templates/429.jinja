@@ -1,0 +1,6 @@
+{% extends "error.jinja" %}
+
+{% block head_title %}{% trans %}Too Many Requests{% endtrans %}{% endblock %}
+{% block errorcode %}429{% endblock %}
+{% block error_text %}{% trans %}Too Many Requests{% endtrans %}{% endblock %}
+{% block details %}<p>{% trans %}The 429 status code indicates that the user has sent too many requests in a given amount of time (&#34;rate limiting&#34;).{% endtrans %}</p>{% endblock %}

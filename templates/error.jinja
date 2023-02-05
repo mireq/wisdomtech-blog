@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block head_title %}Internal error{% endblock %}</title>
+	<meta charset="utf-8" />
+	<style>
+/*
+Gutenberg: A Meaningful Web Typography Starter Kit
+Website ....... http://matejlatin.github.io/Gutenberg/
+Version ....... 1.2.3
+Github ........ https://github.com/matejlatin/Gutenberg
+Authors ....... Matej Latin (@matejlatin)
+License ....... Creative Commmons Attribution 3.0
+License URL ... https://raw.githubusercontent.com/matejlatin/Gutenberg/master/license.txt
+*/
+@font-face {
+  font-family: 'FiraSansCondensed';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: local("FiraSansCondensed Bold"), local("FiraSansCondensed-Bold"), local("Fira Sans Condensed"), local("FiraSansCondensed"), url(/static/fonts/FiraSansCondensed/FiraSansCondensed-Bold.woff2) format("woff2"), url(/static/fonts/FiraSansCondensed/FiraSansCondensed-Bold.woff) format("woff"); }
+
+@font-face {
+  font-family: 'Lora';
+  font-weight: 100 1000;
+  font-style: italic;
+  font-display: swap;
+  src: local("Lora Italic"), local("Lora-Italic"), local("Lora"), url(/static/fonts/Lora/Lora-Italic-VariableFont_wght.woff2) format("woff2"), url(/static/fonts/Lora/Lora-Italic-VariableFont_wght.woff) format("woff"); }
+
+@font-face {
+  font-family: 'Lora';
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+  src: local("Lora Regular"), local("Lora-Regular"), local("Lora"), url(/static/fonts/Lora/Lora-VariableFont_wght.woff2) format("woff2"), url(/static/fonts/Lora/Lora-VariableFont_wght.woff) format("woff"); }
+
+body {
+	margin: 0; }
+
+html {
+	box-sizing: border-box;
+	font-size: 18px;
+	font-family: "Lora", Georgia, serif;
+	font-weight: 500;
+	background-color: #fff;
+	color: #222;
+	scrollbar-color: #222 #fff;
+	scrollbar-width: thin;
+	scrollbar-gutter: stable; }
+	html::-webkit-scrollbar-track {
+		background-color: #fff; }
+	html::-webkit-scrollbar {
+		width: 6px;
+		height: 6px;
+		background-color: #fff; }
+	html::-webkit-scrollbar-thumb {
+		background-color: #222;
+		border-top: 1px solid #fff;
+		border-bottom: 1px solid #fff; }
+
+* {
+	line-height: 1.625; }
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit; }
+
+.status-middle {
+	max-width: 30em;
+	padding: 2em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5em;
+}
+
+.status-code {
+	font-family 'FiraSansCondensed';
+	font-weight: bold;
+	font-size: 500%;
+	text-align: center;
+	opacity: .75;
+}
+
+a {
+	color: #222;
+}
+
+a:active,
+a:hover {
+	outline: 0;
+	color: #fff;
+	background-color: #e64c43;
+}
+
+.links {
+	padding: 2em 0;
+	margin: 2em 0;
+	border-top: 1px solid #ddd;
+}
+	</style>
+	{% block extraheaders %}{% endblock %}
+</head>
+
+<body>
+<div class="status-middle">
+	<div class="status-code">{% block errorcode %}500{% endblock %}</div>
+	<h1>{% block error_text %}{% trans %}Internal error{% endtrans %}{% endblock %}</h1>
+	{% block details %}
+	{% endblock %}
+
+	<div class="links">
+		<a href="/" class="button back">{% trans %}Back to home page{% endtrans %}</a>
+		<!--<a href="" class="button report" target="_new">{% trans %}Report issue{% endtrans %}</a>-->
+	</div>
+
+	{% block extrajs %}
+	{% endblock %}
+</div>
+
+</body>
+</html>

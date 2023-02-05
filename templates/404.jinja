@@ -1,0 +1,6 @@
+{% extends "error.jinja" %}
+
+{% block head_title %}{% trans %}Page not found{% endtrans %}{% endblock %}
+{% block errorcode %}404{% endblock %}
+{% block error_text %}{% trans %}Page not found{% endtrans %}{% endblock %}
+{% block details %}<p>{% trans %}Requested page cannot be found on server. You can continue <a href="/">to home page</a>.{% endtrans %}</p>{% endblock %}
