@@ -20,7 +20,8 @@ class BlogPostListView(ListView):
 		return (BlogPost.objects
 			.published()
 			.fast_translate(fields=['title', 'slug', 'summary', 'words'])
-			.select_related('gallery', 'gallery__primary_attachment')
+			.select_related('gallery', 'gallery__primary_attachment', 'author')
+			.only('pk', 'pub_time', 'author__id', 'author__first_name', 'author__last_name', 'author__username', 'gallery__id', 'gallery__primary_attachment__id', 'gallery__primary_attachment__file')
 		)
 
 

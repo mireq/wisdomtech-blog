@@ -8,8 +8,6 @@ LOG_SQL = False
 
 DEBUG = True
 
-THUMBNAIL_CACHE = None
-
 INSTALLED_APPS = INSTALLED_APPS + [
 	'django_extensions',
 ]
