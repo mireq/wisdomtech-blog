@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.contrib.auth import get_user_model
 from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -7,6 +8,9 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import BlogPost, BlogCategory
 from web.utils.generic_views import ListView, AttachmentListAndUploadView, DetailView, RedirectOnBadSlugMixin
+
+
+User = get_user_model()
 
 
 class BlogPostListView(ListView):
@@ -40,13 +44,18 @@ class BlogPostFeed(Feed):
 			.values('pk', 'fast_translation_title', 'fast_translation_slug', 'fast_translation_summary', 'pub_time', 'date_updated', 'author__username', 'author__first_name', 'author__last_name', 'category_id')
 		)
 		if obj is not None:
-			qs = qs.filter(category=obj)
+			if isinstance(obj, BlogCategory):
+				qs = qs.filter(category=obj)
+			elif isinstance(obj, User):
+				qs = qs.filter(author=obj)
 		return qs
 
-	def get_object(self, request, pk=None, slug=None): # pylint: disable=unused-argument
-		if pk is None:
+	def get_object(self, request, pk=None, slug=None, user_id=None): # pylint: disable=unused-argument
+		if pk is None and user_id is None:
 			return None
-		return get_object_or_404(BlogCategory.objects.fast_translate(), pk=pk)
+		if pk is not None:
+			return get_object_or_404(BlogCategory.objects.fast_translate(), pk=pk)
+		return get_object_or_404(User.objects.filter(is_active=True), pk=user_id)
 
 	def item_title(self, obj):
 		return obj['fast_translation_title']

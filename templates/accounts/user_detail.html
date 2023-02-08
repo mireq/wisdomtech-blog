@@ -15,3 +15,7 @@
 
 {{ object|translated_field("description")|safe }}
 {% endblock %}
+
+{% block footer_links %}
+	<a href="{{ url("blog:user_feed", user_id=object.pk) }}">{% trans %}RSS{% endtrans %}</a>
+{% endblock %}
