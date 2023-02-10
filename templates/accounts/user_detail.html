@@ -14,6 +14,10 @@
 </hgroup>
 
 {{ object|translated_field("description")|safe }}
+
+<h2>{% trans %}Posts{% endtrans %}</h2>
+
+<p><em><a href="{{ url("blog:user_post_list", pk=object.pk) }}">{% trans %}Show all posts{% endtrans %}</a></em></p>
 {% endblock %}
 
 {% block footer_links %}

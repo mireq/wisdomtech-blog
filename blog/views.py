@@ -99,6 +99,22 @@ class CategoryBlogPostListView(RedirectOnBadSlugMixin, BlogPostListView):
 		return super().get_queryset().filter(category=self.get_object())
 
 	def get_context_data(self, **kwargs):
+		obj = self.get_object()
+		return super().get_context_data(object=obj, category=obj, **kwargs)
+
+
+class UserBlogPostListView(BlogPostListView):
+	def get_object(self):
+		obj = getattr(self, 'object', None)
+		if obj is None:
+			obj = get_object_or_404(User, pk=self.kwargs['pk'])
+			self.object = obj
+		return obj
+
+	def get_queryset(self):
+		return super().get_queryset().filter(author=self.get_object())
+
+	def get_context_data(self, **kwargs):
 		return super().get_context_data(object=self.get_object(), **kwargs)
 
 

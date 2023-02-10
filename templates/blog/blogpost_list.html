@@ -41,8 +41,8 @@
 {% endblock %}
 
 {% block footer_links %}
-	{% if object %}
-		<a href="{{ url("blog:category_feed", pk=object.pk, slug=object.fast_translation_slug) }}">{{ object }} {% trans %}RSS{% endtrans %}</a>
+	{% if category %}
+		<a href="{{ url("blog:category_feed", pk=category.pk, slug=category.fast_translation_slug) }}">{{ category }} {% trans %}RSS{% endtrans %}</a>
 	{% else %}
 		<a href="{{ url("blog:post_feed") }}">{% trans %}RSS{% endtrans %}</a>
 	{% endif %}

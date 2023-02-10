@@ -14,4 +14,5 @@ urlpatterns = [
 	path('category/<slug:slug>-p<int:pk>/', views.CategoryBlogPostListView.as_view(), name='category_detail'),
 	path('category/<slug:slug>-p<int:pk>/feed/', views.BlogPostFeed(), name='category_feed'),
 	path('accounts/<int:user_id>/feed/', views.BlogPostFeed(), name='user_feed'),
+	path('accounts/<int:pk>/posts/', views.UserBlogPostListView.as_view(), name='user_post_list'),
 ]
