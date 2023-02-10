@@ -17,7 +17,13 @@
 
 <h2>{% trans %}Posts{% endtrans %}</h2>
 
-<p><em><a href="{{ url("blog:user_post_list", pk=object.pk) }}">{% trans %}Show all posts{% endtrans %}</a></em></p>
+<p>
+	{% for post in last_posts[:5] %}
+		<a href="{{ post.get_absolute_url() }}">{{ post }}</a><br />
+	{% endfor %}
+	<br /><em><a href="{{ url("blog:user_post_list", pk=object.pk) }}">{% trans %}Show all posts{% endtrans %}</a></em>
+</p>
+
 {% endblock %}
 
 {% block footer_links %}
