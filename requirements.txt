@@ -11,7 +11,7 @@ django-libsass==0.9       # via -r requirements.in
 django-parler==2.3        # via -r requirements.in
 django-pylibmc-threadsafe==1.0.1  # via -r requirements.in
 django-tinymce==3.5.0     # via -r requirements.in
-django-universal-paginator==1.0.2  # via -r requirements.in
+django-universal-paginator==1.1.0  # via -r requirements.in
 easy-thumbnails==2.8.5    # via -r requirements.in, django-attachments-management
 jinja2==3.1.2             # via -r requirements.in, django-jinja
 libsass==0.22.0           # via -r requirements.in, django-libsass
@@ -31,3 +31,7 @@ rjsmin==1.2.1             # via django-compressor
 sqlparse==0.4.3           # via django
 tomli==2.0.1              # via build
 wheel==0.38.4             # via pip-tools
+
+# The following packages are considered to be unsafe in a requirements file:
+# pip
+# setuptools
