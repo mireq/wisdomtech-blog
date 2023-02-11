@@ -772,14 +772,14 @@ sub {
 	}
 	.logo {
 		&:before {
-			@include svg('img/logo.svg', "svg { color: #{$font-color}; }", $set-geometry: false);
+			filter: invert(100%) hue-rotate(180deg);
 		}
 		&:hover, &:visited:hover {
 			background-color: transparent;
 		}
 	}
 	.toggle-dark:before {
-		@include svg('img/sun-solid.svg', "svg { color: #{$font-color}; }", $set-geometry: false);
+		filter: invert(100%);
 	}
 
 	.toggle-menu:before {
