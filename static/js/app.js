@@ -1,9 +1,13 @@
 (function() {
 
+var doc = document;
+var body = doc.body;
+
 function getCookie(name) {
 	var cookieValue = null;
-	if (document.cookie && document.cookie !== '') {
-		var cookies = document.cookie.split(';');
+	var cookie = doc.cookie;
+	if (cookie && cookie !== '') {
+		var cookies = cookie.split(';');
 		for (var i = 0; i < cookies.length; i++) {
 			var cookie = cookies[i].trim();
 			// Does this cookie string begin with the name we want?
@@ -26,7 +30,7 @@ function setCookie(name, value, days) {
 	else {
 		expires = "";
 	}
-	document.cookie = name+"="+value+expires+"; path=/; SameSite=Lax";
+	doc.cookie = name+"="+value+expires+"; path=/; SameSite=Lax";
 }
 
 function bindEvent(element, name, fn) {
@@ -46,18 +50,18 @@ function debounce(fn, delay) {
 }
 
 function disableAnimations() {
-	document.body.classList.add('no-animate');
+	body.classList.add('no-animate');
 }
 
 function enableAnimations() {
-	document.body.classList.remove('no-animate');
+	body.classList.remove('no-animate');
 }
 
 function toggleDarkMode() {
 	var mode = getCookie('mode');
 	var newMode = mode === 'dark' ? 'light': 'dark';
 	setCookie('mode', newMode, 3650);
-	document.getElementsByTagName('html')[0].classList.toggle('dark-mode', newMode === 'dark');
+	doc.getElementsByTagName('html')[0].classList.toggle('dark-mode', newMode === 'dark');
 }
 
 var delayedEnableAnimations = debounce(enableAnimations, 100);
@@ -66,7 +70,7 @@ bindEvent(window, 'resize', function() {
 	disableAnimations();
 	delayedEnableAnimations();
 });
-var darkModeButton = document.getElementById('toggle_dark_mode');
+var darkModeButton = doc.getElementById('toggle_dark_mode');
 bindEvent(darkModeButton, 'click', toggleDarkMode);
 delayedEnableAnimations();
 
