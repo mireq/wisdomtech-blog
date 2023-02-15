@@ -101,7 +101,6 @@ class TranslatableQuerySet(BaseTranslatableQuerySet):
 		else:
 			if hide_untranslated is NOT_SET:
 				hide_untranslated = True
-			self._language = language_code
 
 		if fields is None:
 			fields = self.model._parler_meta.get_all_fields()
@@ -110,7 +109,7 @@ class TranslatableQuerySet(BaseTranslatableQuerySet):
 			annotations = {}
 			for field in fields:
 				annotations[prefix + field] = F('translations__' + field)
-			return (self
+			qs = (self
 				.filter(translations__language_code=language_code, *q_filters, **named_filters)
 				.annotate(**annotations))
 		# Complex cases with fallbakck
@@ -174,7 +173,9 @@ class TranslatableQuerySet(BaseTranslatableQuerySet):
 					qs = qs.filter(*q_filters, **named_filters).exclude(**{f'{prefix}id__isnull': True})
 				else:
 					qs = qs.filter(*q_filters, **named_filters)
-			return qs
+		if not fetch_all:
+			qs._language = language_code
+		return qs
 
 
 class TranslatableManager(models.Manager.from_queryset(TranslatableQuerySet)):
