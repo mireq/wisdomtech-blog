@@ -14,6 +14,11 @@ User = get_user_model()
 
 
 class BlogPostListView(ListView):
+	QUERYSET = (BlogPost.objects
+		.select_related('gallery', 'gallery__primary_attachment', 'author')
+		.only('pk', 'pub_time', 'author__id', 'author__first_name', 'author__last_name', 'author__username', 'gallery__id', 'gallery__primary_attachment__id', 'gallery__primary_attachment__file')
+	)
+
 	def get_paginate_by(self, queryset): # pylint: disable=unused-argument
 		if 'page' in self.request.GET:
 			return 10
@@ -21,12 +26,7 @@ class BlogPostListView(ListView):
 			return 9
 
 	def get_queryset(self):
-		return (BlogPost.objects
-			.published()
-			.fast_translate(fields=['title', 'slug', 'summary', 'words'])
-			.select_related('gallery', 'gallery__primary_attachment', 'author')
-			.only('pk', 'pub_time', 'author__id', 'author__first_name', 'author__last_name', 'author__username', 'gallery__id', 'gallery__primary_attachment__id', 'gallery__primary_attachment__file')
-		)
+		return self.QUERYSET.fast_translate(fields=['title', 'slug', 'summary', 'words']).published()
 
 
 class BlogPostFeed(Feed):
@@ -123,10 +123,9 @@ class BlogPostAttachmentsList(AttachmentListAndUploadView):
 
 
 class BlogPostDetailView(DetailView):
+	QUERYSET = (BlogPost.objects
+		.prefetch_category()
+		.select_related('gallery', 'gallery__primary_attachment', 'author'))
+
 	def get_queryset(self):
-		return (BlogPost.objects
-			.published()
-			.prefetch_category()
-			.fast_translate()
-			.select_related('gallery', 'gallery__primary_attachment')
-		)
+		return self.QUERYSET.published().fast_translate()
