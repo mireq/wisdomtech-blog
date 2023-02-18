@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
+import os
+import re
 from copy import deepcopy
+from decimal import Decimal as D
 from typing import Union, Callable, Tuple
 
 import lxml.html
@@ -16,6 +19,29 @@ from web.utils.thumbnail.generator import generate_thumbnails
 
 
 logger = logging.getLogger(__name__)
+
+
+LENGTH_TO_PIX = {
+	'': lambda val: val,
+	'em': lambda val: val * 16,
+	'ex': lambda val: val * 6,
+	'in': lambda val: val * 96,
+	'cm': lambda val: val * D('37.8'),
+	'mm': lambda val: val * D('3.78'),
+	'pt': lambda val: (val * 4) / 3,
+	'pc': lambda val: val * 16,
+	'%': lambda val: val * 800,
+}
+
+
+def parse_svg_length(length):
+	match = re.match(r'(\d*\.?\d*)\s*(.*)', length)
+	number, unit = match.groups()
+	unit = unit.lower().strip()
+	number = D(number)
+	pixels = LENGTH_TO_PIX.get(unit, LENGTH_TO_PIX[''])(number)
+	pixels = pixels.quantize(D(1))
+	return int(pixels)
 
 
 def unwrap_tag(content) -> Tuple[str, str, str]:
@@ -63,12 +89,26 @@ def highlight_code(element, lang):
 		return element
 
 
-def set_image_size(element, fp):
-	img = Image.open(fp)
-	size = img.size
-	img.close()
-	element.attrib['width'] = str(size[0])
-	element.attrib['height'] = str(size[1])
+def set_image_size(element, fp, image_path):
+	__, ext = os.path.splitext(image_path)
+	if ext.lower() == '.svg':
+		fp.seek(0)
+		tree = etree.parse(fp)
+		root = tree.getroot()
+		width, height, view_box = root.attrib.get('width'), root.attrib.get('height'), root.attrib.get('viewBox')
+		if (not width or not height) and view_box:
+			__, __, width, height = view_box.split()
+		if width and height:
+			width = parse_svg_length(width)
+			height = parse_svg_length(height)
+			element.attrib['width'] = str(width)
+			element.attrib['height'] = str(height)
+	else:
+		img = Image.open(fp)
+		size = img.size
+		img.close()
+		element.attrib['width'] = str(size[0])
+		element.attrib['height'] = str(size[1])
 
 
 def make_thumbnails(element):
@@ -85,7 +125,7 @@ def make_thumbnails(element):
 
 			if not element.attrib.get('width') and not element.attrib.get('height'):
 				try:
-					set_image_size(element, fp)
+					set_image_size(element, fp, image_path)
 				except Exception:
 					logger.exception("Failed to set image size")
 					return element
@@ -93,6 +133,11 @@ def make_thumbnails(element):
 				size_set = True
 
 			if 'no-thumbnail' in classes:
+				return element
+
+			__, ext = os.path.splitext(image_path)
+			if ext.lower() == '.svg':
+				element.attrib['loading'] = 'lazy'
 				return element
 
 			field = Attachment._meta.get_field('file')
