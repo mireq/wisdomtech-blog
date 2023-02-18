@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
 				('pub_time', models.DateTimeField(blank=True, db_index=True, null=True)),
 				('attachments', django_attachments.fields.LibraryField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='django_attachments.library')),
 				('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
-				('gallery', django_attachments.fields.GalleryField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='django_attachments.library')),
+				('gallery', django_attachments.fields.LibraryField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='django_attachments.library')),
 			],
 			options={
 				'verbose_name': 'Blog post',
