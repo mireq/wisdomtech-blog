@@ -99,7 +99,7 @@ class BlogPost(TimestampModelMixin, TranslatableModel, models.Model):
 		verbose_name=_("Author"),
 		on_delete=models.PROTECT
 	)
-	gallery = GalleryField(
+	gallery = LibraryField(
 		verbose_name=_("Gallery"),
 		blank=True,
 		null=True,
