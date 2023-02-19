@@ -88,7 +88,7 @@ TEMPLATES = [
 				'django.template.context_processors.i18n',
 			],
 			"autoescape": True,
-			"auto_reload": False,
+			"auto_reload": True,
 			"translation_engine": "django.utils.translation",
 			"environment": "web.utils.jinja_environment.Environment",
 			"bytecode_cache": {
