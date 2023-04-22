@@ -59,7 +59,7 @@ class TranslatableQuerySet(BaseTranslatableQuerySet):
 		"""Annotates queryset with translated fields.
 
 		Args:
-			langauge_code (str): Language code or None for current language.
+			language_code (str): Language code or None for current language.
 			fields (list of strings): Requested translated fields or None for all
 				fields.
 			hide_untranslated (bool): Filter objects without requested translation
