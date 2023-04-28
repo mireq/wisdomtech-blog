@@ -5,7 +5,7 @@
 {% block content %}
 {% if object %}
 	<hgroup>
-		<h1>{{ object }}</h1>
+		<h1>{% if object.get_full_name and object.get_full_name() %}{{ object.get_full_name() }}{% else %}{{ object }}{% endif %}</h1>
 	</hgroup>
 {% else %}
 	<hgroup class="u-hidden">
