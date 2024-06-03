@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django_attachments.fields import LibraryField, GalleryField
+from django_attachments.fields import LibraryField
 from django_autoslugfield import AutoSlugField
 from parler.models import TranslatedFields
 
