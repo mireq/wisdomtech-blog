@@ -3,4 +3,4 @@
 User-agent: *
 Disallow: /dashboard/
 
-Sitemap: {{ url('robots')|build_absolute_uri }}{% endautoescape %}
+Sitemap: {{ url('django.contrib.sitemaps.views.sitemap')|build_absolute_uri }}{% endautoescape %}
